@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.4.2"><title>VC升级时出现的问题</title></head> <body> <h1>VC升级时出现的问题</h1>  <p><em>ATL and CRT</em></p> <p>2025-01-19</p> <p>Written by: tdtc</p> <ul>
+<li>ATL</li>
+<li>CRT</li>
+</ul>
+<h1 id="active-template-library-atl">Active Template Library (ATL)</h1>
+<p>!!! 除了IE的ActiveX项目，不推荐ATL !!!<br>
+!!! ATL is not recommended except for IE ActiveX projects. !!!</p>
+<h2 id="c1189">C1189</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">c:\program</span><span style="color:#9ECBFF"> files</span><span style="color:#79B8FF">\m</span><span style="color:#9ECBFF">icrosoft</span><span style="color:#9ECBFF"> visual</span><span style="color:#9ECBFF"> studio</span><span style="color:#79B8FF"> 10.0</span><span style="color:#79B8FF">\v</span><span style="color:#9ECBFF">c</span><span style="color:#79B8FF">\a</span><span style="color:#9ECBFF">tlmfc</span><span style="color:#79B8FF">\i</span><span style="color:#9ECBFF">nclude</span><span style="color:#79B8FF">\a</span><span style="color:#9ECBFF">tlcore.h</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">35</span><span style="color:#E1E4E8">)</span><span style="color:#9ECBFF">:</span></span>
+<span class="line"><span style="color:#B392F0">fatal</span><span style="color:#9ECBFF"> error</span><span style="color:#9ECBFF"> C1189:</span><span style="color:#6A737D"> #error :  This file requires _WIN32_WINNT to be #defined at least to 0x0403. Value 0x0501 or higher is recommended.</span></span></code></pre>
+<p>A:</p>
+<blockquote>
+<p>StdAfx.h</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#F97583">#define</span><span style="color:#B392F0"> _WIN32_WINNT</span><span style="color:#F97583"> 0x</span><span style="color:#79B8FF">0400</span></span></code></pre>
+<p>-></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#F97583">#define</span><span style="color:#B392F0"> _WIN32_WINNT</span><span style="color:#F97583"> 0x</span><span style="color:#79B8FF">0501</span></span></code></pre>
+<h2 id="c1083atlimpl">C1083(atlimpl)</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">c:\users\xiaobin\documents\visual</span><span style="color:#9ECBFF"> studio</span><span style="color:#79B8FF"> 2013</span><span style="color:#79B8FF">\p</span><span style="color:#9ECBFF">rojects</span><span style="color:#79B8FF">\c</span><span style="color:#9ECBFF">rcfcn_vc</span><span style="color:#79B8FF">\s</span><span style="color:#9ECBFF">tdafx.cpp</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">13</span><span style="color:#E1E4E8">)</span><span style="color:#9ECBFF">:</span></span>
+<span class="line"><span style="color:#B392F0">fatal</span><span style="color:#9ECBFF"> error</span><span style="color:#9ECBFF"> C1083:</span><span style="color:#9ECBFF"> Cannot</span><span style="color:#9ECBFF"> open</span><span style="color:#9ECBFF"> include</span><span style="color:#9ECBFF"> file:</span><span style="color:#9ECBFF"> 'atlimpl.cpp':</span><span style="color:#9ECBFF"> No</span><span style="color:#9ECBFF"> such</span><span style="color:#9ECBFF"> file</span><span style="color:#9ECBFF"> or</span><span style="color:#9ECBFF"> directory</span></span></code></pre>
+<p>A: solution 1 or 2.</p>
+<ul>
+<li>solution 1<br>
+Comment out this line<br>
+stdAfx.cpp</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// stdafx.cpp : source file that includes just the standard includes</span></span>
+<span class="line"><span style="color:#6A737D">//  stdafx.pch will be the pre-compiled header</span></span>
+<span class="line"><span style="color:#6A737D">//  stdafx.obj will contain the pre-compiled type information</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> "stdafx.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#ifdef</span><span style="color:#B392F0"> _ATL_STATIC_REGISTRY</span></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> &#x3C;statreg.h></span></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> &#x3C;statreg.cpp></span></span>
+<span class="line"><span style="color:#F97583">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">//#include &#x3C;atlimpl.cpp></span></span></code></pre>
+<ul>
+<li>
+<p>solution 2<br>
+Copy this file to the Project folder，</p>
+<p>atlimpl.cpp</p>
+</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// This is a part of the Active Template Library.</span></span>
+<span class="line"><span style="color:#6A737D">// Copyright (C) Microsoft Corporation</span></span>
+<span class="line"><span style="color:#6A737D">// All rights reserved.</span></span>
+<span class="line"><span style="color:#6A737D">//</span></span>
+<span class="line"><span style="color:#6A737D">// This source code is only intended as a supplement to the</span></span>
+<span class="line"><span style="color:#6A737D">// Active Template Library Reference and related</span></span>
+<span class="line"><span style="color:#6A737D">// electronic documentation provided with the library.</span></span>
+<span class="line"><span style="color:#6A737D">// See these sources for detailed information regarding the</span></span>
+<span class="line"><span style="color:#6A737D">// Active Template Library product.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#pragma</span><span style="color:#B392F0"> message</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"atlimpl.cpp is obsolete. Please remove it from your project."</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">/////////////////////////////////////////////////////////////////////////////</span></span>
+<span class="line"><span style="color:#6A737D">// No longer used</span></span></code></pre>
+<p>and modify the reference path.</p>
+<p>stdAfx.cpp</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// stdafx.cpp : source file that includes just the standard includes</span></span>
+<span class="line"><span style="color:#6A737D">//  stdafx.pch will be the pre-compiled header</span></span>
+<span class="line"><span style="color:#6A737D">//  stdafx.obj will contain the pre-compiled type information</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> "stdafx.h"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#ifdef</span><span style="color:#B392F0"> _ATL_STATIC_REGISTRY</span></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> &#x3C;statreg.h></span></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> &#x3C;statreg.cpp></span></span>
+<span class="line"><span style="color:#F97583">#endif</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> "atlimpl.cpp"</span></span></code></pre>
+<h2 id="file-formatdsw-and-dsp">file format(.dsw and .dsp)</h2>
+<p>Download the source code (released)  </p>
+<p>Q: When opening a project, “cannot load the project due to a corrupt project file”. </p>
+<p>A: Just convert .dsw and .dsp to “Windows (CR LF)”. </p>
+<h2 id="error-d8016">Error D8016</h2>
+<p>Q: ‘/ZI’ and ‘/Gy-’ command-line options are incompatible    </p>
+<p>A: Configuration Properties -> C/C++ -> Debug Information Format   
+    Program Database for Edit And Continue(/ZI) => Program Database(/Zi)</p>
+<h2 id="error-msb3075">Error MSB3075</h2>
+<p>Q: The command “regsvr32 /s /c “D:\projects\crcfcn - Copy.\Debug\FCV.dll”    
+  echo regsvr32 exec. time > ”.\Debug\regsvr32.trg”    </p>
+<p>A: Project > Properties > Configuration Properties > Custom Build Step    
+Command line: Empty content.    
+  <a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/97f50350-e37a-46ba-a921-8f4afa29db03/error-msb3073-exited-with-code-3">https://social.msdn.microsoft.com/Forums/vstudio/en-US/97f50350-e37a-46ba-a921-8f4afa29db03/error-msb3073-exited-with-code-3</a></p>
+<h2 id="error-msb8011">error MSB8011</h2>
+<p>A: Project—>Propertier—>Linker—>General—>Register Output—>NO</p>
+<h2 id="excluded-files">Excluded files</h2>
+<blockquote>
+<p>提交代码时不需要的文件</p>
+</blockquote>
+<ul>
+<li>MIDL</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">_.i.h,</span><span style="color:#9ECBFF"> _.i.c,</span><span style="color:#9ECBFF"> _.p.c</span></span></code></pre>
+<ul>
+<li>resource</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.aps</span></span></code></pre>
+<ul>
+<li>PS</li>
+</ul>
+<blockquote>
+<p>vc10建立atl会生成一个ps的工程
+<a href="https://stackoverflow.com/questions/9582733/what-is-the-foops-project-in-my-foo-atl-solution-for">Proxy and Stub</a></p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">In</span><span style="color:#9ECBFF"> other</span><span style="color:#9ECBFF"> words,</span><span style="color:#9ECBFF"> interfaces</span><span style="color:#9ECBFF"> that</span><span style="color:#9ECBFF"> derive</span><span style="color:#9ECBFF"> from</span><span style="color:#9ECBFF"> IDispatch</span><span style="color:#9ECBFF"> and</span><span style="color:#9ECBFF"> only</span><span style="color:#9ECBFF"> use</span><span style="color:#9ECBFF"> Automation</span><span style="color:#9ECBFF"> compatible</span><span style="color:#9ECBFF"> types.</span></span>
+<span class="line"><span style="color:#B392F0">You</span><span style="color:#9ECBFF"> only</span><span style="color:#9ECBFF"> need</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> get</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> registry</span><span style="color:#9ECBFF"> entries</span><span style="color:#9ECBFF"> right</span><span style="color:#9ECBFF"> to</span><span style="color:#9ECBFF"> enable</span><span style="color:#9ECBFF"> it</span><span style="color:#9ECBFF"> and</span></span>
+<span class="line"><span style="color:#B392F0">don</span><span style="color:#B392F0">'t otherwise need the proxy/stub generated by midl.</span></span></code></pre>
+<ul>
+<li>MSbuild<br>
+<a href="https://docs.microsoft.com/en-us/cpp/porting/build-system-changes?view=vs-2019">.vcxproj.user</a></li>
+</ul>
+<h2 id="register-output">Register Output</h2>
+<p>更改为不在注册表注册！</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>“project property” -> “Configuration Properties” -> “Linker”: “Register Output”为 “No”；</span></span></code></pre>
+<h2 id="validate-parameters">Validate Parameters</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>“project property” ->“Configuration Properties”->"MIDL"->“Advanced”: "Validate Parameters"为“Yes(/robust)”</span></span></code></pre>
+<h1 id="crt">CRT</h1>
+<p>C runtime Library (CRT)</p>
+<h2 id="c1019">C1019</h2>
+<p><a href="https://stackoverflow.com/a/38522139">stdAfx.h issue</a>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>unexpected #else</span></span></code></pre>
+<p>如果文件中有stdafx.h， 需要把它放在#include的首行。</p>
+<h2 id="c4996">C4996</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>'localtime': This function or variable may be unsafe. </span></span>
+<span class="line"><span>Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS.</span></span></code></pre>
+<ul>
+<li>vs2012-vs2013<br>
+在stdafx.h 最上面的次一行加入:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#F97583">#define</span><span style="color:#B392F0"> _CRT_SECURE_NO_DEPRECATE</span></span></code></pre>
+<ul>
+<li>vs2015+<br>
+在文件首行加入:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#define _CRT_SECURE_NO_WARNINGS</span></span></code></pre>
+<h2 id="c2039">C2039</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>'InitializeCriticalSectionAndSpinCount' : is not a member of '`global namespace''</span></span></code></pre>
+<p>update _WIN32_WINNT version.</p>
+<h2 id="c1083">C1083</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Cannot open include file: 'atlimpl.cpp': No such file or directory</span></span></code></pre>
+<p>In VS 12 at least atlimpl.cpp is not even present.</p>
+<h2 id="lnk2001">LNK2001</h2>
+<ul>
+<li>IDE: Visual Studio 2015 update 3</li>
+<li>Windows Driver Kit Version 7.1.0</li>
+</ul>
+<h3 id="sandboxie"><a href="https://gitee.com/xiaobin80/sandboxie">Sandboxie</a></h3>
+<p>at SboxDrv project:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Error LNK2001 unresolved external symbol _memcmp SboxDrv C:\Users\tdtc\Documents\sandboxie\core\drv\XXX.obj</span></span></code></pre>
+<p>XXX:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>process_force.obj</span></span>
+<span class="line"><span>syscall.obj</span></span>
+<span class="line"><span>token.obj</span></span>
+<span class="line"><span>util.obj</span></span>
+<span class="line"><span>gui.obj</span></span>
+<span class="line"><span>ipc.obj</span></span>
+<span class="line"><span>key.obj</span></span>
+<span class="line"><span>process.obj</span></span></code></pre>
+<h4 id="solution">Solution</h4>
+<p><a href="https://stackoverflow.com/a/47148616">project setting</a>
+and <a href="https://community.sophos.com/sandboxie/f/forum/119641/important-sandboxie-open-source-code-is-available-for-download">David Xanatos</a></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>because VS 2015.3 encounters some linker errors in SBoxDll,</span></span>
+<span class="line"><span>like "unresolved external symbol memcmp", "unresolved external symbol memmove" and so on</span></span>
+<span class="line"><span>To resolve the issue I had to add to the linker vcruntime.lib, libucrt.lib and libcmt.lib</span></span></code></pre>
+<p>properties->Linker->Input->Additional Dependencies</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>vcruntime.lib</span></span></code></pre>
+<h2 id="character-constant">Character constant</h2>
+<p><a href="https://en.cppreference.com/w/c/language/character_constant">Syntax</a>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>format</th><th>description</th><th>memo</th></tr></thead><tbody><tr><td>’c-char ‘</td><td>(1)</td><td>-</td></tr><tr><td>u8’c-char ‘</td><td>(2)</td><td>(since C23)</td></tr><tr><td>u’c-char ‘</td><td>(3)</td><td>(since C11)</td></tr><tr><td>U’c-char ‘</td><td>(4)</td><td>(since C11)</td></tr><tr><td>L’c-char ‘</td><td>(5)</td><td>-</td></tr><tr><td>‘c-char-sequence ‘</td><td>(6)</td><td>-</td></tr><tr><td>L’c-char-sequence ‘</td><td>(7)</td><td>-</td></tr><tr><td>u’c-char-sequence ‘</td><td>(8)</td><td>(since C11)(removed in C23)</td></tr><tr><td>U’c-char-sequence ‘</td><td>(9)</td><td>(since C11)(removed in C23)</td></tr></tbody></table>
+<p>Example of <a href="https://www.virtualbox.org/ticket/21349">virtualbox</a>:</p>
+<blockquote>
+<p><a href="https://www.virtualbox.org/browser/vbox/trunk/src/VBox/Frontends/VBoxAutostart/VBoxAutostart-win.cpp#L788">v7.0.6</a></p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>L"Winmgmt\0RpcSs\0\0",           /* lpDependencies */</span></span></code></pre>
+<h3 id="multibyte-vs-wide-characters"><a href="https://learn.microsoft.com/en-us/cpp/c-language/multibyte-and-wide-characters">Multibyte vs Wide Characters</a></h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>A multibyte character is a character composed of sequences of one or more bytes. </span></span>
+<span class="line"><span>Each byte sequence represents a single character in the extended character set. </span></span>
+<span class="line"><span>Multibyte characters are used in character sets such as Kanji.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Wide characters are multilingual character codes that are always 16 bits wide. </span></span>
+<span class="line"><span>The type for character constants is char; for wide characters, the type is wchar_t. </span></span>
+<span class="line"><span>Since wide characters are always a fixed size, using wide characters simplifies programming with international character sets.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>The wide-character-string literal L"hello" becomes an array of six integers of type wchar_t.</span></span></code></pre>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/f3565ee2-813b-4082-8b80-328caa0a14c9/to-disable-deprecation-use-crtsecurenowarnings-see-online-help-for-details-i-am-creating-a-c?forum=vcgeneral">To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details. I am creating a C program using C++ ,it gives me error of scanf.Use scan_f instead.Y is it so. </a></li>
+<li><a href="https://docs.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warning-level-3-c4996?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(C4996)%26rd%3Dtrue&#x26;view=msvc-140#unsafe-crt-library-functions">Unsafe CRT Library functions</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/preprocessor/predefined-macros?view=msvc-160#microsoft-specific-predefined-macros">_MSC_VER</a></li>
+<li><a href="https://docs.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt?view=msvc-160#remarks">_WIN32_WINNT</a></li>
+<li><a href="https://stackoverflow.com/questions/47154505/initializecriticalsectionex-is-not-member-of-global-namespace-in-atlwinverapi-h">InitializeCriticalSectionEx is not member of global namespace in atlwinverapi.h</a></li>
+<li><a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/4117ea1a-23a9-4b57-a753-547f9fc1087b/statregcpp-atlimplcpp-is-obsolete">statreg.cpp, atlimpl.cpp is obsolete</a></li>
+</ul>  <a href="https://tdtc-hrb.github.io/com-vc">Back to Home</a> </body></html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.4.2"><title>VC 创建 Component Object Model</title></head> <body> <h1>VC 创建 Component Object Model</h1>  <p><em>ATL Project Wizard</em></p> <p>2025-01-19</p> <p>Written by: tdtc</p> <p>!!! 除了IE的ActiveX项目，不推荐ATL !!!<br>
+!!! ATL is not recommended except for IE ActiveX projects. !!!</p>
+<p>Use Visual Studio’s wizard to create COM</p>
+<ul>
+<li>Visual Studio 2013 ~ 2019</li>
+</ul>
+<blockquote>
+<p>x86 IDE</p>
+</blockquote>
+<ul>
+<li>Visual Studio 2022</li>
+</ul>
+<blockquote>
+<p>x64 IDE</p>
+</blockquote>
+<p>step by step:</p>
+<ul>
+<li>建立ATL工程</li>
+<li>建立ATL Simple Object</li>
+<li>添加IDL方法</li>
+<li>测试添加的method</li>
+</ul>
+<h1 id="建立atl工程">建立ATL工程</h1>
+<p>File->New->Project</p>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200201162120769.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new1(vs2013).png -->
+<!-- vs2015: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new1(vs2015).png -->
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name: testATL</span></span></code></pre>
+<p>Note: name即是要生成的DLL文件<br>
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new1(vs2019).png" alt="project type">
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new2(vs2019).png" alt="project name"></p>
+<p>选择”MFC/ATL”中”ATL Project”:</p>
+<blockquote>
+<p>Default</p>
+</blockquote>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200201171441614.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new2(vs2013).png -->
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new3(vs2019).png" alt="project property"></p>
+<h3 id="choice-platform">Choice Platform</h3>
+<p>Build -> Configuration Manager</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>x64 or x86</span></span></code></pre>
+<h3 id="取消编译时注册dll">取消编译时注册Dll</h3>
+<blockquote>
+<p>Project -> Properties</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Linker -> Register Output</span></span>
+<span class="line"><span>No</span></span></code></pre>
+<h4 id="x64-for-vs2022">x64 for vs2022+</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Linker -> All Options -> </span></span>
+<span class="line"><span>Register Output: No</span></span></code></pre>
+<h2 id="add-atl-simple-object">Add ATL Simple Object</h2>
+<blockquote>
+<p>右击项目名称</p>
+</blockquote>
+<ul>
+<li>vs2013/vs2015:<br>
+Add -> Class</li>
+</ul>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313201050286.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple1(vs2013).png -->
+<ul>
+<li>vs2017/vs2019:<br>
+Add -> New Item</li>
+</ul>
+<!-- vs2019: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple1.png -->
+<ul>
+<li>vs2022:<br>
+Add -> Module<br>
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple1(vs2022).png" alt="atl simple object - item"></li>
+</ul>
+<p>ATL Simple Object:</p>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313201948199.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple2(vs2013).png -->
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple2.png" alt="atl simple object - new"></p>
+<h3 id="设置">设置</h3>
+<p>Short name: testSOW</p>
+<ul>
+<li>Simple Object ID<br>
+ProgID: testATL.testSOW</li>
+</ul>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313202352422.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple3(vs2013).png -->
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple3.png" alt="atl simple object - progID"></p>
+<h4 id="ie支持">IE支持</h4>
+<ul>
+<li>vs2013/vs2015<br>
+Options -> Support</li>
+<li>vs2017/vs2019/vs2022<br>
+Other Options</li>
+</ul>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313202901252.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple4(vs2013).png -->
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple4.png" alt="atl simple object - Support"></p>
+<h2 id="添加idl方法">添加IDL方法</h2>
+<blockquote>
+<p>Tab switching from “Solution Explorer” to “Class View”</p>
+<blockquote>
+<p>vs2022: View -> Class View</p>
+</blockquote>
+</blockquote>
+<p>Select the interface, Right-click -> add -> add method</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name: ItestSOW</span></span></code></pre>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313210151687.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-interface1(vs2013).png -->
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-interface1.png" alt="atl interface - add">
+添加方法名称以及参数</p>
+<!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313210840198.png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-interface2.1(vs2013).png -->
+<!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-interface2.2(vs2013).png -->
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-interface2.png" alt="atl interface - property"></p>
+<h3 id="midl-attribute">MIDL attribute</h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/midl/in">in</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/midl/retval">retval</a>
+testATL.idl(part):</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	[id(1), helpstring("add method")] HRESULT Add([in] LONG x, [in] LONG y, [out, retval] LONG* ret);</span></span>
+<span class="line"><span>	[id(2), helpstring("sub method")] HRESULT Sub([in] LONG x, [in] LONG y, [out, retval] LONG* ret);</span></span></code></pre>
+<h1 id="test">test</h1>
+<ul>
+<li>注册COM</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#E1E4E8">@echo</span></span>
+<span class="line"><span style="color:#E1E4E8">cd /d </span><span style="color:#F97583">%~</span><span style="color:#E1E4E8">dp0</span></span>
+<span class="line"><span style="color:#E1E4E8">Regsvr32 xbfInfo.dll</span></span></code></pre>
+<ul>
+<li>Debug版本<br>
+拷贝</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.42.34433\x86\Microsoft.VC143.CRT\vcruntime140d.dll</span></span></code></pre>
+<p>and</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\Windows\SysWOW64\ucrtbased.dll</span></span></code></pre>
+<p>放到testATL.dll所在的目录</p>
+<h2 id="vb-project">VB Project</h2>
+<p>Project -> Add Reference
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-import16.png" alt="vb import dll"></p>
+<p>按钮事件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click</span></span>
+<span class="line"><span>        Dim obj As New testATLLib.testSOW</span></span>
+<span class="line"><span>        Dim int1 As Long</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        'vs2010/vs2013'int1 = obj.Add(2, 3)</span></span>
+<span class="line"><span>        obj.Add(2, 3, int1)</span></span>
+<span class="line"><span>        Label1.Text = int1</span></span>
+<span class="line"><span>    End Sub</span></span></code></pre>
+<p>拷贝Interop.testATLLib.dll和WindowsApplication1.exe即可
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-exec16.png" alt="运行"></p>
+<h2 id="issues">Issues</h2>
+<p>Q: Vs 2012+</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>System.Runtime.InteropServices.COMException (0x80040154): </span></span>
+<span class="line"><span>Retrieving the COM class factory for component with CLSID </span></span>
+<span class="line"><span>{7A6E7413-F0E2-41B8-9BB7-036229C90FE5} failed due to the following </span></span>
+<span class="line"><span>error: 80040154 Class not registered (Exception from HRESULT: 0x80040154 (REGDB_E_CLASSNOTREG)).</span></span></code></pre>
+<p>A: vs高版本已经使用<a href="https://stackoverflow.com/a/4664073">32/64位</a><br>
+It means the class id 877AA945-1CB2-411C-ACD7-C70B1F9E2E32 is not in the registry.</p>
+<p>You can verify this by opening regedit.exe, browsing to HKEY_CLASSES_ROOT\CLSID{877AA945-1CB2-411C-ACD7-C70B1F9E2E32}.<br>
+If your running a 32-bit app on a 64 bit OS, look for HKEY_CLASSES_ROOT\Wow6432Node\CLSID{877AA945-1CB2-411C-ACD7-C70B1F9E2E32}</p>
+<p>If it is there, it may be some other issue but it is probably missing.<br>
+To resolve this you will usually run the installer that distributes this COM object.<br>
+If you don’t have one and you know what dll implements the object, you can run regsvr32.exe (or regasm.exe for a managed dll).</p>
+<h3 id="ucrt">ucrt</h3>
+<p>仅安装ucrt（通用Windows sdk）会出现：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">  cannot</span><span style="color:#9ECBFF"> find</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> resource</span><span style="color:#9ECBFF"> compiler</span><span style="color:#9ECBFF"> dll.</span><span style="color:#9ECBFF"> please</span><span style="color:#9ECBFF"> make</span><span style="color:#9ECBFF"> sure</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> path</span><span style="color:#9ECBFF"> is</span><span style="color:#9ECBFF"> correct.</span></span></code></pre>
+<p>解决办法：<br>
+安装Windows 8.1/Windows 10 SDK</p>
+<h1 id="参考文章">参考文章</h1>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/atl/reference/atl-project-wizard?view=msvc-170">ATL 项目向导</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/atl/reference/application-settings-atl-project-wizard?view=msvc-170">ATL 项目向导的应用程序设置</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/atl/reference/adding-an-atl-simple-object?view=msvc-170">添加 ATL 简单对象</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/atl/reference/atl-simple-object-wizard?view=msvc-170">ATL 简单对象向导</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/atl/reference/options-atl-simple-object-wizard?view=msvc-170">ATL 简单对象向导的”选项”</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/ide/adding-a-method-visual-cpp?view=msvc-170">添加方法</a></li>
+<li><a href="https://devblogs.microsoft.com/cppblog/changes-to-project-templates-and-code-wizards-in-15-3/">Changes to Project Templates and Code Wizards in 15.3</a></li>
+</ul>  <a href="https://tdtc-hrb.github.io/com-vc">Back to Home</a> </body></html>

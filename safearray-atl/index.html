@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.4.2"><title>SafeArray数据</title></head> <body> <h1>SafeArray数据</h1>  <p><em>SafeArrayCreateVector()</em></p> <p>2025-01-19</p> <p>Written by: tdtc</p> <p>!!! 除了IE的ActiveX项目，不推荐ATL !!!<br>
+!!! ATL is not recommended except for IE ActiveX projects. !!!</p>
+<h1 id="com">COM</h1>
+<blockquote>
+<p>vc</p>
+</blockquote>
+<h2 id="1-定义safearray变量">1. 定义SAFEARRAY变量</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#E1E4E8">SAFEARRAY </span><span style="color:#F97583">*</span><span style="color:#E1E4E8">pSArray </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> NULL</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h2 id="2-释放此变量">2. 释放此变量</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">SafeArrayDestroy</span><span style="color:#E1E4E8">(pSArray);</span></span></code></pre>
+<h2 id="3-建立向量表">3. 建立向量表</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#E1E4E8">pSArray </span><span style="color:#F97583">=</span><span style="color:#B392F0"> SafeArrayCreateVector</span><span style="color:#E1E4E8">(VT_UI1, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">32</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="向量变量vt_ui1">向量变量(VT_UI1)</h3>
+<ul>
+<li>Definition in wtypes.h</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>typedef unsigned short VARTYPE;</span></span>
+<span class="line"><span>/*</span></span>
+<span class="line"><span> * VARENUM usage key,</span></span>
+<span class="line"><span> *</span></span>
+<span class="line"><span> * * [V] - may appear in a VARIANT</span></span>
+<span class="line"><span> * * [T] - may appear in a TYPEDESC</span></span>
+<span class="line"><span> * * [P] - may appear in an OLE property set</span></span>
+<span class="line"><span> * * [S] - may appear in a Safe Array</span></span>
+<span class="line"><span> */</span></span>
+<span class="line"><span>typedef enum VARENUM {</span></span>
+<span class="line"><span>//...</span></span>
+<span class="line"><span>  VT_UI1 = 17,</span></span>
+<span class="line"><span>//...</span></span>
+<span class="line"><span>} ;</span></span></code></pre>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/api/wtypes/ne-wtypes-varenum#constants">Constants</a></li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">VT_UI1</span></span>
+<span class="line"><span style="color:#E1E4E8">Variable type is unsigned char.</span></span></code></pre>
+<h2 id="4-写入数据">4. 写入数据</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">SafeArrayPutElement</span><span style="color:#E1E4E8">(pSArray, </span><span style="color:#F97583">&#x26;</span><span style="color:#FFAB70">l</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">&#x26;</span><span style="color:#FFAB70">inqReport</span><span style="color:#E1E4E8">[l]);</span></span></code></pre>
+<h2 id="getinqrepo方法">getInqRepo方法：</h2>
+<blockquote>
+<p>AA：屏蔽的数值</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#E1E4E8">STDMETHODIMP CRepoFmt::</span><span style="color:#B392F0">getInqRepo</span><span style="color:#E1E4E8">(ULONG </span><span style="color:#FFAB70">iStation</span><span style="color:#E1E4E8">, SAFEARRAY</span><span style="color:#F97583">**</span><span style="color:#FFAB70"> ret</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#E1E4E8">	SAFEARRAY </span><span style="color:#F97583">*</span><span style="color:#E1E4E8">pSArray </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> NULL</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	unsigned</span><span style="color:#F97583"> char</span><span style="color:#FFAB70"> inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">32</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#F97583">	unsigned</span><span style="color:#F97583"> char</span><span style="color:#E1E4E8"> xorByte </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#F97583">	int</span><span style="color:#E1E4E8"> iStationID </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	if</span><span style="color:#E1E4E8"> (iStation </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">		iStationID </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">	else</span></span>
+<span class="line"><span style="color:#E1E4E8">		iStationID </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> iStation;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> (iStationID </span><span style="color:#F97583">%</span><span style="color:#E1E4E8"> AA);</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> (iStationID </span><span style="color:#F97583">/</span><span style="color:#E1E4E8"> AA);</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">6</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">7</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">8</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">9</span><span style="color:#E1E4E8">]  </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">11</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> AA;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">int</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 18</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">		xorByte </span><span style="color:#F97583">^=</span><span style="color:#FFAB70"> inqReport</span><span style="color:#E1E4E8">[i];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFAB70">	inqReport</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">18</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> xorByte;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">	// Fill the inqReport etc.</span></span>
+<span class="line"><span style="color:#F97583">	for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">int</span><span style="color:#E1E4E8"> j </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 12</span><span style="color:#E1E4E8">; j </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 18</span><span style="color:#E1E4E8">; j</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#FFAB70">		inqReport</span><span style="color:#E1E4E8">[j] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">	for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">int</span><span style="color:#E1E4E8"> k </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 19</span><span style="color:#E1E4E8">; k </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 32</span><span style="color:#E1E4E8">; k</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#FFAB70">		inqReport</span><span style="color:#E1E4E8">[k] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">ret)</span></span>
+<span class="line"><span style="color:#F97583">		return</span><span style="color:#E1E4E8"> E_POINTER;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">ret) {</span></span>
+<span class="line"><span style="color:#B392F0">		SafeArrayDestroy</span><span style="color:#E1E4E8">(pSArray);</span></span>
+<span class="line"><span style="color:#F97583">		*</span><span style="color:#E1E4E8">ret </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> NULL</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">	}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">	pSArray </span><span style="color:#F97583">=</span><span style="color:#B392F0"> SafeArrayCreateVector</span><span style="color:#E1E4E8">(VT_UI1, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">32</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">	for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">long</span><span style="color:#E1E4E8"> l </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; l </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 32</span><span style="color:#E1E4E8">; l</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">		SafeArrayPutElement</span><span style="color:#E1E4E8">(pSArray, </span><span style="color:#F97583">&#x26;</span><span style="color:#E1E4E8">l, </span><span style="color:#F97583">&#x26;</span><span style="color:#FFAB70">inqReport</span><span style="color:#E1E4E8">[l]);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	*</span><span style="color:#E1E4E8">ret </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pSArray;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">	return</span><span style="color:#E1E4E8"> S_OK;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h1 id="调用com">调用COM</h1>
+<blockquote>
+<p>c#的按钮事件</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#6A737D">// clear TextBox</span></span>
+<span class="line"><span style="color:#E1E4E8">edtAck.Text </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ""</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">edtInq.Text </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ""</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">repoInfoLib.RepoFmtClass report </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> new </span><span style="color:#B392F0">RepoFmtClass</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">Array retAck </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> report.</span><span style="color:#B392F0">getAckRepo</span><span style="color:#E1E4E8">((</span><span style="color:#F97583">uint</span><span style="color:#E1E4E8">)Int32.</span><span style="color:#B392F0">Parse</span><span style="color:#E1E4E8">(edtStation.Text));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">foreach</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">Byte</span><span style="color:#E1E4E8"> bt in </span><span style="color:#FFAB70">retAck</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    edtAck.Text </span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> "0x"</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> bt.</span><span style="color:#B392F0">ToString</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"X2"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> " "</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Array retInq </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> report.</span><span style="color:#B392F0">getInqRepo</span><span style="color:#E1E4E8">((</span><span style="color:#F97583">uint</span><span style="color:#E1E4E8">)Int32.</span><span style="color:#B392F0">Parse</span><span style="color:#E1E4E8">(edtStation.Text));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">foreach</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">Byte</span><span style="color:#E1E4E8"> bt in </span><span style="color:#FFAB70">retInq</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    edtInq.Text </span><span style="color:#F97583">+=</span><span style="color:#9ECBFF"> "0x"</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> bt.</span><span style="color:#B392F0">ToString</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"X2"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> " "</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<ul>
+<li>建立COM实例</li>
+</ul>
+<blockquote>
+<p>第5行</p>
+</blockquote>
+<ul>
+<li>调用COM方法</li>
+</ul>
+<blockquote>
+<p>第6, 10行<br>
+此方法返回SafeArray数据</p>
+</blockquote>
+<ul>
+<li>赋值</li>
+</ul>
+<blockquote>
+<p>第8，9行和第12，13行<br>
+把每个数组中的数据赋值给TextBox控件，并以十六进制方式显示（0xYY）。</p>
+</blockquote>  <a href="https://tdtc-hrb.github.io/com-vc">Back to Home</a> </body></html>
