@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.1"><title>Custom resources - MFC</title></head> <body> <h1>Custom resources - MFC</h1>  <p><em>Add or remove tool buttons and menus; Add dialog boxes;</em></p> <p>2025-10-26</p> <p>Written by: xiaobin</p> <ul>
+<li>Double-click “*.rc2” to enter the resource viewer.</li>
+</ul>
+<h4 id="menus">menus</h4>
+<p>Remove “New” from the menu.</p>
+<ul>
+<li>In the menu, right-click the “New” and select “Delete”.</li>
+</ul>
+<h3 id="tool-button">tool button</h3>
+<p>Remove the print button from the toolbar;</p>
+<h4 id="icon">icon</h4>
+<ul>
+<li>In the toolbar, right-click the Print icon and select “Delete”.</li>
+<li>In the toolbar, right-click the New icon and select “Delete”.</li>
+<li>In the toolbar, Drag icons to fill the empty buttons.</li>
+</ul>
+<h4 id="rc">rc</h4>
+<p>at</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>IDR_MAINFRAME TOOLBAR 16, 15</span></span></code></pre>
+<p>removed:</p>
+<ul>
+<li>BUTTON      ID_FILE_NEW</li>
+<li>BUTTON      ID_FILE_PRINT</li>
+</ul>
+<h3 id="dialog">dialog</h3>
+<p>In the dialog:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Add Resource -> </span></span></code></pre>
+<ul>
+<li>IDD_DIALOGBAR</li>
+</ul>
+<blockquote>
+<p>Port Configuration</p>
+</blockquote>
+<p>Right-click the dialog box， Add MFC Class：</p>
+<ul>
+<li>class name: CConfigDlg</li>
+<li>bass class: CDialog</li>
+<li>.h file: ConfigDlg.h</li>
+<li>.cpp file: ConfigDlg.cpp</li>
+</ul>
+<h2 id="breaking-changes">Breaking changes</h2>
+<ul>
+<li><a href="https://en.cppreference.com/w/cpp/language/nullptr.html">nullptr - c++11</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/overview/visual-cpp-language-conformance">Microsoft C/C++ language conformance by Visual Studio version</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/porting/visual-cpp-change-history-2003-2015">Microsoft C/C++ change history 2003 - 2015</a></li>
+</ul>
+<h3 id="nullptr"><a href="https://ece.uwaterloo.ca/~dwharder/icsrts/C/14">nullptr</a></h3>
+<p>In VC++ (VS2005~VS2010) that does not support the C++11 standard:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CConfigDlg(CWnd* pParent = nullptr);</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://www.functionx.com/visualc/dialogboxes/dialogbars.htm">MFC Dialog Boxes: Dialog Bars</a></li>
+<li><a href="https://www.functionx.com/visualc/dialogboxes/mfcpspp.htm">MFC Property Sheets and Property Pages</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
