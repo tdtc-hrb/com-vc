@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.1"><title>Custom resources - MFC</title></head> <body> <h1>Custom resources - MFC</h1>  <p><em>Add or remove tool buttons and menus; Add dialog boxes;</em></p> <p>2025-10-26</p> <p>Written by: xiaobin</p> <ul>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.1"><title>Custom resources - MFC</title></head> <body> <h1>Custom resources - MFC</h1>  <p><em>Add or remove tool buttons and menus; Add dialog boxes;</em></p> <p>2025-10-27</p> <p>Written by: xiaobin</p> <ul>
 <li>Double-click “*.rc2” to enter the resource viewer.</li>
 </ul>
 <h4 id="menus">menus</h4>
@@ -7,21 +7,40 @@
 <li>In the menu, right-click the “New” and select “Delete”.</li>
 </ul>
 <h3 id="tool-button">tool button</h3>
-<p>Remove the print button from the toolbar;</p>
-<h4 id="icon">icon</h4>
+<p>Remove the print and new button from the toolbar;</p>
 <ul>
 <li>In the toolbar, right-click the Print icon and select “Delete”.</li>
 <li>In the toolbar, right-click the New icon and select “Delete”.</li>
 <li>In the toolbar, Drag icons to fill the empty buttons.</li>
 </ul>
-<h4 id="rc">rc</h4>
-<p>at</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>IDR_MAINFRAME TOOLBAR 16, 15</span></span></code></pre>
-<p>removed:</p>
-<ul>
-<li>BUTTON      ID_FILE_NEW</li>
-<li>BUTTON      ID_FILE_PRINT</li>
-</ul>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/MFCApplication1.rc-after_drag.png" alt="The effect after dragging"></p>
+<p>Note:<br>
+必须保证图标是一个挨一个的排列。</p>
+<h4 id="rcpart">rc(part)</h4>
+<p>使用Notepad++, 修改*.rc</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/////////////////////////////////////////////////////////////////////////////</span></span>
+<span class="line"><span>//</span></span>
+<span class="line"><span>// Toolbar</span></span>
+<span class="line"><span>//</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>IDR_MAINFRAME TOOLBAR 16, 15</span></span>
+<span class="line"><span>BEGIN</span></span>
+<span class="line"><span>    BUTTON      ID_FILE_OPEN</span></span>
+<span class="line"><span>    BUTTON      ID_FILE_SAVE</span></span>
+<span class="line"><span>    BUTTON      ID_EDIT_CUT</span></span>
+<span class="line"><span>    BUTTON      ID_EDIT_COPY</span></span>
+<span class="line"><span>    BUTTON      ID_EDIT_PASTE</span></span>
+<span class="line"><span>    SEPARATOR</span></span>
+<span class="line"><span>    BUTTON      ID_APP_ABOUT</span></span>
+<span class="line"><span>END</span></span></code></pre>
+<p>保存后，Visual Studio 会弹出对话框:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>This file has been modified outside of Microsoft Visual Studio. </span></span>
+<span class="line"><span>Do you want to reload it?</span></span></code></pre>
+<p>点击”yes”.</p>
+<p>再次打开Toolbar下的IDR_MAINFRAME 会弹出对话框:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>The bitmap for this toolbar must be adjusted to use this size.</span></span>
+<span class="line"><span>Adjust the bitmap to fit?</span></span></code></pre>
+<p>点击”OK”.</p>
 <h3 id="dialog">dialog</h3>
 <p>In the dialog:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Add Resource -> </span></span></code></pre>
