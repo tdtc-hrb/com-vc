@@ -36,9 +36,27 @@ for example: OnInitialUpdate() or OnInitDialog(). etc…</li>
 <span class="line"><span></span></span>
 <span class="line"><span>    nCurSel = ((CComboBox *) GetDlgItem(IDC_COMBO1Timer))->GetCurSel();</span></span>
 <span class="line"><span>    ((CComboBox *) GetDlgItem(IDC_COMBO1Timer))->GetLBText(nCurSel, strTemp);</span></span></code></pre>
+<h2 id="breaking-changes">Breaking changes</h2>
+<p><a href="https://www.functionx.com/visualc/controls/combobox1.htm">MFC Combo Boxes</a>,
+<a href="https://www.functionx.com/visualc/samples/comboexo.exe">Download</a> and after extraction；
+Move the following files:</p>
+<ul>
+<li>ComboExo.ico</li>
+<li>ComboExo.rc2<br>
+to the “res” directory.</li>
+</ul>
+<h3 id="ide-update-issues">ide update issues</h3>
+<p>When using VS2015+,</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>D8016 '/ZI' and '/Gy-' command-line options are incompatible</span></span></code></pre>
+<ul>
+<li><a href="https://stackoverflow.com/a/44462055">VC6.0 issue</a></li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Program Database(/Zi)</span></span></code></pre>
+<p>C/C++ -> General -> Debug Information Format</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Yes(/Gy)</span></span></code></pre>
+<p>C/C++ -> Code Generation -> Enable Function-Level Linking</p>
 <h2 id="ref">Ref</h2>
 <ul>
-<li><a href="https://www.functionx.com/visualc/controls/combobox1.htm">MFC Combo Boxes</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/ccombobox-class?view=msvc-170#example">AddString()</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/ccombobox-class?view=msvc-170#getcursel">GetCurSel()</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/ccombobox-class?view=msvc-170#getlbtext">GetLBText()</a></li>
