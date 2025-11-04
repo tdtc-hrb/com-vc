@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.3"><title>Combo-box Control - ComboExo example</title></head> <body> <h1>Combo-box Control - ComboExo example</h1>  <p><em>Create a new ComboExo using VS2013</em></p> <p>2025-11-04</p> <p>Written by: xiaobin</p> <h2 id="mfc-application-wizard">MFC Application Wizard</h2>
+<ul>
+<li>User Interface Features<br>
+default</li>
+<li>Advanced Features<br>
+Cancel All</li>
+</ul>
+<h3 id="application-type---dialog-based">Application Type - Dialog based</h3>
+<ul>
+<li>Project style:</li>
+</ul>
+<blockquote>
+<p>MFC standard</p>
+</blockquote>
+<ul>
+<li>Dialog based options:</li>
+</ul>
+<blockquote>
+<p>none</p>
+</blockquote>
+<h2 id="design-dialog">design dialog</h2>
+<p>Drag and drop from the toolbox:</p>
+<ul>
+<li>Combo box</li>
+<li>Edit Control</li>
+</ul>
+<h3 id="list-height">List height</h3>
+<p>There are two ways to adjust the list height:</p>
+<ol>
+<li><a href="https://stackoverflow.com/a/2513306">Drag the “down arrow”</a>
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/MFCApplication1-combobox.png" alt="down arrow"></li>
+<li><a href="https://stackoverflow.com/a/6095864">Configure the rc file</a><br>
+Original data:</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>COMBOBOX        IDC_COMBO1,58,39,48,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP</span></span></code></pre>
+<p>new data: Height of the 4 items</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>COMBOBOX        IDC_COMBO1,58,39,48,48,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP</span></span></code></pre>
+<h2 id="event">event</h2>
+<ul>
+<li>CBN_SELCHANGE</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CComboExoDlg::OnCbnSelchangeCombo1()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    // TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>    CString strTemp;</span></span>
+<span class="line"><span>    int nCurSel;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    nCurSel = ((CComboBox*)GetDlgItem(IDC_COMBO1))->GetCurSel();</span></span>
+<span class="line"><span>    ((CComboBox*)GetDlgItem(IDC_COMBO1))->GetLBText(nCurSel, strTemp);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    GetDlgItem(IDC_EDIT1)->SetWindowText(strTemp);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<ul>
+<li>OnInitDialog()</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Add 20 items to the combo box.</span></span>
+<span class="line"><span>CString str;</span></span>
+<span class="line"><span>for (int i = 0; i &#x3C; 20; i++)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    str.Format(_T("item string %d"), i);</span></span>
+<span class="line"><span>    ((CComboBox*)GetDlgItem(IDC_COMBO1))->AddString(str);</span></span>
+<span class="line"><span>}</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
