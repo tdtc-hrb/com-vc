@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.3"><title>Fundamentals of Serialization - MFC</title></head> <body> <h1>Fundamentals of Serialization - MFC</h1>  <p><em>Run-Time Object Model Support</em></p> <p>2025-11-07</p> <p>Written by: xiaobin</p> <p>Add Class - MFC Class
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-mfc_class.png" alt="add class - MFC Class">
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class2-mfc_class.png" alt="add class - MFC Class"></p>
+<h4 id="when-to-use-virtual-destructors"><a href="https://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">When to use virtual destructors?</a></h4>
+<p>In the Add Class Wizard:</p>
+<ul>
+<li>When selecting a C++ Class, there is no virtual destructor by default;</li>
+<li>when selecting an MFC Class, a virtual destructor is enabled by default.</li>
+</ul>
+<h3 id="serialization">Serialization</h3>
+<ul>
+<li>define</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DECLARE_SERIAL(CConnectString)</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>IMPLEMENT_SERIAL(CConnectString, CObject, 1)</span></span></code></pre>
+<ul>
+<li>Serialize()</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CConnectString::Serialize(CArchive &#x26;ar)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    CObject::Serialize(ar);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if (ar.IsStoring) {</span></span>
+<span class="line"><span>        ar &#x3C;&#x3C; Server &#x3C;&#x3C; Db &#x3C;&#x3C; User &#x3C;&#x3C; Pwd;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>    else {</span></span>
+<span class="line"><span>        ar >> Server >> Db >> User >> Pwd;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="getter-and-setter">getter and setter</h3>
+<ul>
+<li>define</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    //// Getter and Setter</span></span>
+<span class="line"><span>    CString GetServer(void);</span></span>
+<span class="line"><span>    void    SetServer(CString server);</span></span>
+<span class="line"><span>    CString GetDb(void);</span></span>
+<span class="line"><span>    void    SetDb(CString db);</span></span>
+<span class="line"><span>    CString GetUser(void);</span></span>
+<span class="line"><span>    void    SetUser(CString user);</span></span>
+<span class="line"><span>    CString GetPwd(void);</span></span>
+<span class="line"><span>    void    SetPwd(CString pwd);</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>//// Getter and Setter</span></span>
+<span class="line"><span>CString CConnectString::GetServer(void)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    return Server;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>void    CConnectString::SetServer(CString server)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    Server = server;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>CString CConnectString::GetDb(void)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    return Db;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>void    CConnectString::SetDb(CString db)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    Db = db;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>CString CConnectString::GetUser(void)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    return User;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>void    CConnectString::SetUser(CString user)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    User = user;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>CString CConnectString::GetPwd(void)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    return Pwd;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>void    CConnectString::SetPwd(CString pwd)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    Pwd = pwd;</span></span>
+<span class="line"><span>}</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
