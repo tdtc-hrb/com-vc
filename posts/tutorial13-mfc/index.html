@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.4"><title>Constructors and member initializer lists - C++</title></head> <body> <h1>Constructors and member initializer lists - C++</h1>  <p><em>Initialization order</em></p> <p>2025-11-08</p> <p>Written by: xiaobin</p> <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;iostream></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>using namespace std;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>struct S</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    int n;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    S(int);       // constructor declaration</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    S() : n(7) { cout &#x3C;&#x3C; n &#x3C;&#x3C; endl; } // constructor definition:</span></span>
+<span class="line"><span>    // ": n(7)" is the initializer list</span></span>
+<span class="line"><span>    // ": n(7) {}" is the function body</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>S::S(int x) : n{ x } { cout &#x3C;&#x3C; n; } // constructor definition: ": n{x}" is the initializer list</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>int main()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    S s;      // calls S::S()</span></span>
+<span class="line"><span>    S s2(10); // calls S::S(int)</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>output:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>7</span></span>
+<span class="line"><span>10</span></span></code></pre>
+<h3 id="-and----and">{ and } , ( and )</h3>
+<ul>
+<li>x(x),     // x (member) is initialized with x (parameter)</li>
+<li>y{0},     // y initialized to 0</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;fstream></span></span>
+<span class="line"><span>#include &#x3C;string></span></span>
+<span class="line"><span>#include &#x3C;mutex></span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>struct Base</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    int n;</span></span>
+<span class="line"><span>};   </span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>struct Class : public Base</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    unsigned char x;</span></span>
+<span class="line"><span>    unsigned char y;</span></span>
+<span class="line"><span>    std::mutex m;</span></span>
+<span class="line"><span>    std::lock_guard&#x3C;std::mutex> lg;</span></span>
+<span class="line"><span>    std::fstream f;</span></span>
+<span class="line"><span>    std::string s;</span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>    Class(int x) : Base{123}, // initialize base class</span></span>
+<span class="line"><span>        x(x),     // x (member) is initialized with x (parameter)</span></span>
+<span class="line"><span>        y{0},     // y initialized to 0</span></span>
+<span class="line"><span>        f{"test.cc", std::ios::app}, // this takes place after m and lg are initialized</span></span>
+<span class="line"><span>        s(__func__), // __func__ is available because init-list is a part of constructor</span></span>
+<span class="line"><span>        lg(m),    // lg uses m, which is already initialized</span></span>
+<span class="line"><span>        m{}       // m is initialized before lg even though it appears last here</span></span>
+<span class="line"><span>    {}            // empty compound statement</span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>    Class(double a) : y(a + 1),</span></span>
+<span class="line"><span>        x(y), // x will be initialized before y, its value here is indeterminate</span></span>
+<span class="line"><span>        lg(m)</span></span>
+<span class="line"><span>    {} // base class initializer does not appear in the list, it is</span></span>
+<span class="line"><span>       // default-initialized (not the same as if Base() were used, which is value-init)</span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>    Class()</span></span>
+<span class="line"><span>    try // function try block begins before the function body, which includes init list</span></span>
+<span class="line"><span>      : Class(0.0) // delegate constructor</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        // ...</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>    catch (...)</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        // exception occurred on initialization</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>};</span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>int main()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    Class c;</span></span>
+<span class="line"><span>    Class c1(1);</span></span>
+<span class="line"><span>    Class c2(0.1);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://en.cppreference.com/w/cpp/language/initializer_list.html">Constructors and member initializer lists</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170">Constructors (C++)</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
