@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.4"><title>Add Variable - MFC Control</title></head> <body> <h1>Add Variable - MFC Control</h1>  <p><em>Let&#39;s take ListBox and Edit as examples.</em></p> <p>2025-11-09</p> <p>Written by: xiaobin</p> <p>Add Variable:</p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.4"><title>Add Variable - MFC Control</title></head> <body> <h1>Add Variable - MFC Control</h1>  <p><em>Let&#39;s take ListBox and Edit as examples.</em></p> <p>2025-11-10</p> <p>Written by: xiaobin</p> <p>Add Variable:</p>
 <ul>
 <li>First, declare the values ​​for the variables;
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_var1-ctl.png" alt="add member variable wizard">
@@ -109,13 +109,13 @@
 <span class="line"><span>    DDX_Text(pDX, IDC_EDIT1, m_Server);</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <p>Otherwise, the following will occur:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>cannot convert argument 3 from 'CString' to 'CWnd &#x26;'...</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>error C2664: 'void DDX_Control(CDataExchange *,int,CWnd &#x26;)' : cannot convert argument 3 from 'CString' to 'CWnd &#x26;'</span></span></code></pre>
 <ul>
 <li>Last: UpdateData</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    m_Types.GetText(iCurSel, tmp);</span></span>
 <span class="line"><span>    m_Server = tmp;</span></span>
-<span class="line"><span></span></span>
+<span class="line"><span>    // Update the display</span></span>
 <span class="line"><span>    UpdateData(FALSE);</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>

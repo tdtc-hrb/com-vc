@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.4"><title>Fundamentals of Serialization - MFC</title></head> <body> <h1>Fundamentals of Serialization - MFC</h1>  <p><em>Run-Time Object Model Support</em></p> <p>2025-11-09</p> <p>Written by: xiaobin</p> <p>Add Class - MFC Class
-<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-mfc_class.png" alt="add class - MFC Class">
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.4"><title>Fundamentals of Serialization - MFC</title></head> <body> <h1>Fundamentals of Serialization - MFC</h1>  <p><em>Run-Time Object Model Support</em></p> <p>2025-11-10</p> <p>Written by: xiaobin</p> <p>Add Class - MFC Class</p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-mfc_class.png" alt="add class - MFC Class">
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class2-mfc_class.png" alt="add class - MFC Class"></p>
 <h4 id="when-to-use-virtual-destructors"><a href="https://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">When to use virtual destructors?</a></h4>
 <p>In the Add Class Wizard:</p>
@@ -7,7 +7,7 @@
 <li>When selecting a C++ Class, there is no virtual destructor by default;</li>
 <li>when selecting an MFC Class, a virtual destructor is enabled by default.</li>
 </ul>
-<h3 id="serialization">Serialization</h3>
+<h3 id="serialization-class">Serialization class</h3>
 <ul>
 <li>define</li>
 </ul>
@@ -16,40 +16,36 @@
 <li>impl</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>IMPLEMENT_SERIAL(CConnectString, CObject, 1)</span></span></code></pre>
-<h4 id="serializating-an-object">Serializating an Object</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CConnectString::Serialize(CArchive &#x26;ar)</span></span>
-<span class="line"><span>{</span></span>
-<span class="line"><span>    CObject::Serialize(ar);</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    if (ar.IsStoring) {</span></span>
-<span class="line"><span>        ar &#x3C;&#x3C; Server &#x3C;&#x3C; Db &#x3C;&#x3C; User &#x3C;&#x3C; Pwd &#x3C;&#x3C; Type;</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>    else {</span></span>
-<span class="line"><span>        ar >> Server >> Db >> User >> Pwd >> Type;</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>}</span></span></code></pre>
-<h4 id="collection-serialization">Collection Serialization</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::Serialize(CArchive &#x26;ar)</span></span>
-<span class="line"><span>{</span></span>
-<span class="line"><span>    if (ar.IsStoring) { // storing code</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>    else { // loading code</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>    ListOfConnStrings.Serialize(ar);</span></span>
-<span class="line"><span>}</span></span></code></pre>
-<ul>
-<li>define</li>
-</ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>private:</span></span>
-<span class="line"><span>    CObArray ListOfConnStrings;</span></span></code></pre>
-<h3 id="member">member</h3>
+<h4 id="member">member</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>private:</span></span>
 <span class="line"><span>    CString Server;</span></span>
 <span class="line"><span>    CString Db;</span></span>
 <span class="line"><span>    CString User;</span></span>
 <span class="line"><span>    CString Pwd;</span></span>
 <span class="line"><span>    int     Type;</span></span></code></pre>
-<h3 id="getter-and-setter">getter and setter</h3>
+<h4 id="serializating-an-object">Serializating an Object</h4>
+<ul>
+<li>define</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>virtual void Serialize(CArchive&#x26; ar);</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CConnectString::Serialize(CArchive &#x26;ar)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    CObject::Serialize(ar);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if (ar.IsStoring()) {</span></span>
+<span class="line"><span>        ar &#x3C;&#x3C; Server &#x3C;&#x3C; Db &#x3C;&#x3C; User &#x3C;&#x3C; Pwd &#x3C;&#x3C; Type;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>    else {</span></span>
+<span class="line"><span>        ar >> Server >> Db >> User >> Pwd >> Type;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h4 id="getter-and-setter">getter and setter</h4>
+<blockquote>
+<p>option</p>
+</blockquote>
 <ul>
 <li>define - public</li>
 </ul>
@@ -62,8 +58,8 @@
 <span class="line"><span>    void    SetUser(CString user);</span></span>
 <span class="line"><span>    CString GetPwd(void);</span></span>
 <span class="line"><span>    void    SetPwd(CString pwd);</span></span>
-<span class="line"><span>    int     SetType(int type);</span></span>
-<span class="line"><span>    void    GetType(void);</span></span></code></pre>
+<span class="line"><span>    int     GetType(void);</span></span>
+<span class="line"><span>    void    SetType(int type);</span></span></code></pre>
 <ul>
 <li>impl</li>
 </ul>
