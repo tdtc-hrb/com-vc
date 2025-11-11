@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.4"><title>Multithreading with MFC - CWinThread</title></head> <body> <h1>Multithreading with MFC - CWinThread</h1>  <p><em>All threads in MFC applications are represented by CWinThread objects.</em></p> <p>2025-11-11</p> <p>Written by: xiaobin</p> <p>AfxBeginThread function is used in MFC to create threads in an MFC application.</p>
+<h4 id="difference-between-afxbeginthread-and-createthread"><a href="https://stackoverflow.com/a/21718917">Difference between Afxbeginthread and CreateThread</a></h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>For MFC programs, use AfxBeginThread.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>CreateThread is raw Win32. It's incompatible with parts of the standard library.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>_beginthread is part of the C standard library. </span></span>
+<span class="line"><span>It adds extra code to handle thread safety for other parts of the standard library that would be unsafe if you used CreateThread instead.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>AfxBeginThread is (obviously enough) part of MFC. </span></span>
+<span class="line"><span>Along with the thread safety supported by _beginthread, it adds some (if only a few) C++ niceties.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>So, you should only use CreateThread if the rest of your program is also pure, raw Win32, </span></span>
+<span class="line"><span>with no use of the standard library or MFC. If you're using MFC otherwise, </span></span>
+<span class="line"><span>you should normally use AfxBeginThread rather than CreateThread.</span></span></code></pre>
+<h3 id="start">Start</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::OnBnClickedButton1()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    // TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>    if (!m_pThread) {</span></span>
+<span class="line"><span>        m_bThread = TRUE;</span></span>
+<span class="line"><span>        m_pThread = AfxBeginThread(WorkerThread,</span></span>
+<span class="line"><span>            this,</span></span>
+<span class="line"><span>            THREAD_PRIORITY_NORMAL,</span></span>
+<span class="line"><span>            0,</span></span>
+<span class="line"><span>            0,</span></span>
+<span class="line"><span>            NULL);</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h4 id="stop">Stop</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::OnBnClickedButton2()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    // TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>    m_bThread = FALSE;</span></span>
+<span class="line"><span>    m_pThread = NULL;</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="work-thread">work thread</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>UINT WorkerThread(LPVOID arg)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    SYSTEMTIME st;</span></span>
+<span class="line"><span>    CMFCApplication1Dlg *dlg = (CMFCApplication1Dlg *)arg;</span></span>
+<span class="line"><span>    while (dlg->m_bThread) {</span></span>
+<span class="line"><span>        GetSystemTime(&#x26;st);</span></span>
+<span class="line"><span>        CString tm;</span></span>
+<span class="line"><span>        tm.Format(_T("Time %.2d:%.2d:%.2d Date %.2d/%.2d/%.4d"),</span></span>
+<span class="line"><span>            st.wHour, st.wMinute, st.wSecond, st.wDay, st.wMonth, st.wYear);</span></span>
+<span class="line"><span>        </span></span>
+<span class="line"><span>        dlg->m_Edt.SetWindowText((LPCTSTR)tm);</span></span>
+<span class="line"><span>        Sleep(500);</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>    AfxEndThread(0, TRUE);</span></span>
+<span class="line"><span>    return 0;</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="declare">declare</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>private:</span></span>
+<span class="line"><span>    CWinThread *m_pThread;</span></span>
+<span class="line"><span>    bool m_bThread;</span></span>
+<span class="line"><span>    friend  UINT WorkerThread(LPVOID arg);</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://www.equestionanswers.com/vcpp/worker-thread-afxbeginthread.php">How can I create a worker thread using AfxBeginThread() function? </a></li>
+<li><a href="https://mega.nz/file/DUVj3BgT#YzQzaGQKvrfy3-TJi-IUoveC0yYC5To7sIe7xIL3Zfg">AfxBeThDemo.zip</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
