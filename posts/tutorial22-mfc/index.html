@@ -1,11 +1,18 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.8"><title>Document/View Wizard</title></head> <body> <h1>Document/View Wizard</h1>  <p><em>Using VC 5.0/6.0</em></p> <p>2025-11-14</p> <p>Written by: xiaobin</p> <ul>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.15.8"><title>Document/View Wizard</title></head> <body> <h1>Document/View Wizard</h1>  <p><em>Using VC 5.0/6.0</em></p> <p>2025-11-18</p> <p>Written by: xiaobin</p> <ul>
 <li>Visual C++ 5.0/6.0</li>
 <li>Windows 2003 R2</li>
 <li>VirtualBox / VMware workstation</li>
 </ul>
-<p>MFC 2.0 changed the way Windows applications are written by introducing the document/view architecture.
-In a document/view application,
-the application’s data is represented by a document object and views of that data are represented by view objects.</p>
+<h3 id="the-architecture">The Architecture</h3>
+<p>Supporting the coordination of application data and data renderings is a perfect job
+for a framework. And when Microsoft released MFC 2.0 in early 1993, it included a document/view
+architecture within MFC. MFC’s document/view architecture deals with the data management and
+User-Interface issues just described.</p>
+<p>As an aside, MFC’s document/view is not a new idea. It was first created by the folks at Xerox PARC (by the
+same company that invented graphical user interface) and was a key part of ther Smalltalk environment.
+Smalltalk’s version of document/view is called model-view-controller(MVC)(where model=document). The Smalltalk
+MVC architecture has a controller(kind of like CDocTemplate in MFC) that acts like a shield between the document
+and the view so that they do not get too dependent on each other.</p>
 <h2 id="project">project</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name: SdiSquares</span></span>
 <span class="line"><span>vc56: vc5 and vc6</span></span></code></pre>
@@ -46,4 +53,8 @@ modify class and file name:</li>
 <span class="line"><span>SquaresView</span></span></code></pre>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/mfc_app_wizard6a-vc56.png" alt="CSquaresApp"></p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/mfc_app_wizard6b-vc56.png" alt="CSquaresDoc"></p>
-<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/mfc_app_wizard6c-vc56.png" alt="CSquaresView"></p>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/mfc_app_wizard6c-vc56.png" alt="CSquaresView"></p>
+<h2 id="ref">Ref</h2>
+<ul>
+<li>Chapter 7: MFC’s Document/View Architecture - MFC Internals</li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
