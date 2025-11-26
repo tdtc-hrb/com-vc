@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>The List Control - MFC Controls</title></head> <body> <h1>The List Control - MFC Controls</h1>  <p><em>Report View</em></p> <p>2025-11-10</p> <p>Written by: xiaobin</p> <p>Right-click the list control -> Properties, View: Report.</p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>The List Control - MFC Controls</title></head> <body> <h1>The List Control - MFC Controls</h1>  <p><em>Report View</em></p> <p>2025-11-27</p> <p>Written by: xiaobin</p> <p>Right-click the list control -> Properties, View: Report.</p>
 <p>and Add Variable:
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_var3-ctl.png" alt="m_ListOfDb"></p>
 <h3 id="col">col</h3>
@@ -13,6 +13,27 @@
 <span class="line"><span>    m_ListOfDb.InsertColumn(3, _T("Password"), LVCFMT_LEFT, 80);</span></span>
 <span class="line"><span>    m_ListOfDb.InsertColumn(4, _T("Type"), LVCFMT_LEFT, 80);</span></span>
 <span class="line"><span>}</span></span></code></pre>
+<h4 id="lv_column">LV_COLUMN</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::FormatColumns()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    LV_COLUMN lvc;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    WCHAR *colLab[5] =</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        _T("Server"), _T("Database"), _T("User"), _T("Password"), _T("Type")</span></span>
+<span class="line"><span>    };</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    for (int i = 0; i &#x3C; 5; i++) {</span></span>
+<span class="line"><span>        lvc.iSubItem = i;</span></span>
+<span class="line"><span>        lvc.pszText = colLab[i];</span></span>
+<span class="line"><span>        lvc.cx = 80;</span></span>
+<span class="line"><span>        lvc.fmt = LVCFMT_LEFT;</span></span>
+<span class="line"><span>        m_ListOfDb.InsertColumn(i, &#x26;lvc);</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>reference <a href="https://learn.microsoft.com/en-us/cpp/overview/visual-cpp-samples?view=msvc-170#mfc-samples---general">“RowList”</a></p>
 <h3 id="row">row</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::SetGridView()</span></span>
 <span class="line"><span>{</span></span>
