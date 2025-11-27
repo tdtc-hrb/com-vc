@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>Splitter Windows</title></head> <body> <h1>Splitter Windows</h1>  <p><em>The left view is a tree view; the right view is a list view.</em></p> <p>2025-11-27</p> <p>Written by: xiaobin</p> <p>MFC supports two types of splitter windows: static and dynamic.</p>
+<p>For an example of an application that uses a static splitter, look no further than the Windows Explorer.
+Explorer’s main window is divided in half vertically by a static splitter window.</p>
+<p>Dynamic splitter windows are created with MFC’s CSplitterWnd::Create function.
+Creating and initializing a dynamic splitter window is a simple two-step procedure:</p>
+<ol>
+<li>Add a CSplitterWnd data member to the frame window class.</li>
+<li>Override the frame window’s virtual OnCreateClient function,
+and call CSplitterWnd::Create to create a dynamic splitter window in the frame window’s client area.</li>
+</ol>
+<p>The procedure for adding a static splitter window to a frame window goes like this.</p>
+<ol>
+<li>Add a CSplitterWnd data member to the frame window class.</li>
+<li>Override the frame window’s OnCreateClient function, and call CSplitterWnd::CreateStatic to create a static splitter window.</li>
+<li>Use CSplitterWnd::CreateView to create a view in each of the splitter window’s panes.</li>
+</ol>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/figure_11.9-wanderer.png" alt="Using AppWizard to create an Explorer-style application."></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/default-wanderer.png" alt="(Before changes) Default items"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/rightview-wanderer.png" alt="list view - right"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/leftview-wanderer.png" alt="tree view - left"></p>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://assets.ctfassets.net/9pcn2syx7zns/6ejGpuR3LJdenVQWDCe23W/d152db4718309d396d07aa8b444a541e/mfc2.pdf">11.2. Splitter Windows(P696) - Programming Windows With MFC</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
