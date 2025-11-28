@@ -1,6 +1,5 @@
 <!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>Splitter Windows</title></head> <body> <h1>Splitter Windows</h1>  <p><em>The left view is a tree view; the right view is a list view.</em></p> <p>2025-11-27</p> <p>Written by: xiaobin</p> <p>MFC supports two types of splitter windows: static and dynamic.</p>
-<p>For an example of an application that uses a static splitter, look no further than the Windows Explorer.
-Explorer’s main window is divided in half vertically by a static splitter window.</p>
+<h3 id="splitter-window---dynamic">splitter window - dynamic</h3>
 <p>Dynamic splitter windows are created with MFC’s CSplitterWnd::Create function.
 Creating and initializing a dynamic splitter window is a simple two-step procedure:</p>
 <ol>
@@ -8,6 +7,7 @@ Creating and initializing a dynamic splitter window is a simple two-step procedu
 <li>Override the frame window’s virtual OnCreateClient function,
 and call CSplitterWnd::Create to create a dynamic splitter window in the frame window’s client area.</li>
 </ol>
+<h3 id="splitter-window---static">splitter window - static</h3>
 <p>The procedure for adding a static splitter window to a frame window goes like this.</p>
 <ol>
 <li>Add a CSplitterWnd data member to the frame window class.</li>
