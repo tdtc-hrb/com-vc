@@ -52,7 +52,7 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    // add the first splitter pane - the default view in column 0</span></span>
 <span class="line"><span>    if (!m_wndSplitter.CreateView(0, 0,</span></span>
-<span class="line"><span>        pContext->m_pNewViewClass, CSize(100, 100), pContext))</span></span>
+<span class="line"><span>        RUNTIME_CLASS(CLeftView), CSize(100, 100), pContext))</span></span>
 <span class="line"><span>    {</span></span>
 <span class="line"><span>        TRACE0("Failed to create first pane\n");</span></span>
 <span class="line"><span>        return FALSE;</span></span>
