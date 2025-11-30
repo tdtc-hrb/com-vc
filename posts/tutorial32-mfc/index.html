@@ -1,6 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>Three-way Splitter Frame - SDI</title></head> <body> <h1>Three-way Splitter Frame - SDI</h1>  <p><em>scroll view, splitter windows.</em></p> <p>2025-11-30</p> <p>Written by: xiaobin</p> <ul>
-<li>down <a href="https://mega.nz/file/add2yJiQ#ck95Pj0--sHxw3IJ-azu--SpMDSIguMzzB8xiBZ_k8g">demo</a></li>
-</ul>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>Three-way Splitter Frame - SDI</title></head> <body> <h1>Three-way Splitter Frame - SDI</h1>  <p><em>scroll view, splitter windows.</em></p> <p>2025-11-30</p> <p>Written by: xiaobin</p> <p>You need to add implementation code to OnCreateClient() in MainFrm.</p>
 <h3 id="mfc-app-wizard">MFC App Wizard</h3>
 <p>MyExplorer</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/sdi-myexplorer.png" alt="Windows Explorer - style"></p>
@@ -11,24 +9,37 @@
 <p>CDetailView:</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-myexplorer.png" alt="add MFC Class"></p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class2-myexplorer.png" alt="add MFC Class"></p>
-<h3 id="declare">Declare</h3>
+<h2 id="oncreateclient">OnCreateClient</h2>
 <ul>
-<li>MainFrame.h</li>
+<li><a href="https://mega.nz/file/add2yJiQ#ck95Pj0--sHxw3IJ-azu--SpMDSIguMzzB8xiBZ_k8g">Three-way</a></li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>//                           |  List View (CMyExplorerView)</span></span>
+<span class="line"><span>//    Tree View (CLeftView)  |-----------------------------</span></span>
+<span class="line"><span>//                           |  Scroll View (CDetailView)</span></span></code></pre>
+<ul>
+<li>fourth-way</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>//    Tree View (CLeftView)  |  List View (CMyExplorerView)</span></span>
+<span class="line"><span>// ------------------------  |-----------------------------</span></span>
+<span class="line"><span>//    Edit View (CEditView)  |  Scroll View (CDetailView)</span></span></code></pre>
+<h3 id="fourth-way">fourth-way</h3>
+<ul>
+<li>Add a new View class: CTextView derived from CEditView</li>
+<li>Add a new Splitter</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Attributes</span></span>
 <span class="line"><span>protected:</span></span>
 <span class="line"><span>    CSplitterWnd m_wndSplitter;</span></span>
+<span class="line"><span>    CSplitterWnd m_wndSplitter1; // The splitter variable in the first column</span></span>
 <span class="line"><span>    CSplitterWnd m_wndSplitter2; // The splitter variable in the second column</span></span></code></pre>
-<h3 id="oncreateclient">OnCreateClient</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/////////////////////////////////////////////////////////////////////////////</span></span>
-<span class="line"><span>// The left view is the first pane, and there are two output views</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>//                           |  List View (CMyExplorerView)</span></span>
-<span class="line"><span>//    Tree View (CLeftView)  |-----------------------------</span></span>
-<span class="line"><span>//                           |  Scroll View (CDetailView)</span></span></code></pre>
 <ul>
-<li>MainFrame.cpp</li>
+<li>Set the initial value for row 0 or column 0</li>
 </ul>
+<h4 id="column-0">column 0</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_wndSplitter.SetColumnInfo(0, 100, 50);</span></span></code></pre>
+<h4 id="row-0">row 0</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_wndSplitter2.SetRowInfo(0, 360, 100);</span></span></code></pre>
+<h4 id="impl">impl</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,</span></span>
 <span class="line"><span>    CCreateContext* pContext)</span></span>
 <span class="line"><span>{</span></span>
@@ -52,11 +63,31 @@
 <span class="line"><span>        return FALSE;</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    // add the first splitter pane - the default view in column 0</span></span>
-<span class="line"><span>    if (!m_wndSplitter.CreateView(0, 0,</span></span>
-<span class="line"><span>        RUNTIME_CLASS(CLeftView), CSize(100, 100), pContext))</span></span>
+<span class="line"><span>    m_wndSplitter.SetColumnInfo(0, 100, 50);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // add the first splitter pane - which is a nested splitter with 2 rows</span></span>
+<span class="line"><span>    if (!m_wndSplitter1.CreateStatic(</span></span>
+<span class="line"><span>        &#x26;m_wndSplitter,     // our parent window is the first splitter</span></span>
+<span class="line"><span>        2, 1,               // the new splitter is 2 rows, 1 column</span></span>
+<span class="line"><span>        WS_CHILD | WS_VISIBLE | WS_BORDER,  // style, WS_BORDER is needed</span></span>
+<span class="line"><span>        m_wndSplitter.IdFromRowCol(0, 0)</span></span>
+<span class="line"><span>        // new splitter is in the first row, 2nd column of first splitter</span></span>
+<span class="line"><span>        ))</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        TRACE0("Failed to create nested splitter - Left\n");</span></span>
+<span class="line"><span>        return FALSE;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if (!m_wndSplitter1.CreateView(0, 0,</span></span>
+<span class="line"><span>        RUNTIME_CLASS(CLeftView), CSize(0, 170), pContext))</span></span>
 <span class="line"><span>    {</span></span>
 <span class="line"><span>        TRACE0("Failed to create first pane\n");</span></span>
+<span class="line"><span>        return FALSE;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>    if (!m_wndSplitter1.CreateView(1, 0,</span></span>
+<span class="line"><span>        RUNTIME_CLASS(CTextView), CSize(0, 70), pContext))</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        TRACE0("Failed to create second pane\n");</span></span>
 <span class="line"><span>        return FALSE;</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span></span></span>
@@ -83,15 +114,17 @@
 <span class="line"><span>    if (!m_wndSplitter2.CreateView(0, 0,</span></span>
 <span class="line"><span>        RUNTIME_CLASS(CMyExplorerView), CSize(0, cyText), pContext))</span></span>
 <span class="line"><span>    {</span></span>
-<span class="line"><span>        TRACE0("Failed to create second pane\n");</span></span>
+<span class="line"><span>        TRACE0("Failed to create third pane\n");</span></span>
 <span class="line"><span>        return FALSE;</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span>    if (!m_wndSplitter2.CreateView(1, 0,</span></span>
 <span class="line"><span>        RUNTIME_CLASS(CDetailView), CSize(0, 70), pContext))</span></span>
 <span class="line"><span>    {</span></span>
-<span class="line"><span>        TRACE0("Failed to create third pane\n");</span></span>
+<span class="line"><span>        TRACE0("Failed to create fourth pane\n");</span></span>
 <span class="line"><span>        return FALSE;</span></span>
 <span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    m_wndSplitter2.SetRowInfo(0, 360, 100);</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>    return TRUE;</span></span>
 <span class="line"><span>}</span></span></code></pre>
