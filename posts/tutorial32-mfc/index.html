@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.0"><title>Three-way Splitter Frame - SDI</title></head> <body> <h1>Three-way Splitter Frame - SDI</h1>  <p><em>scroll view, splitter windows.</em></p> <p>2025-11-30</p> <p>Written by: xiaobin</p> <p>You need to add implementation code to OnCreateClient() in MainFrm.</p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.3"><title>Three-way Splitter Frame - SDI</title></head> <body> <h1>Three-way Splitter Frame - SDI</h1>  <p><em>scroll view, splitter windows.</em></p> <p>2025-12-01</p> <p>Written by: xiaobin</p> <p>You need to add implementation code to OnCreateClient() in MainFrm.</p>
 <h3 id="mfc-app-wizard">MFC App Wizard</h3>
 <p>MyExplorer</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/sdi-myexplorer.png" alt="Windows Explorer - style"></p>
@@ -9,6 +9,12 @@
 <p>CDetailView:</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-myexplorer.png" alt="add MFC Class"></p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class2-myexplorer.png" alt="add MFC Class"></p>
+<h3 id="createstatic">CreateStatic</h3>
+<p>Parameter settings when not nested panes:</p>
+<ul>
+<li>1..n</li>
+<li>n..1</li>
+</ul>
 <h2 id="oncreateclient">OnCreateClient</h2>
 <ul>
 <li><a href="https://mega.nz/file/add2yJiQ#ck95Pj0--sHxw3IJ-azu--SpMDSIguMzzB8xiBZ_k8g">Three-way</a></li>
@@ -22,6 +28,22 @@
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>//    Tree View (CLeftView)  |  List View (CMyExplorerView)</span></span>
 <span class="line"><span>// ------------------------  |-----------------------------</span></span>
 <span class="line"><span>//    Edit View (CEditView)  |  Scroll View (CDetailView)</span></span></code></pre>
+<h3 id="setting-0-rowcolumn">Setting 0 row/column</h3>
+<p>When CSIZE cannot control the width or height of the pane:</p>
+<ul>
+<li>SetColumnInfo</li>
+<li>SetRowInfo</li>
+</ul>
+<p>When CSIZE cannot control the width or height of the pane:</p>
+<ul>
+<li>SetColumnInfo()</li>
+<li>SetRowInfo()</li>
+</ul>
+<p>Resets the value of column 0 or row 0.</p>
+<h4 id="column-0">column 0</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_wndSplitter.SetColumnInfo(0, 100, 50);</span></span></code></pre>
+<h4 id="row-0">row 0</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_wndSplitter2.SetRowInfo(0, 360, 100);</span></span></code></pre>
 <h3 id="fourth-way">fourth-way</h3>
 <ul>
 <li>Add a new View class: CTextView derived from CEditView</li>
@@ -32,13 +54,7 @@
 <span class="line"><span>    CSplitterWnd m_wndSplitter;</span></span>
 <span class="line"><span>    CSplitterWnd m_wndSplitter1; // The splitter variable in the first column</span></span>
 <span class="line"><span>    CSplitterWnd m_wndSplitter2; // The splitter variable in the second column</span></span></code></pre>
-<ul>
-<li>Set the initial value for row 0 or column 0</li>
-</ul>
-<h4 id="column-0">column 0</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_wndSplitter.SetColumnInfo(0, 100, 50);</span></span></code></pre>
-<h4 id="row-0">row 0</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_wndSplitter2.SetRowInfo(0, 360, 100);</span></span></code></pre>
+<p>declare In MainFrm.h</p>
 <h4 id="impl">impl</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,</span></span>
 <span class="line"><span>    CCreateContext* pContext)</span></span>
