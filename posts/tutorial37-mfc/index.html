@@ -5,10 +5,15 @@
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Chinese (Simplified, PRC)</span></span></code></pre>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/stringtable-myexplorer.png" alt="string table - p.r.c"></p>
 <h3 id="loading-stringtable-value">Loading STRINGTABLE value</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    CString fmt;</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CTextView::AssertValid() const</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    CEditView::AssertValid();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    CString fmt;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>    fmt.LoadString(IDS_STRING1);</span></span>
-<span class="line"><span>    GetEditCtrl().SetWindowText(fmt);</span></span></code></pre>
+<span class="line"><span>    GetEditCtrl().SetWindowText(fmt);</span></span>
+<span class="line"><span>}</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="http://www.flounder.com/cstring.htm">CString Management</a></li>
