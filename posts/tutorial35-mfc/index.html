@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.3"><title>The CString Class - 2</title></head> <body> <h1>The CString Class - 2</h1>  <p><em>char and CString</em></p> <p>2025-12-03</p> <p>Written by: xiaobin</p> <p>The first thing you have to understand about a CString is that it is a special C++ object which contains three values:</p>
+<ul>
+<li>a pointer to a buffer,</li>
+<li>a count of the valid characters in the buffer,</li>
+<li>a buffer length.</li>
+</ul>
+<p>The count of the number of characters can be any size from 0 up to the maximum length of the buffer minus one (for the NUL byte).
+The character count and buffer length are cleverly hidden.</p>
+<h3 id="converting-between-char--tchar--and-cstring">Converting between char * (TCHAR *) and CString</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString graycat = CString(_T("Gray")) + _T("Cat");</span></span></code></pre>
+<h3 id="char--tchar--to-cstring">char * (TCHAR *) to CString</h3>
+<blockquote>
+<p>*Note that CStringA and CStringW are not available in VS6, only in VS2002+ versions!</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>TCHAR * p = _T("Gray");</span></span>
+<span class="line"><span>CString s(p);</span></span>
+<span class="line"><span>p = _T("Cat");</span></span>
+<span class="line"><span>s += p;</span></span></code></pre>
+<h2 id="cstring-to-char-tchar">CString to char */TCHAR *</h2>
+<ul>
+<li>I: Casting to LPCTSTR</li>
+<li>II: Using GetBuffer</li>
+<li>III: Interfacing to a control</li>
+</ul>
+<h3 id="casting-to-lpctstr">Casting to LPCTSTR</h3>
+<p>The operator LPCTSTR (or more specifically, the operator (const TCHAR *), is overloaded for CString.
+The definition of the operator is to return the address of the buffer.
+Thus, if you need a string pointer to the CString you can do something like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString s("GrayCat");</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>LPCTSTR p =  s;</span></span></code></pre>
+<p>Most kernel APIs want LPCTSTR parameters.
+Because the (LPCTSTR) operator is defined for CString, the compiler will automatically invoke the conversion.
+Given a definition of the form</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>WINAPI BOOL SomeAPI(LPCTSTR);</span></span></code></pre>
+<p>This can be called by doing</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString s = _T("Some string value");</span></span>
+<span class="line"><span>if(SomeAPI(s)) {</span></span>
+<span class="line"><span>    // some code here</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="using-getbuffer">Using GetBuffer</h3>
+<p>A special method is available for a CString if you need to modify it.
+This is the operation GetBuffer. What this does is return to you a pointer to the buffer which is considered writeable.
+If you are only going to change characters or shorten the string, you are now free to do so:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString s(_T("File.ext"));</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>LPTSTR p = s.GetBuffer();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>LPTSTR dot = strchr(p, '.'); // OK, should have used s.Find...</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>if(p != NULL)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    *p = _T('\0');</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>s.ReleaseBuffer();</span></span></code></pre>
+<p>This is the first and simplest use of GetBuffer.
+You don’t supply an argument, so the default of 0 is used, which means “give me a pointer to the string;
+I promise to not extend the string”. When you call ReleaseBuffer, the actual length of the string is recomputed and stored in the CString.
+Within the scope of a GetBuffer/ReleaseBuffer sequene, and I emphasize this:
+You Must Not, Ever, Use Any Method Of CString on the CString whose buffer you have!
+The reason for this is that the integrity of the CString object is not guaranteed until the ReleaseBuffer is called.
+Study the code below:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString s(...);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>LPTSTR p = s.GetBuffer();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>//... lots of things happen via the pointer p</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>int n = s.GetLength(); // BAD!!!!! PROBABLY WILL GIVE WRONG ANSWER!!!</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>s.TrimRight();         // BAD!!!!! NO GUARANTEE IT WILL WORK!!!!</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>s.ReleaseBuffer();     // Things are now OK</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>int m = s.GetLength(); // This is guaranteed to be correct</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>s.TrimRight();         // Will work correctly</span></span></code></pre>
+<h3 id="interfacing-to-a-control">Interfacing to a control</h3>
+<p>A very common operation is to pass a CString value in to a control, for example, a CTreeCtrl.
+While MFC provides a number of convenient overloads for the operation, but in the most general situation you use the “raw” form of the update,
+and therefore you need to store a pointer to a string in the TVITEM which is included within the TVINSERTITEMSTRUCT:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>TVINSERTITEMSTRUCT tvi;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>CString s;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// ... assign something to s</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>tvi.item.pszText = s; // Compiler yells at you here</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// ... other stuff</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>HTREEITEM ti = c_MyTree.InsertItem(&#x26;tvi);</span></span></code></pre>
+<p>Now why did the compiler complain? It looks like a perfectly good assignment!
+But in fact if you look at the structure, you will see that the member is declared in the TVITEM structure as shown below:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>LPTSTR pszText;</span></span>
+<span class="line"><span>int cchTextMax;</span></span></code></pre>
+<p>Therefore, the assignment is not assigning to an LPCTSTR and the compiler has no idea how to cast the right hand side of the assignment to an LPTSTR.
+OK, you say, I can deal with that, and you write</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>tvi.item.pszText = (LPCTSTR)s; // compiler still complains!</span></span></code></pre>
+<p>Why not just declare the member as an LPCTSTR? Because the structure is used both for reading and writing to the control.
+When you are writing to the control,
+the text pointer is actually treated as an LPCTSTR but when you are reading from the control you need a writeable string.
+The structure cannot distinguish its use for input from its use for output.</p>
+<p>Therefore, you will often find in my code something that looks like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>tvi.item.pszText = (LPTSTR)(LPCTSTR)s;</span></span></code></pre>
+<p>This casts the CString to an LPCTSTR, thus giving me that address of the string, which I then force to be an LPTSTR so I can assign it.
+Note that this is valid only if you are using the value as data to a Set or Insert style method!
+You cannot do this when you are trying to retrieve data!</p>
+<p>You need a slightly different method when you are trying to retrieve data, such as the value stored in a control.
+For example, for a CTreeCtrl using the GetItem method. Here, I want to get the text of the item. I know that the text is no more than MY_LIMIT in size.
+Therefore, I can write something like</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>TVITEM tvi;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// ... assorted initialization of other fields of tvi</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>tvi.pszText = s.GetBuffer(MY_LIMIT);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>tvi.cchTextMax = MY_LIMIT;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>c_MyTree.GetItem(&#x26;tvi);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>s.ReleaseBuffer();</span></span></code></pre>
+<p>Note that the code above works for any type of Set method also,
+but is not needed because for a Set-type method (including Insert) you are not writing the string.
+But when you are writing the CString you need to make sure the buffer is writeable.
+That’s what the GetBuffer does. Again, note that once you have done the GetBuffer call,
+you must not do anything else to the CString until the ReleaseBuffer call.</p>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="http://www.flounder.com/cstring.htm">CString Management</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
