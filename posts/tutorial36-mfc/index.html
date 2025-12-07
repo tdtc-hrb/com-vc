@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.3"><title>The CString Class - 3</title></head> <body> <h1>The CString Class - 3</h1>  <p><em>COM and CString</em></p> <p>2025-12-03</p> <p>Written by: xiaobin</p> <h3 id="cstring-to-bstr">CString to BSTR</h3>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.4"><title>The CString Class - 3</title></head> <body> <h1>The CString Class - 3</h1>  <p><em>COM and CString</em></p> <p>2025-12-07</p> <p>Written by: xiaobin</p> <h3 id="cstring-to-bstr">CString to BSTR</h3>
 <p>When programming with ActiveX, you will sometimes need a value represented as a type BSTR.
 A BSTR is a counted string, a wide-character (Unicode) string on Intel platforms and can contain embedded NUL characters.</p>
 <p>You can convert at CString to a BSTR by calling the CString method AllocSysString:</p>
@@ -122,6 +122,29 @@ See the caveats about the default ::WideCharToMultibyte conversion and whether o
 <span class="line"><span>          return CString("");</span></span>
 <span class="line"><span>      } /* vt */</span></span>
 <span class="line"><span>   }</span></span></code></pre>
+<h3 id="the-atl-string-support-macros">The ATL String Support Macros</h3>
+<ul>
+<li><a href="https://forums.codeguru.com/showthread.php?348238-atlconv-h-header-error!!!&#x26;p=1189478#post1189478">Arjay</a><br>
+You need to use the <code>USES_CONVERSION</code> macro before using the convert functions.</li>
+</ul>
+<h4 id="generic-conversion-macros"><a href="https://learn.microsoft.com/en-us/cpp/mfc/tn059-using-mfc-mbcs-unicode-conversion-macros?view=msvc-170#generic-conversion-macros">Generic Conversion Macros</a></h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>A2CW      (LPCSTR) -> (LPCWSTR)</span></span>
+<span class="line"><span>A2W      (LPCSTR) -> (LPWSTR)</span></span>
+<span class="line"><span>W2CA      (LPCWSTR) -> (LPCSTR)</span></span>
+<span class="line"><span>W2A      (LPCWSTR) -> (LPSTR)</span></span></code></pre>
+<h4 id="example"><a href="https://stackoverflow.com/a/8050301">example</a></h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;atlbase.h></span></span>
+<span class="line"><span>#include &#x3C;iostream></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>int _tmain(int argc, _TCHAR* argv[])</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	USES_CONVERSION;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	char szText[] = "Hello, world";</span></span>
+<span class="line"><span>	LPCWSTR w = A2W(szText);</span></span>
+<span class="line"><span>	std::wcout &#x3C;&#x3C; w &#x3C;&#x3C; std::endl;</span></span>
+<span class="line"><span>	return 0;</span></span>
+<span class="line"><span>}</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="http://www.flounder.com/cstring.htm">CString Management</a></li>
