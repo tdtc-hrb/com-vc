@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>ODBC4 - MFC</title></head> <body> <h1>ODBC4 - MFC</h1>  <p><em>A simple CRecordView demo.</em></p> <p>2025-12-20</p> <p>Written by: xiaobin</p> <ul>
+<li>VS 2019(v16.11)</li>
+<li>Windows 1809 LTSC</li>
+</ul>
+<h3 id="setting-odbc">Setting ODBC</h3>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc1-sql2k0.png" alt="open odbc"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc2-sql2k0.png" alt="empty - odbc"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3a-sql2k0.png" alt="create new data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3b-sql2k0.png" alt="DSN name - data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3c-sql2k0.png" alt="default DB - data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3d-sql2k0.png" alt="other - data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3e-sql2k0.png" alt="authenticity - data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3f-sql2k0.png" alt="finish - data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc3g-sql2k0.png" alt="test data source"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/odbc4-sql2k0.png" alt="done - odbc"></p>
+<h3 id="create-sdi-application">Create SDI Application</h3>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/app_wizard-rec_demo.png" alt="use CFormView"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class-rec_demo.png" alt="add CRecordSet Class"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_variable-rec_demo.png" alt="add control variable"></p>
+<h3 id="data-move">data move</h3>
+<ul>
+<li>First</li>
+<li>Next</li>
+<li>Prev</li>
+<li>Last</li>
+</ul>
+<h4 id="first">First</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton1()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>	m_pSet->MoveFirst();</span></span>
+<span class="line"><span>	ShowRow();</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h4 id="next">Next</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton3()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>	if (!m_pSet->IsEOF()) {</span></span>
+<span class="line"><span>		m_pSet->MoveNext();</span></span>
+<span class="line"><span>		ShowRow();</span></span>
+<span class="line"><span>	}</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h4 id="prev">Prev</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton4()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>	if ( !m_pSet->IsBOF()) {</span></span>
+<span class="line"><span>		m_pSet->MovePrev();</span></span>
+<span class="line"><span>		ShowRow();</span></span>
+<span class="line"><span>	}</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h4 id="last">Last</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton2()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
+<span class="line"><span>	m_pSet->MoveLast();</span></span>
+<span class="line"><span>	ShowRow();</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="show-data">show data</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::ShowRow()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	int nItem;</span></span>
+<span class="line"><span>	CString tmp;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	tmp.Format(_T("%d"), m_pSet->m_qty);</span></span>
+<span class="line"><span>	m_ListCtrl.DeleteAllItems();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	nItem = m_ListCtrl.InsertItem(0, CString(m_pSet->m_stor_id));</span></span>
+<span class="line"><span>	m_ListCtrl.SetItemText(nItem, 1, CString(m_pSet->m_ord_num));</span></span>
+<span class="line"><span>	m_ListCtrl.SetItemText(nItem, 2, m_pSet->m_ord_date.Format("%Y-%m-%d"));</span></span>
+<span class="line"><span>	m_ListCtrl.SetItemText(nItem, 3, tmp);</span></span>
+<span class="line"><span>	m_ListCtrl.SetItemText(nItem, 4, CString(m_pSet->m_payterms));</span></span>
+<span class="line"><span>	m_ListCtrl.SetItemText(nItem, 5, CString(m_pSet->m_title_id));</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial16-mfc">The List Control - MFC Controls</a></li>
+<li><a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial49-mfc">CRecordSet Class</a></li>
+<li><a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial50-mfc">CRecordView</a></li>
+<li><a href="https://mega.nz/file/vYUz3T6J#OvMrH2INHfRq72tGkZftlNLpHpapU0N_3Vt4h7on9fE">recrodDemo.zip</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

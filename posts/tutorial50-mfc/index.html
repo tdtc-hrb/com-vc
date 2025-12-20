@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>ODBC3 - MFC</title></head> <body> <h1>ODBC3 - MFC</h1>  <p><em>CRecordView</em></p> <p>2025-12-20</p> <p>Written by: xiaobin</p> <p>Use the CFormView template.</p>
+<h3 id="database-support">database support</h3>
+<p>Implement database support in CRecordView.</p>
+<h4 id="impl">impl</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// CMFCApplication1View database support</span></span>
+<span class="line"><span>CRecordset* CMFCApplication1View::OnGetRecordset()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	return m_pSet;</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h4 id="declare">declare</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Overrides</span></span>
+<span class="line"><span>public:</span></span>
+<span class="line"><span>	virtual CRecordset* OnGetRecordset();</span></span></code></pre>
+<h3 id="documentview">Document/View</h3>
+<ul>
+<li>document - declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Attributes</span></span>
+<span class="line"><span>public:</span></span>
+<span class="line"><span>	CRec1Set m_Rec1Set;</span></span></code></pre>
+<ul>
+<li>view - declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>public:</span></span>
+<span class="line"><span>#ifdef AFX_DESIGN_TIME</span></span>
+<span class="line"><span>	enum{ IDD = IDD_MFCAPPLICATION1_FORM };</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span>	CRec1Set* m_pSet;</span></span></code></pre>
+<h3 id="init">init</h3>
+<p>Initialization is performed in “MFCApplication1View.cpp”.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	// TODO: add construction code here</span></span>
+<span class="line"><span>	m_pSet = nullptr;</span></span></code></pre>
+<h4 id="oninitialupdate">OnInitialUpdate</h4>
+<ul>
+<li>old</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	CFormView::OnInitialUpdate();</span></span>
+<span class="line"><span>	GetParentFrame()->RecalcLayout();</span></span>
+<span class="line"><span>	ResizeParentToFit();</span></span></code></pre>
+<ul>
+<li>new</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	m_pSet = &#x26;GetDocument()->m_Rec1Set;</span></span>
+<span class="line"><span>	CRecordView::OnInitialUpdate();</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
