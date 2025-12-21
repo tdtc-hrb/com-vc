@@ -1,4 +1,20 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>ODBC3 - MFC</title></head> <body> <h1>ODBC3 - MFC</h1>  <p><em>CRecordView</em></p> <p>2025-12-20</p> <p>Written by: xiaobin</p> <p>Use the CFormView template.</p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>ODBC3 - MFC</title></head> <body> <h1>ODBC3 - MFC</h1>  <p><em>CRecordView</em></p> <p>2025-12-21</p> <p>Written by: xiaobin</p> <p>Use the CFormView template,
+and then manually rewrite it as CRecordView.</p>
+<ul>
+<li>Inheritance Hierarchy</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CObject</span></span>
+<span class="line"><span>    CCmdTarget</span></span>
+<span class="line"><span>        CWnd</span></span>
+<span class="line"><span>            CView</span></span>
+<span class="line"><span>                CScrollView</span></span>
+<span class="line"><span>                    CFormView</span></span>
+<span class="line"><span>                        CRecordView</span></span></code></pre>
+<blockquote>
+<p>NOTE!!! The database wizard is no longer provided in VS2017 and later versions.</p>
+</blockquote>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/mfc_app_wizard6c-vc12.png" alt="application wizard - step6">
+(Figure: Step 6 of the MFC Application Wizard in VS 2013)</p>
 <h3 id="database-support">database support</h3>
 <p>Implement database support in CRecordView.</p>
 <h4 id="impl">impl</h4>
@@ -41,4 +57,8 @@
 <li>new</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	m_pSet = &#x26;GetDocument()->m_Rec1Set;</span></span>
-<span class="line"><span>	CRecordView::OnInitialUpdate();</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+<span class="line"><span>	CRecordView::OnInitialUpdate();</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/crecordview-class?view=msvc-170">CRecordView Class</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
