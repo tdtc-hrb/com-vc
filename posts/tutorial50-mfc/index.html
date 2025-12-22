@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>ODBC3 - MFC</title></head> <body> <h1>ODBC3 - MFC</h1>  <p><em>CRecordView</em></p> <p>2025-12-21</p> <p>Written by: xiaobin</p> <p>Use the CFormView template,
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>ODBC3 - MFC</title></head> <body> <h1>ODBC3 - MFC</h1>  <p><em>CRecordView</em></p> <p>2025-12-22</p> <p>Written by: xiaobin</p> <p>Use the CFormView template,
 and then manually rewrite it as CRecordView.</p>
 <ul>
 <li>Inheritance Hierarchy</li>
@@ -14,7 +14,7 @@ and then manually rewrite it as CRecordView.</p>
 <p>NOTE!!! The database wizard is no longer provided in VS2017 and later versions.</p>
 </blockquote>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/mfc_app_wizard6c-vc12.png" alt="application wizard - step6">
-(Figure: Step 6 of the MFC Application Wizard in VS 2013)</p>
+(Figure: Step 6 of the MFC Application Wizard in Visual Studio 2013)</p>
 <h3 id="database-support">database support</h3>
 <p>Implement database support in CRecordView.</p>
 <h4 id="impl">impl</h4>
@@ -29,14 +29,14 @@ and then manually rewrite it as CRecordView.</p>
 <span class="line"><span>	virtual CRecordset* OnGetRecordset();</span></span></code></pre>
 <h3 id="documentview">Document/View</h3>
 <ul>
-<li>document - declare</li>
+<li>member - Document</li>
+<li>member - View</li>
 </ul>
+<h4 id="member---document">member - Document</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Attributes</span></span>
 <span class="line"><span>public:</span></span>
 <span class="line"><span>	CRec1Set m_Rec1Set;</span></span></code></pre>
-<ul>
-<li>view - declare</li>
-</ul>
+<h4 id="member---view">member - View</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>public:</span></span>
 <span class="line"><span>#ifdef AFX_DESIGN_TIME</span></span>
 <span class="line"><span>	enum{ IDD = IDD_MFCAPPLICATION1_FORM };</span></span>
