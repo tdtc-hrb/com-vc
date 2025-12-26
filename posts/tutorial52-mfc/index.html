@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>CMFCPropertySheet 1 - Controls</title></head> <body> <h1>CMFCPropertySheet 1 - Controls</h1>  <p><em>Desktop version of Tabs</em></p> <p>2025-12-26</p> <p>Written by: xiaobin</p> <p>Perform the following steps to use the CMFCPropertySheet class in your application:</p>
+<ol>
+<li>Derive a class from the CMFCPropertySheet class and name the class, for example, CMyPropertySheet.</li>
+<li>Construct a CMFCPropertyPage object for each property page.</li>
+<li>Call the CMFCPropertySheet::SetLook method in the CMyPropertySheet constructor.
+A parameter of that method specifies that property pages shall be displayed either as tabs along the top or left of the property sheet;
+tabs in the style of a Microsoft OneNote property sheet; buttons on a Microsoft Outlook toolbar control;
+nodes on a tree control; or as a list of items on the left side of the property sheet.</li>
+<li>If you create a property sheet in the style of a Microsoft Outlook toolbar,
+call the CMFCPropertySheet::SetIconsList method to associate an image list together with the property pages.</li>
+<li>Call the CMFCPropertySheet::AddPage method for each property page.</li>
+<li>Create a CMFCPropertySheet control and call its DoModal method.</li>
+</ol>
+<h4 id="omitted">omitted</h4>
+<p>Steps that can be omitted: Steps three and four.</p>
+<p>If omitted, it becomes the same as CPropertySheet.</p>
+<h3 id="include-file">include file</h3>
+<ul>
+<li>Property page</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "afxpropertypage.h"</span></span></code></pre>
+<ul>
+<li>property sheet</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;afxpropertysheet.h></span></span></code></pre>
+<h3 id="the-difference-between-cmfcpropertypage-and-cpropertypage">The difference between CMFCPropertyPage and CPropertyPage</h3>
+<p>CMFCPropertyPage:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	friend class CMFCPopupMenu;</span></span>
+<span class="line"><span>	friend class CContextMenuManager;</span></span>
+<span class="line"><span>	friend class CMFCDropDownListBox;</span></span>
+<span class="line"><span>	friend class CMFCPropertySheet;</span></span></code></pre>
+<p>CPropertyPage:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>friend class CPropertySheet;</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cmfcpropertysheet-class?view=msvc-170">CMFCPropertySheet class</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>CMFCPropertySheet 2 - Controls</title></head> <body> <h1>CMFCPropertySheet 2 - Controls</h1>  <p><em>Desktop version of Tabs</em></p> <p>2025-12-27</p> <p>Written by: xiaobin</p> <p>In the initial instance of CmnCtrl1.cpp:</p>
+<ul>
+<li>InitInstance()</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	CAllControlsSheet   allcontrolssheet(_T("Common Controls Sample"));</span></span>
+<span class="line"><span>	m_pMainWnd = &#x26;allcontrolssheet;</span></span>
+<span class="line"><span>	allcontrolssheet.DoModal();</span></span>
+<span class="line"><span>	return FALSE;</span></span></code></pre>
+<h2 id="project---cmnctrl1">Project - CmnCtrl1</h2>
+<p>Use the MFC application wizard to build:
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/CmnCtrl1-cmfcpg1.png" alt=""></p>
+<p>Solution after deleting One1pg:
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/CmnCtrl1-cmfcpg2.png" alt=""></p>
+<h3 id="create-propertypage">Create PropertyPage</h3>
+<p>Add MFC Class:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Add -> Class</span></span>
+<span class="line"><span>MFC -> MFC Class</span></span></code></pre>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/CmnCtrl1-cmfcpg3.png" alt=""></p>
+<p>Note!!!</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Base class selection: CPropertyPage, otherwise you cannot select the Diglog ID!</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>In "Diglog ID", select an existing one.</span></span></code></pre>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/CmnCtrl1-cmfcpg4.png" alt=""></p>
+<h3 id="create-propertysheet">Create PropertySheet</h3>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/CmnCtrl1-cmfcpg5.png" alt=""></p>
+<ul>
+<li>declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Attributes</span></span>
+<span class="line"><span>public:</span></span>
+<span class="line"><span>	CTreeCtrlPage       m_treectrlpage;</span></span>
+<span class="line"><span>	CAnimateCtrlPage    m_animctrlpage;</span></span></code></pre>
+<ul>
+<li>add pages</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>protected:</span></span>
+<span class="line"><span>	void AddControlPages(void);</span></span></code></pre>
+<h4 id="add-pages">add pages</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CAllControlsSheet::AddControlPages()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);</span></span>
+<span class="line"><span>	m_psh.dwFlags |= PSP_USEHICON;</span></span>
+<span class="line"><span>	m_psh.hIcon = m_hIcon;</span></span>
+<span class="line"><span>	m_psh.dwFlags |= PSH_NOAPPLYNOW;    // Lose the Apply Now button</span></span>
+<span class="line"><span>	m_psh.dwFlags &#x26;= ~PSH_HASHELP;  // Lose the Help button</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	AddPage(&#x26;m_treectrlpage);</span></span>
+<span class="line"><span>	AddPage(&#x26;m_animctrlpage);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>m_hIcon declare:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>protected:</span></span>
+<span class="line"><span>	HICON m_hIcon;</span></span></code></pre>
+<h4 id="constructor">constructor</h4>
+<ul>
+<li>declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Construction</span></span>
+<span class="line"><span>public:</span></span>
+<span class="line"><span>	CAllControlsSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);</span></span>
+<span class="line"><span>	CAllControlsSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CAllControlsSheet::CAllControlsSheet(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)</span></span>
+<span class="line"><span>:CMFCPropertySheet(nIDCaption, pParentWnd, iSelectPage)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	AddControlPages();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	// TODO :: Add the pages for the rest of the controls here.</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>CAllControlsSheet::CAllControlsSheet(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)</span></span>
+<span class="line"><span>	:CMFCPropertySheet(pszCaption, pParentWnd, iSelectPage)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	AddControlPages();</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/general/CmnCtrl1">example: MFC/general/CmnCtrl1</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
