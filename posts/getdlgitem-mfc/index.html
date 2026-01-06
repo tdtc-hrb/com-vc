@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>GetDlgItem - Cwnd</title></head> <body> <h1>GetDlgItem - Cwnd</h1>  <p><em>Retrieves a pointer to the specified control or child window in a dialog box or other window.</em></p> <p>2025-11-02</p> <p>Written by: xiaobin</p> <ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cwnd-class?view=msvc-170">CWnd Class</a><br>
+Provides the base functionality of all window classes in the Microsoft Foundation Class Library.
+<img src="https://learn.microsoft.com/en-us/cpp/mfc/media/vc369r1.png" alt="mfc v9.0"></li>
+</ul>
+<h4 id="cwnd-vs-hwnd"><a href="https://learn.microsoft.com/en-us/cpp/mfc/tn003-mapping-of-windows-handles-to-objects?view=msvc-170">cwnd vs hwnd</a></h4>
+<p>Given a handle to any one of these objects,
+you can find the MFC object that wraps the handle by calling the static method FromHandle.
+For example, given an HWND called hWnd, the following line will return a pointer to the CWnd that wraps hWnd:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CWnd::FromHandle(hWnd)</span></span></code></pre>
+<p>If hWnd does not have a specific wrapper object, a temporary CWnd is created to wrap hWnd.
+This makes it possible to obtain a valid C++ object from any handle.</p>
+<p>After you have a wrapper object, you can retrieve its handle from a public member variable of the wrapper class.
+In the case of a CWnd, m_hWnd contains the HWND for that object.</p>
+<h3 id="cwndgetdlgitem"><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cwnd-class?view=msvc-170#getdlgitem">CWnd::GetDlgItem</a></h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CWnd* GetDlgItem(int nID) const;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>void GetDlgItem(</span></span>
+<span class="line"><span>    int nID,</span></span>
+<span class="line"><span>    HWND* phWnd) const;</span></span></code></pre>
+<h4 id="parameters">Parameters</h4>
+<ul>
+<li>nID<br>
+Specifies the identifier of the control or child window to be retrieved.</li>
+<li>phWnd<br>
+A pointer to a child window.</li>
+</ul>
+<h4 id="return-value">Return Value</h4>
+<p>A pointer to the given control or child window.
+If no control with the integer ID given by the nID parameter exists, the value is NULL.</p>
+<p>The returned pointer may be temporary and shouldn’t be stored for later use.</p>
+<h4 id="remarks">Remarks</h4>
+<p>The pointer returned is usually cast to the type of control identified by nID.</p>
+<h4 id="example">Example</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// uses GetDlgItem to return a pointer to a user interface control</span></span>
+<span class="line"><span>CEdit *pBoxOne;</span></span>
+<span class="line"><span>pBoxOne = (CEdit*)GetDlgItem(IDC_MYEDIT);</span></span>
+<span class="line"><span>GotoDlgCtrl(pBoxOne);</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://stackoverflow.com/a/30512872">C++ MFC how to use GetDlgItem()</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/hierarchy-chart">MFC class hierarchy chart - v9.0</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Microsoft_Foundation_Class_Library#Versions">Microsoft Foundation Class Library - mfcNUM.dll</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/hierarchy-chart-categories">Hierarchy Chart Categories</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

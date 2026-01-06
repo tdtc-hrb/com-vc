@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>The File Dialog - MFC</title></head> <body> <h1>The File Dialog - MFC</h1>  <p><em>Save as a file with a specific extension</em></p> <p>2025-10-31</p> <p>Written by: xiaobin</p> <p>Use the <a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cfiledialog-class?view=msvc-170#cfiledialog">CFileDialog</a> to customize the file extension, title, and initial directory.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>explicit CFileDialog(</span></span>
+<span class="line"><span>    BOOL bOpenFileDialog,</span></span>
+<span class="line"><span>    LPCTSTR lpszDefExt = NULL,</span></span>
+<span class="line"><span>    LPCTSTR lpszFileName = NULL,</span></span>
+<span class="line"><span>    DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,</span></span>
+<span class="line"><span>    LPCTSTR lpszFilter = NULL,</span></span>
+<span class="line"><span>    CWnd* pParentWnd = NULL,</span></span>
+<span class="line"><span>    DWORD dwSize = 0,</span></span>
+<span class="line"><span>    BOOL bVistaStyle = TRUE);</span></span></code></pre>
+<ul>
+<li>bOpenFileDialog</li>
+</ul>
+<blockquote>
+<p>The parameter that specifies what type of dialog box to create.</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Set it to TRUE to construct a File Open dialog box. </span></span>
+<span class="line"><span>Set it to FALSE to construct a File Save As dialog box.</span></span></code></pre>
+<ul>
+<li>lpszDefExt<br>
+The default file name extension.</li>
+<li>lpszFileName<br>
+The initial file name that appears in the Filename box.</li>
+<li>dwFlags</li>
+</ul>
+<blockquote>
+<p>Use OFN macro combinations.</p>
+</blockquote>
+<ul>
+<li>lpszFilter<br>
+A series of string pairs that specify filters you can apply to the file.</li>
+<li>pParentWnd<br>
+A pointer to the parent or owner window of the file dialog box.</li>
+<li>option<br>
+These parameters can be omitted.</li>
+</ul>
+<h3 id="ofn-macros">OFN macros</h3>
+<ul>
+<li>OFN_HIDEREADONLY</li>
+</ul>
+<blockquote>
+<p>Hides the Read Only check box.</p>
+</blockquote>
+<ul>
+<li>OFN_OVERWRITEPROMPT</li>
+</ul>
+<blockquote>
+<p>Causes the Save As dialog box to generate a message box if the selected file already exists.
+The user must confirm whether to overwrite the file.</p>
+</blockquote>
+<p>For a description of these flags,
+see the <a href="https://learn.microsoft.com/en-us/windows/win32/api/commdlg/ns-commdlg-openfilenamew">OPENFILENAME</a>
+structure in the Windows SDK.</p>
+<h2 id="example">example</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>strFileName.Format("%d%d%d%d%d%d", nYear, nMonth, nDay, nHour, nMinute, nSecond);</span></span>
+<span class="line"><span>strFileName = "D" + strFileName + ".rtf";</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    CFileDialog fSaveDialog(FALSE,                  // Set to TRUE to construct a File Open dialog box or </span></span>
+<span class="line"><span>                                                    // FALSE to construct a File Save As dialog box.</span></span>
+<span class="line"><span>        ".rtf", </span></span>
+<span class="line"><span>        strFileName, </span></span>
+<span class="line"><span>        OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, </span></span>
+<span class="line"><span>        "Serial Comm Data (*.rtf)|*.rtf|Text (*.txt)|*.txt||", </span></span>
+<span class="line"><span>        this);</span></span>
+<span class="line"><span>    fSaveDialog.m_pOFN->lpstrTitle = "Serial Comm Data File (Save As...)";</span></span>
+<span class="line"><span>    fSaveDialog.m_pOFN->lpstrInitialDir = "D:";</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    if (fSaveDialog.DoModal() == IDOK)</span></span>
+<span class="line"><span>        strPathName = fSaveDialog.GetPathName();</span></span>
+<span class="line"><span>    else</span></span>
+<span class="line"><span>        return;</span></span></code></pre>
+<h3 id="m_pofn"><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cfiledialog-class?view=msvc-170#m_ofn">m_pOFN</a></h3>
+<p>Customize the dialog box title and the initial directory.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    fSaveDialog.m_pOFN->lpstrTitle = "Serial Comm Data File (Save As...)";</span></span>
+<span class="line"><span>    fSaveDialog.m_pOFN->lpstrInitialDir = "D:";</span></span></code></pre>
+<h3 id="getpathname"><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cfiledialog-class?view=msvc-170#getpathname">GetPathName</a></h3>
+<p>The path of the filename includes the file’s title plus the entire directory path.</p>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://www.functionx.com/visualc/controls/filedialog.htm">The File Dialog</a></li>
+<li><a href="https://www.functionx.com/visualc/fileprocessing/dlgfile.htm">MFC File Processing: The File Dialog Box</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

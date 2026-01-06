@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>The manifest in VS2008</title></head> <body> <h1>The manifest in VS2008</h1>  <p><em>This issue only applies to VS2008; other versions do not have this problem.</em></p> <p>2025-11-22</p> <p>Written by: xiaobin</p> <p>A preliminary manifest was used in VS2008.</p>
+<p>Therefore, the version number needs to be set manually.</p>
+<ul>
+<li>crtassem.h</li>
+<li>mfcassem.h</li>
+</ul>
+<h3 id="crt"><a href="https://stackoverflow.com/a/11205771">CRT</a></h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>It is not, your #includes and CRT libraries did in fact get upgraded to 9.0.30729.4462 when you installed the hotfix/service pack/security patch.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Open vc/include/crtassem.h to see the macro soup. </span></span>
+<span class="line"><span>What matters is the _BIND_TO_CURRENT_CRT_VERSION macro value that's in effect when you compile your code. </span></span>
+<span class="line"><span>When set to 0, you'll declare a dependency on the original RTM version of the CRT (9.0.21022.8). </span></span>
+<span class="line"><span>With fingers crossed behind your back that Microsoft didn't make any changes in the CRT that will break your code </span></span>
+<span class="line"><span>when it runs on a machine that has a publisher policy installed that redirects to a later CRT version.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>With it set to 1, you'll declare a dependency on the version of the CRT that you actually tested your code with, </span></span>
+<span class="line"><span>the one that's installed on your dev machine. Which is the more sane thing to do. </span></span>
+<span class="line"><span>Albeit that Microsoft went through some trouble to ensure that service patches to the CRT didn't break anything, </span></span>
+<span class="line"><span>I never heard of a case where this happened.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>What the linker warning is trying to tell you, ever so clumsily, </span></span>
+<span class="line"><span>is that you are trying to link code that was compiled with _BIND_TO_CURRENT_CRT_VERSION set to 0 with code that was compiled with it set to 1. </span></span>
+<span class="line"><span>Which of course makes no sense, you can't have it both ways.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Fix the compiler settings, they must be the same for all code you link.</span></span></code></pre>
+<ul>
+<li>crtassem.h</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	// 0</span></span>
+<span class="line"><span>    #define _BIND_TO_CURRENT_CRT_VERSION 1</span></span></code></pre>
+<h3 id="mfc">MFC</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	// 0</span></span>
+<span class="line"><span>    #define _BIND_TO_CURRENT_MFC_VERSION 1</span></span></code></pre>
+<h4 id="mfcassemh">MFCassem.h</h4>
+<blockquote>
+<p>VC/atlmfc/include/MFCassem.h</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/***</span></span>
+<span class="line"><span>*MFCassem.h - Libraries Assembly information</span></span>
+<span class="line"><span>*</span></span>
+<span class="line"><span>*       Copyright (c) Microsoft Corporation. All rights reserved.</span></span>
+<span class="line"><span>*</span></span>
+<span class="line"><span>*Purpose:</span></span>
+<span class="line"><span>*       This file has information about Libraries Assembly version.</span></span>
+<span class="line"><span>*</span></span>
+<span class="line"><span>*</span></span>
+<span class="line"><span>****/</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#pragma once</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#ifndef _VC_ASSEMBLY_PUBLICKEYTOKEN</span></span>
+<span class="line"><span>#define _VC_ASSEMBLY_PUBLICKEYTOKEN "1fc8b3b9a1e18e3b"</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#if !defined(_BIND_TO_CURRENT_VCLIBS_VERSION)</span></span>
+<span class="line"><span>  #define _BIND_TO_CURRENT_VCLIBS_VERSION 0</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#if !defined(_BIND_TO_CURRENT_MFC_VERSION)</span></span>
+<span class="line"><span>  #if _BIND_TO_CURRENT_VCLIBS_VERSION</span></span>
+<span class="line"><span>    #define _BIND_TO_CURRENT_MFC_VERSION 1</span></span>
+<span class="line"><span>  #else</span></span>
+<span class="line"><span>	// 0</span></span>
+<span class="line"><span>    #define _BIND_TO_CURRENT_MFC_VERSION 1</span></span>
+<span class="line"><span>  #endif</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#ifndef _MFC_ASSEMBLY_VERSION</span></span>
+<span class="line"><span>#if _BIND_TO_CURRENT_MFC_VERSION</span></span>
+<span class="line"><span>#define _MFC_ASSEMBLY_VERSION "9.0.30729.1"</span></span>
+<span class="line"><span>#else</span></span>
+<span class="line"><span>#define _MFC_ASSEMBLY_VERSION "9.0.21022.8"</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>//// ...</span></span></code></pre>
+<h3 id="subsequent-versions">Subsequent versions</h3>
+<p>For some reason with <a href="https://mariusbancila.ro/blog/2010/03/24/visual-studio-2010-changes-for-vc-part-5">Visual Studio 2010</a>
+Microsoft has reverted the behaviour to VS2003 and no manifests are generated by default.</p>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

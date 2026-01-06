@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>Icon - Document/View model</title></head> <body> <h1>Icon - Document/View model</h1>  <p><em>Minimize the child window to redraw the icon.</em></p> <p>2025-11-17</p> <p>Written by: xiaobin</p> <p>If you add a minimize button to your dialog/form, you will need the code below
+to draw the icon.  For MFC applications using the document/view model,
+this is automatically done for you by the framework.</p>
+<h3 id="meet-the-conditions">Meet the conditions</h3>
+<ul>
+<li>minimize box:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Minimize box: True</span></span></code></pre>
+<ul>
+<li>child window：</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Style: Child</span></span></code></pre>
+<h3 id="message-map">message map</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    ON_WM_PAINT()</span></span>
+<span class="line"><span>    ON_WM_QUERYDRAGICON()</span></span></code></pre>
+<h3 id="query-drag-icon">query drag icon</h3>
+<ul>
+<li>declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>afx_msg HCURSOR OnQueryDragIcon();</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>(HCURSOR)m_hIcon;</span></span></code></pre>
+<h3 id="paint">paint</h3>
+<p>Draw Icon:</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-isiconic">IsIconic()</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics()</a></li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    if (IsIconic())</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        CPaintDC dc(this); // device context for painting</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        int cxIcon = GetSystemMetrics(SM_CXICON);</span></span>
+<span class="line"><span>        int cyIcon = GetSystemMetrics(SM_CYICON);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        CRect rect;</span></span>
+<span class="line"><span>        GetClientRect(&#x26;rect);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        int x = (rect.Width() - cxIcon + 1) / 2;</span></span>
+<span class="line"><span>        int y = (rect.Height() - cyIcon + 1) / 2;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        dc.DrawIcon(x, y, m_hIcon);</span></span>
+<span class="line"><span>    }</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial23-mfc">Icon - Normal Window</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

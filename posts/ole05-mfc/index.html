@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>COleDataObject - OLE in MFC</title></head> <body> <h1>COleDataObject - OLE in MFC</h1>  <p><em>simple wrapper for IDataObject</em></p> <p>2025-12-10</p> <p>Written by: xiaobin</p> <p>COleDataObject is usually used on the receiving end of a data transfer. While the COleDataObject class actually
+implements IDataObject, COleDataObject is merely a wrapper around an existing IDataObject pointer. Listing 12-2
+shows the definition of COleDataObject from the file AFXOLE.H.</p>
+<p>Listing 12-2. The COleDataObject class</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/*============================================================================*/</span></span>
+<span class="line"><span>// COleDataObject -- simple wrapper for IDataObject</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class COleDataObject</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>// Constructors</span></span>
+<span class="line"><span>public:</span></span>
+<span class="line"><span>	COleDataObject();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// Operations</span></span>
+<span class="line"><span>	void Attach(LPDATAOBJECT lpDataObject, BOOL bAutoRelease = TRUE);</span></span>
+<span class="line"><span>	LPDATAOBJECT Detach();  // detach and get ownership of m_lpDataObject</span></span>
+<span class="line"><span>	void Release(); // detach and Release ownership of m_lpDataObject</span></span>
+<span class="line"><span>	BOOL AttachClipboard(); // attach to current clipboard object</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// Attributes</span></span>
+<span class="line"><span>	void BeginEnumFormats();</span></span>
+<span class="line"><span>	BOOL GetNextFormat(LPFORMATETC lpFormatEtc);</span></span>
+<span class="line"><span>	CFile* GetFileData(CLIPFORMAT cfFormat, LPFORMATETC lpFormatEtc = NULL);</span></span>
+<span class="line"><span>	HGLOBAL GetGlobalData(CLIPFORMAT cfFormat, LPFORMATETC lpFormatEtc = NULL);</span></span>
+<span class="line"><span>	BOOL GetData(CLIPFORMAT cfFormat, LPSTGMEDIUM lpStgMedium,</span></span>
+<span class="line"><span>		LPFORMATETC lpFormatEtc = NULL);</span></span>
+<span class="line"><span>	BOOL IsDataAvailable(CLIPFORMAT cfFormat, LPFORMATETC lpFormatEtc = NULL);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// Implementation</span></span>
+<span class="line"><span>public:</span></span>
+<span class="line"><span>	LPDATAOBJECT m_lpDataObject;</span></span>
+<span class="line"><span>	LPENUMFORMATETC m_lpEnumerator;</span></span>
+<span class="line"><span>	~COleDataObject();</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	// advanced use and implementation</span></span>
+<span class="line"><span>	LPDATAOBJECT GetIDataObject(BOOL bAddRef);</span></span>
+<span class="line"><span>	void EnsureClipboardObject();</span></span>
+<span class="line"><span>	BOOL m_bClipboard;      // TRUE if represents the Win32 clipboard</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>protected:</span></span>
+<span class="line"><span>	BOOL m_bAutoRelease;    // TRUE if destructor should call Release</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>private:</span></span>
+<span class="line"><span>	// Disable the copy constructor and assignment by default so you will get</span></span>
+<span class="line"><span>	//   compiler errors instead of unexpected behaviour if you pass objects</span></span>
+<span class="line"><span>	//   by value or assign objects.</span></span>
+<span class="line"><span>	COleDataObject(const COleDataObject&#x26;);  // no implementation</span></span>
+<span class="line"><span>	void operator=(const COleDataObject&#x26;);  // no implementation</span></span>
+<span class="line"><span>};</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Here's a rundown of the most important COleDataObject functions: Attach(), AttachClipboard(), </span></span></code></pre>
+<p>BeginEnumFormats/GetNextFormat(), and the GetData…() functions.</p>
+<h3 id="attach-and-detach">Attach() and Detach()</h3>
+<p>Recall that COleDataObject is merely a wrapper for an existing IDataObject pointer. Notice that COleDataObject
+maintains an IDataObject member, called m_lpDataObject. Like other MFC classes that wrap native things such as
+handles, COleDataObject has a function for attching an existing interface pointer to the class. That function
+is called Attach(). Attach() takes two parameters: a pointer to an IDataObject interface and a flag indicating
+whether or not the interface pointer should be released when the COleDataObject object is destroyed.
+COleDataObject::Attach() releases m_lpDataObject (if it is valid and if m_bAutoRelease is TRUE), then sets the
+m_lpDataObject and the m_bAutoRelease members to the new values provided by parameters.
+There’s also a complementary function called Detach() that sets m_lpDataObject to NULL. COleDataObject::Release()
+releases the IDataObject pointer --- if m_bAutoRelease is set to TRUE.</p>
+<h3 id="attachclipboard-and-ensureclipboarddata">AttachClipboard() and EnsureClipboardData()</h3>
+<p>The documentation provided by Microsoft indicates that if you want to retrieve data from the Clipboard,
+you should call COleDataObject::AttachClipboard(). Yes, AttachClipboard() is the member you should call.
+However, AttachClipboard() simply sets COleDataObject’s m_bClipboard flag to TRUE. The real action occurs
+in COleDataObject::EnsureClipboardData().
+EnsureClipboardData() is a wrapper for the API function OleGetClipboard(). If the m_bClipboard flag(the one
+set by AttachClipboard()) is TRUE, then OleGetClipboard() pulls down a copy of the OLE Clipboard’s IDataObject
+pointer and wraps the pointer using friendly MFC class member function provided by COleDataObject.
+MFC accesses the Clipboard this way as an optimization. You’ll see why when examining COleDataObject::IsDataAvailable().</p>
+<h3 id="determining-available-data">Determining Available Data</h3>
+<p>COleDataObject has a function called IsDataAvailable() that takes a CLIPFORMAT and a FORMATETC as its parameters.
+IsDataAvailable() checks the m_bClipboard flag. If the flag is FALSE, then IsDataAvailable() calls the IDataObject
+interface’s QueryGetData() to find out if the data is available in the given format.
+If m_bClipboard is TRUE, then there’s probably data on the Clipboard (that is, the user has called AttachClipboard()).
+IsDataAvailable simple defers to the standard Windows API functions ::IsClipboardFormatAvailable(), which is often more
+efficient and reliable than calling IDataObject::QueryGetData().
+Notice that IsDataAvailable() takes a CLIPFORMAT and a FORMATETC structure. However, if the consumer has called
+AttachClipboard(), then IsDataAvailable() calls the Win32 API that accepts only a CLIPFORMAT as a parameter. What if the
+consumer is requesting data using a FORMATETC structure? The Win32 function doesn’t know how to deal with a FORMATETC structure
+either. The OLE API ignores everything but the clipformat! Maybe when the Windows API is implemented on top of OLE instead
+of the other way around, this will change.</p>
+<h3 id="enumerating-formats">Enumerating Formats</h3>
+<p>Recall that IDataObject has a function called EnumFormatEtc(). EnumFormatEtc() returns a pointer to an interface that enumerates
+the Clipboard formats. COleDataObject::BeginEnumFormats() starts the enumeration by retrieving the enumeration interface pointer
+from the underlying IDataObject interface. To retrieve the actual formats, clients call COleDataObject::GetNextFormat().
+GetNextFormat() uses the enumerator passed back during the call to COleDataObject::BeginEnumFormats(), calling the enumerator’s
+Next() function.</p>
+<h3 id="retrieving-the-data">Retrieving the Data</h3>
+<p>GetData() calls EnsureClipboardData() to get the IDataObject off the Clipboard, then defers the IDataObject pointer’s GetData()
+to retrieve the data.
+COleDataObject’s other GetData…() variants are GetGlobalData and GetFileData(). They work the same way as GetData(),
+except GetGlobalData() retrieves a global memory handle and GetFileData() retrieves a file handle.
+As you can see, MFC’s IDataObject classes(COleDataSource and COleDataObject) wrap Clipboard data transfers very well.
+They also do a great job implementing OLE drag-and-drop. In fact, doing drag-and-drop is very similar and only takes a little
+bit more work to implement.</p>
+<h2 id="ref">Ref</h2>
+<ul>
+<li>COleDataObject - Excerpt from “MFC Internals”</li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

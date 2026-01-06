@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>Delphi调用COM</title></head> <body> <h1>Delphi调用COM</h1>  <p><em>delphi6/7</em></p> <p>2020-05-14</p> <p>Written by: tdtc</p> <h1 id="准备">准备</h1>
+<h2 id="1-windows-系统引入">1. Windows 系统引入</h2>
+<p>运行 -> Regsvr32 x:/FCV.dll</p>
+<h2 id="2-delphi-引入">2. Delphi 引入</h2>
+<p>Project -> Import Type Library ->“FCV 1.1 Type Library (Version1.1)“</p>
+<h1 id="code">code</h1>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>unit</span></span>
+<span class="line"><span>    UntMain; interface uses Windows, Messages, SysUtils, Variants, Classes,</span></span>
+<span class="line"><span>	Graphics, Controls, Forms, Dialogs, StdCtrls, OleServer, FCVLib_TLB;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>type</span></span>
+<span class="line"><span>  TfrmMain = class(TForm)</span></span>
+<span class="line"><span>	lblFileVal: TLabel;</span></span>
+<span class="line"><span>	lblFcvVal: TLabel;</span></span>
+<span class="line"><span>	edtFilePath: TEdit;</span></span>
+<span class="line"><span>	btnGenFCN: TButton;</span></span>
+<span class="line"><span>	edtFCVpath: TEdit;</span></span>
+<span class="line"><span>	btnCalFileValue: TButton;</span></span>
+<span class="line"><span>	btnReadFCV: TButton;</span></span>
+<span class="line"><span>	btnCreatFCV: TButton;</span></span>
+<span class="line"><span>	UCRC321: TUCRC32;</span></span>
+<span class="line"><span>	procedure btnCreatFCVClick(Sender: TObject);</span></span>
+<span class="line"><span>	procedure btnGenFCNClick(Sender: TObject);</span></span>
+<span class="line"><span>	procedure btnCalFileValueClick(Sender: TObject);</span></span>
+<span class="line"><span>	procedure btnReadFCVClick(Sender: TObject);</span></span>
+<span class="line"><span>  private</span></span>
+<span class="line"><span>      { Private declarations }</span></span>
+<span class="line"><span>      myFCV: IUCRC32;</span></span>
+<span class="line"><span>  public</span></span>
+<span class="line"><span>      { Public declarations }</span></span>
+<span class="line"><span>      instanceFlag: Boolean;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>end;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>var</span></span>
+<span class="line"><span>    frmMain: TfrmMain;  </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>implementation</span></span>
+<span class="line"><span>    {$R *.dfm}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	procedure TfrmMain.btnCreatFCVClick(Sender: TObject);</span></span>
+<span class="line"><span>	begin</span></span>
+<span class="line"><span>		myFCV:= CoUCRC32.Create;</span></span>
+<span class="line"><span>		instanceFlag := True;</span></span>
+<span class="line"><span>	end;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	procedure TfrmMain.btnGenFCNClick(Sender: TObject);</span></span>
+<span class="line"><span>	var</span></span>
+<span class="line"><span>	    saveFile, checkFile: WideString; i112: Integer;</span></span>
+<span class="line"><span>	begin</span></span>
+<span class="line"><span>	    //</span></span>
+<span class="line"><span>		if not instanceFlag then exit;</span></span>
+<span class="line"><span>		saveFile:= edtFCVpath.Text;</span></span>
+<span class="line"><span>		checkFile:= edtFilePath.Text;</span></span>
+<span class="line"><span>		i112:= myFCV.SaveFCN(saveFile, checkFile);</span></span>
+<span class="line"><span>		ShowMessage(inttostr(i112));</span></span>
+<span class="line"><span>	end;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	procedure TfrmMain.btnCalFileValueClick(Sender: TObject);</span></span>
+<span class="line"><span>	var</span></span>
+<span class="line"><span>	    filePath: WideString;</span></span>
+<span class="line"><span>		retVal: DWORD;</span></span>
+<span class="line"><span>	begin</span></span>
+<span class="line"><span>	    if not instanceFlag then exit;</span></span>
+<span class="line"><span>		filePath:= edtFilePath.Text;</span></span>
+<span class="line"><span>		retVal:= myFCV.CalCRC32(filePath);</span></span>
+<span class="line"><span>		lblFileVal.Caption:= IntToHex(retVal, 8);</span></span>
+<span class="line"><span>	end;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>	procedure TfrmMain.btnReadFCVClick(Sender: TObject);</span></span>
+<span class="line"><span>	var</span></span>
+<span class="line"><span>	  filePath: WideString;</span></span>
+<span class="line"><span>		retVal: DWORD;</span></span>
+<span class="line"><span>	begin</span></span>
+<span class="line"><span>	//</span></span>
+<span class="line"><span>		if not instanceFlag then exit;</span></span>
+<span class="line"><span>		filePath:= edtFCVpath.Text;</span></span>
+<span class="line"><span>		retVal:= myFCV.ReadFCN(filePath);</span></span>
+<span class="line"><span>		lblFcvVal.Caption:= IntToHex(retVal, 8);</span></span>
+<span class="line"><span>	end;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>end.</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

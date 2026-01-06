@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>The Message Map</title></head> <body> <h1>The Message Map</h1>  <p><em>add F1 feature</em></p> <p>2025-11-13</p> <p>Written by: xiaobin</p> <p>The message map is MFC’s way of avoiding the lengthy <i>vtables</i> that would be required
+if every class had a virtual function for every possible message it might receive.
+Any class derived from CCmdTarget can contain a message map.</p>
+<ol>
+<li>Declare the message map by adding a DECLARE_MESSAGE_MAP statement to the class declaration.</li>
+<li>Implement the message map by placing macros identifying the messages that the class will handle
+between calls to BEGIN_MESSAGE_MAP and END_MESSAGE_MAP.</li>
+<li>Add member functions to handle the messages.</li>
+</ol>
+<ul>
+<li>declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DECLARE_MESSAGE_MAP()</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BEGIN_MESSAGE_MAP(CMyApp, CWinApp)</span></span>
+<span class="line"><span>    ON_COMMAND(ID_HELP, &#x26;CWinApp::OnHelp)</span></span>
+<span class="line"><span>END_MESSAGE_MAP()</span></span></code></pre>
+<h4 id="begin-message-map"><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/message-map-macros-mfc?view=msvc-170#begin_message_map">begin message map</a></h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BEGIN_MESSAGE_MAP( theClass, baseClass )</span></span></code></pre>
+<p>Parameters:</p>
+<ul>
+<li>theClass</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Specifies the name of the class whose message map this is.</span></span></code></pre>
+<ul>
+<li>baseClass</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Specifies the name of the base class of theClass.</span></span></code></pre>
+<h3 id="modify-cmyapp">Modify CMyApp</h3>
+<blockquote>
+<p>MyApp.cpp</p>
+</blockquote>
+<ul>
+<li>OnHelp()</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "stdafx.h"</span></span></code></pre>
+<p>Copy stdafx.h and targetver.h to the project directory.</p>
+<h4 id="afxwin">afxwin</h4>
+<blockquote>
+<p>MyApp.h</p>
+</blockquote>
+<p>Use</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#ifndef __AFXWIN_H__</span></span>
+<span class="line"><span>    #error "include 'stdafx.h' before including this file for PCH"</span></span>
+<span class="line"><span>#endif</span></span></code></pre>
+<p>instead of</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;afxwin.h></span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/message-map-macros-mfc">Message Map Macros (MFC)</a></li>
+<li><a href="https://mega.nz/file/qMt2lYhT#WWIbuyYjfYr4QWOEDP1AYyU3eabjyj9oP1eMvKdLikA">Second MFC - demo</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

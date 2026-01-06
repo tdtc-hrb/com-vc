@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>Done Hello - MFC</title></head> <body> <h1>Done Hello - MFC</h1>  <p><em>A complete Hello demo.</em></p> <p>2025-11-14</p> <p>Written by: xiaobin</p> <h3 id="add-resource">Add Resource</h3>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res-hellomfc.png" alt="add resource"></p>
+<h4 id="dialog-bar">dialog bar</h4>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res2-hellomfc.png" alt="add resource"></p>
+<p>property:</p>
+<ul>
+<li>Style: Popup</li>
+<li>System Menu: True</li>
+<li>Title Bar: True</li>
+</ul>
+<h4 id="set-icon">Set Icon</h4>
+<ul>
+<li>add picture</li>
+</ul>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res3-hellomfc.png" alt="add resource">
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res4-hellomfc.png" alt="add resource"></p>
+<ul>
+<li>picture control</li>
+</ul>
+<blockquote>
+<p>type: Icon
+Image: IDI_ICON1</p>
+</blockquote>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res5-hellomfc.png" alt="add resource"></p>
+<h3 id="about-dialog">About Dialog</h3>
+<ul>
+<li>add class</li>
+</ul>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-hellomfc.png" alt="add class"></p>
+<ul>
+<li>add resource head file</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "resource.h"</span></span></code></pre>
+<h2 id="project">project</h2>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/solution-hellomfc.png" alt="solution explorer"></p>
+<ul>
+<li><a href="https://mega.nz/file/qEl13IDA#teaFKBqYkohy6jNpMO5MmUwwGi7B0EDJE-I065K2J-E">HelloMfc.zip</a></li>
+</ul>
+<h3 id="add-button">Add Button</h3>
+<ul>
+<li>Declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>private:</span></span>
+<span class="line"><span>    CButton m_btnAbout;</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    CRect rt;</span></span>
+<span class="line"><span>    rt.top = 10;</span></span>
+<span class="line"><span>    rt.left = 150;</span></span>
+<span class="line"><span>    rt.right = 250;</span></span>
+<span class="line"><span>    rt.bottom = 30;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    m_btnAbout.Create(_T("About"),</span></span>
+<span class="line"><span>        WS_CHILD | WS_VISIBLE,</span></span>
+<span class="line"><span>        rt,</span></span>
+<span class="line"><span>        this,</span></span>
+<span class="line"><span>        ID_ABOUT); // #define ID_ABOUT 1101</span></span></code></pre>
+<h3 id="button-event">Button Event</h3>
+<ul>
+<li>Declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>public:</span></span>
+<span class="line"><span>    afx_msg void OnBtnClick();</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>afx_msg void CMainWindow::OnBtnClick()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    CAboutDlg dlgAbout;  // #include "AboutDlg.h"</span></span>
+<span class="line"><span>    dlgAbout.DoModal();</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="add-message-map">Add Message Map</h3>
+<ul>
+<li>Declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DECLARE_MESSAGE_MAP()</span></span></code></pre>
+<ul>
+<li>impl</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BEGIN_MESSAGE_MAP(CMainWindow, CFrameWnd)</span></span>
+<span class="line"><span>    ON_COMMAND(ID_ABOUT, OnBtnClick)</span></span>
+<span class="line"><span>END_MESSAGE_MAP()</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial19-mfc">First Demo</a></li>
+<li><a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial20-mfc">Second Demo</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

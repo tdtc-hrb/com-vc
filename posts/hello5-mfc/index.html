@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>Hello - mfc samples</title></head> <body> <h1>Hello - mfc samples</h1>  <p><em>Illustrates a single application window with a menu and About box.</em></p> <p>2025-11-26</p> <p>Written by: xiaobin</p> <p>This article adds menu events and shortcut key responses in CFrameWnd.
+The modifications are based on the <a href="https://tdtc-hrb.github.io/com-vc/posts/tutorial21-mfc">HelloMFC example</a>.</p>
+<h3 id="cframewnd">CFrameWnd</h3>
+<ul>
+<li>load menu</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    Create(NULL, _T("Hello MFC"),</span></span>
+<span class="line"><span>        WS_OVERLAPPEDWINDOW,</span></span>
+<span class="line"><span>        rectDefault, </span></span>
+<span class="line"><span>        NULL, </span></span>
+<span class="line"><span>        MAKEINTRESOURCE(IDR_MENU1)</span></span>
+<span class="line"><span>    );</span></span></code></pre>
+<ul>
+<li><a href="https://stackoverflow.com/a/48791940">Load Accelerator table</a></li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>LoadAccelTable(MAKEINTRESOURCE(IDR_ACCELERATOR1));</span></span></code></pre>
+<h3 id="menu">Menu</h3>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res6-hellomfc.png" alt="add menu"></p>
+<ul>
+<li>event</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMainWindow::OnHelpAboutus()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    // TODO: Add your command handler code here</span></span>
+<span class="line"><span>    OnBtnClick();</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_event1a-hellomfc.png" alt="add event"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_event2a-hellomfc.png" alt="add event"></p>
+<h3 id="accelerator">Accelerator</h3>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res7-hellomfc.png" alt="add resource"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res8-hellomfc.png" alt="add resource"></p>
+<h4 id="key-conflict">Key conflict</h4>
+<p>Remove the message mapping for MyApp.</p>
+<ul>
+<li>MyApp.cpp</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>BEGIN_MESSAGE_MAP(CMyApp, CWinApp)</span></span>
+<span class="line"><span>    ////ON_COMMAND(ID_HELP, &#x26;CWinApp::OnHelp)</span></span>
+<span class="line"><span>END_MESSAGE_MAP()</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/overview/visual-cpp-samples?view=msvc-170#mfc-samples---general">MFC samples - General</a></li>
+<li><a href="https://mega.nz/file/fEN20B7I#hBoKIkr-MV-WzLLtezv1WvzqbNGPByM67QLo7f1jU6o">hellomfc2.zip demo</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

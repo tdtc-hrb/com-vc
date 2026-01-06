@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>windbg调试sandboxie driver</title></head> <body> <h1>windbg调试sandboxie driver</h1>  <p><em>串口方式</em></p> <p>2022-09-06</p> <p>Written by: tdtc</p> <p>Sandboxie builds under <a href="https://gitee.com/xiaobin80/sandboxie/blob/master/ReadMe.md">MS Visual Studio 2015</a>.<br>
+可以升级到vs2017 &#x26; windows sdk8.1.</p>
+<h1 id="prepare">Prepare</h1>
+<p>Host Env:</p>
+<ul>
+<li>OS<br>
+Win1809(x64)</li>
+<li>VM<br>
+VMware(v10.0.7) / Vbox(v6.1.38)</li>
+<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/other-wdk-downloads#step-2-install-the-wdk">WDK(include windbg)</a><br>
+<a href="https://www.microsoft.com/en-us/download/details.aspx?id=11800">Windows Driver Kit Version 7.1.0 - win7</a> /
+<a href="https://go.microsoft.com/fwlink/?linkid=2128854">Windows 10, version 2004 - win8.1</a></li>
+</ul>
+<h2 id="vm-setting---serial-port">VM setting - serial port</h2>
+<blockquote>
+<p>vmware or vbox</p>
+</blockquote>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>\\.\pipe\com_1</span></span></code></pre>
+<h3 id="vmware">vmware</h3>
+<p>i/o mode:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>yield CPU on poll</span></span></code></pre>
+<h3 id="vbox">vbox</h3>
+<p>Port 2:<br>
+uncheck:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Connect to existing pipe/socket</span></span></code></pre>
+<h2 id="windbg">windbg</h2>
+<p>about version:<br>
+The operating system needs to match the same or higher version of windbg.<br>
+Otherwise the OS version will not be recognized!!</p>
+<h3 id="home-path">home path</h3>
+<ul>
+<li>v7.1</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\WinDDK\7600.16385.1\Debuggers\</span></span></code></pre>
+<ul>
+<li>x86</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\Program Files (x86)\Windows Kits\10\Debuggers\x86</span></span></code></pre>
+<ul>
+<li>x64</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\Program Files (x86)\Windows Kits\10\Debuggers\x64</span></span></code></pre>
+<h3 id="shortcute">ShortCute</h3>
+<p>If you use a shortcut, you don’t need to set the download path in the command.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;home path> -y "srv*c:\symbols*https://msdl.microsoft.com/download/symbols"</span></span></code></pre>
+<h2 id="guest-os">guest os</h2>
+<ul>
+<li>Win7 SP1(x86) <a href="https://blog.simplix.info/update7/">latest update</a></li>
+<li>Win8.1(x86) <a href="https://winfuture.de/downloadvorschalt,3087.html">latest update</a></li>
+</ul>
+<h3 id="display-os-list">display os list</h3>
+<p>Add an OS to display the OS list:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#E1E4E8">bcdedit /copy {current} /d </span><span style="color:#9ECBFF">"Sandboxie Usage"</span></span></code></pre>
+<h3 id="debug-settings">debug settings</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bcdedit /debug on</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bcdedit /dbgsettings serial debugport:2 baudrate:115200</span></span></code></pre>
+<h3 id="disable-driver-signature-enforcement">Disable Driver Signature Enforcement</h3>
+<ul>
+<li>
+<p>Win7<br>
+After each startup, press F8 (laptop Fn+F8).</p>
+</li>
+<li>
+<p>Win8+</p>
+</li>
+</ul>
+<ol>
+<li>
+<p>Settings -> Update and recovery → Recovery</p>
+</li>
+<li>
+<p>Troubleshoot and then Advanced options.</p>
+</li>
+<li>
+<p>Go to “Advanced options” and click Start-up Settings.</p>
+</li>
+<li>
+<p>Under “Start-up Settings” click Restart.</p>
+</li>
+</ol>
+<h3 id="install-application">install application</h3>
+<p>setup “SandboxieInstall32.exe”</p>
+<h1 id="start-working">start working</h1>
+<ul>
+<li>Visual Studio 2017<br>
+Compile the source code with vs2017 in order to generate pdb.</li>
+<li>WDK<br>
+v7.1</li>
+</ul>
+<h2 id="kernel-debug">kernel debug</h2>
+<p>com:</p>
+<ul>
+<li>port</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>\\.\pipe\com_1</span></span></code></pre>
+<ul>
+<li>
+<p>pipe
+checked</p>
+</li>
+<li>
+<p>reconnect
+checked</p>
+</li>
+</ul>
+<h3 id="path"><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-sympath--set-symbol-path-">path</a></h3>
+<p>config:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.sympath SRV*c:\symbols*http://msdl.microsoft.com/download/symbols</span></span></code></pre>
+<p>details:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>!sym noisy</span></span></code></pre>
+<p>把需要调试的pdb放入指定的文件夹。<br>
+注意每次调试新os的时候，文件夹位置会不同!!!<br>
+For example, the first time:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\symbols\SbieDrv.pdb\BF241AE76B2D4145B6A1B57B13335E8C1</span></span></code></pre>
+<p>the second time:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\symbols\SbieDrv.pdb\33C23FFE03A8402BA6E16961BA2880CE1</span></span></code></pre>
+<h1 id="command">command</h1>
+<p>Enable Debugger Markup Language (DML) with .prefer_dml</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.prefer_dml 1</span></span></code></pre>
+<h2 id="reload-module"><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-reload--reload-module-">Reload Module</a></h2>
+<p>load all modules:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.reload /f</span></span></code></pre>
+<p>Specified module:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.reload /f /i SbieDrv.sys</span></span></code></pre>
+<h2 id="list-loaded-modules"><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/lm--list-loaded-modules-">List Loaded Modules</a></h2>
+<p>show specified module:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>lm m SbieDrv v</span></span></code></pre>
+<h2 id="break-point"><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/bp--bu--bm--set-breakpoint">Break point</a></h2>
+<h3 id="unresolved-breakpoint">Unresolved Breakpoint</h3>
+<p>Sets a breakpoint that is unresolved when the module is unloaded and re-enables when the module reloads.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bu SbieDrv!Api_CopySidStringFromUser</span></span>
+<span class="line"><span>bu SbieDrv!Api_Init</span></span>
+<span class="line"><span>bu SbieDrv!Api_CopyBoxNameFromUser</span></span>
+<span class="line"><span>bu SbieDrv!Api_CopyStringToUser</span></span>
+<span class="line"><span>bu SbieDrv!Api_GetHomePath</span></span>
+<span class="line"><span>bu SbieDrv!Api_GetVersion</span></span>
+<span class="line"><span>bu SbieDrv!Api_Irp_CLEANUP</span></span>
+<span class="line"><span>bu SbieDrv!Api_LogMessage</span></span>
+<span class="line"><span>bu SbieDrv!Api_SetFunction</span></span>
+<span class="line"><span>bu SbieDrv!Api_SendServiceMessage</span></span>
+<span class="line"><span>bu SbieDrv!Api_GetWork</span></span>
+<span class="line"><span>bu SbieDrv!Api_FastIo_DEVICE_CONTROL</span></span>
+<span class="line"><span>bu SbieDrv!Api_SetServicePort</span></span>
+<span class="line"><span>bu SbieDrv!Api_AddWork</span></span>
+<span class="line"><span>bu SbieDrv!Api_DelWork</span></span>
+<span class="line"><span>bu SbieDrv!Api_Irp_CREATE</span></span>
+<span class="line"><span>bu SbieDrv!Api_Disable</span></span>
+<span class="line"><span>bu SbieDrv!Api_ResetServiceProcess</span></span>
+<span class="line"><span>bu SbieDrv!Api_Unload</span></span></code></pre>
+<p>Activate the above debugging:<br>
+“Create a new sandbox”,<br>
+“Run web Browser”;<br>
+right click web link, “Save target as”.</p>
+<h3 id="breakepoint-list"><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/bl--breakpoint-list-">Breakepoint List</a></h3>
+<p>List the current breakpoints to confirm that the breakpoint was set by typing the bl command.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bl</span></span></code></pre>
+<h2 id="run-and-quit">run and quit</h2>
+<p>go:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>g</span></span></code></pre>
+<p>break:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Debug -> Break</span></span></code></pre>
+<p>quit debug:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>qd</span></span></code></pre>
+<h1 id="ref">Ref</h1>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debug-universal-drivers--kernel-mode-">Debug Drivers - Step by Step Lab</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/windows-hardware/drivers/debugger/getting-started-with-windbg">getting started with windbg</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-sym">symbol prompts</a></li>
+<li><a href="http://windbg.info/doc/1-common-cmds.html">command</a></li>
+<li><a href="https://www.technlg.net/windows/symbol-server-path-windbg-debugging/">Debugging using Windbg : Symbols loading</a></li>
+<li><a href="https://www.triplefault.io/2017/07/setting-up-kernel-debugging-using.html">Setting up kernel debugging using WinDbg and VMware</a></li>
+<li><a href="https://medium.com/@eaugusto/setting-up-a-windows-7-virtualbox-vm-for-kernel-mode-debugging-367911889316">Setting Up a Windows 7+ Virtualbox VM for Kernel Mode Debugging</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

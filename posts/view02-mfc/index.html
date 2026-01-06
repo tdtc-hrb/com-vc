@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>Tree Views</title></head> <body> <h1>Tree Views</h1>  <p><em>Wraps the tree view control</em></p> <p>2025-12-02</p> <p>Written by: xiaobin</p> <p>CTreeCtrl and CTreeView:</p>
+<ul>
+<li>One uses a variable directly</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>m_myTreeCtl</span></span></code></pre>
+<ul>
+<li>the other uses <i>GetTreeCtrl()</i><br>
+<a href="https://mega.nz/file/fAV2lKKQ#VYrrg0MFeJv9FqjfW1siLi53LmaJMQlpZwDUbhCGPqo">MyExplorer2.1.zip - demo</a></li>
+</ul>
+<h3 id="set-new-style">Set New Style</h3>
+<ul>
+<li>Direct settings</li>
+<li>Indirect setting</li>
+</ul>
+<p>default value:</p>
+<ul>
+<li>TVS_HASBUTTONS</li>
+<li>TVS_HASLINES</li>
+<li>TVS_LINESATROOT</li>
+</ul>
+<h4 id="direct-settings">Direct settings</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    GetTreeCtrl().ModifyStyle(0, TVS_HASBUTTONS);</span></span>
+<span class="line"><span>    GetTreeCtrl().ModifyStyle(0, TVS_HASLINES);</span></span>
+<span class="line"><span>    GetTreeCtrl().ModifyStyle(0, TVS_LINESATROOT);</span></span></code></pre>
+<h4 id="indirect-settings">Indirect settings</h4>
+<p>First obtain the handle, then set the Tree-View Control Window Styles.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CLeftView::SetNewStyle(long lStyleMask, BOOL bSetBits)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    long        lStyleOld;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    lStyleOld = GetWindowLongPtr(GetTreeCtrl().GetSafeHwnd(), GWL_STYLE);</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    lStyleOld &#x26;= ~lStyleMask;</span></span>
+<span class="line"><span>    if (bSetBits)</span></span>
+<span class="line"><span>        lStyleOld |= lStyleMask;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    SetWindowLongPtr(GetTreeCtrl().GetSafeHwnd(), GWL_STYLE, lStyleOld);</span></span>
+<span class="line"><span>    SetWindowPos(NULL, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>The example comes from “<a href="https://stackoverflow.com/a/21140319">hyun</a>”
+and “<a href="https://github.com/microsoft/VCSamples/blob/9e1d4475555b76a17a3568369867f1d7b6cc6126/VC2010Samples/MFC/general/CmnCtrl1/mtreectl.cpp#L61">CMyTreeCtrl::SetNewStyle</a>”</p>
+<h3 id="data-mgr---insert">data mgr - insert</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    for (iItem = 0; iItem &#x3C; sizeof(strItems) / sizeof(strItems[0]); iItem++)</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        curTreeItem.hParent = (iItem % 4 == 0)? NULL : m_rghItem[iItem / 4 * 4];</span></span>
+<span class="line"><span>        curTreeItem.hInsertAfter = TVI_SORT;</span></span>
+<span class="line"><span>        curTreeItem.item.iImage = iItem / 4 * 2;</span></span>
+<span class="line"><span>        curTreeItem.item.iSelectedImage = curTreeItem.item.iImage + 1;</span></span>
+<span class="line"><span>        curTreeItem.item.pszText = strItems[iItem].GetBuffer(strItems[iItem].GetLength());</span></span>
+<span class="line"><span>        curTreeItem.item.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_TEXT;</span></span>
+<span class="line"><span>        m_rghItem[iItem] = GetTreeCtrl().InsertItem(&#x26;curTreeItem);</span></span>
+<span class="line"><span>    }</span></span></code></pre>
+<h4 id="data">data</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    HTREEITEM   m_rghItem[12];</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    CString             strItems[12];</span></span>
+<span class="line"><span>    int                 iItem;</span></span>
+<span class="line"><span>    TV_INSERTSTRUCT     curTreeItem;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    strItems[0] = _T("Dogs");</span></span>
+<span class="line"><span>    strItems[1] = _T("German Shepherd");</span></span>
+<span class="line"><span>    strItems[2] = _T("Dalmatian");</span></span>
+<span class="line"><span>    strItems[3] = _T("Great Dane");</span></span>
+<span class="line"><span>    strItems[4] = _T("Birds");</span></span>
+<span class="line"><span>    strItems[5] = _T("Hummingbird");</span></span>
+<span class="line"><span>    strItems[6] = _T("Pigeon");</span></span>
+<span class="line"><span>    strItems[7] = _T("Eagle");</span></span>
+<span class="line"><span>    strItems[8] = _T("Fish");</span></span>
+<span class="line"><span>    strItems[9] = _T("Snapper");</span></span>
+<span class="line"><span>    strItems[10] = _T("Sole");</span></span>
+<span class="line"><span>    strItems[11] = _T("Salmon");</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://assets.ctfassets.net/9pcn2syx7zns/6ejGpuR3LJdenVQWDCe23W/d152db4718309d396d07aa8b444a541e/mfc2.pdf">10.3. Tree Views(P626)- Programming Windows With MFC</a></li>
+<li><a href="https://github.com/definedrisk/prosise-mfc2e">CD-ROM Jeff Prosise MFC 2nd Edition.zip</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/ctreectrl-class?view=msvc-170">CTreeCtrl Class</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/Controls/tree-view-control-window-styles">Tree-View Control Window Styles</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/api/commctrl/ns-commctrl-tvinsertstructw">TVINSERTSTRUCTW structure</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/api/commctrl/ns-commctrl-tvitema">TVITEMA structure</a></li>
+<li><a href="https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/general/CmnCtrl1">MFC Sample CMNCTRL1</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>The CString Class - 1</title></head> <body> <h1>The CString Class - 1</h1>  <p><em>CStrings greatly simplifies string manipulation in MFC.</em></p> <p>2025-12-03</p> <p>Written by: xiaobin</p> <p>You used a CString object in the previous section, and there’s more to it than you have seen so far.
+The CString class provides a convenient and easy-to-use mechanism for handling strings that you can use just about anywhere a string is required.
+To be more precise, you can use a CString object in place of strings of type <code>const TCHAR*</code>, or of type <i>LPCTSTR</i>,
+which is a type that comes up in Windows API functions.
+If you are using the DDX mechanism for strings, then you must use CString, otherwise DDX won’t work.</p>
+<h3 id="string-basics">String Basics</h3>
+<ul>
+<li>Windows Types</li>
+<li>CString types</li>
+</ul>
+<h4 id="windows-types">Windows Types</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>name</th><th>Description</th></tr></thead><tbody><tr><td>TCHAR</td><td>An 8-bit or 16-bit character.  If the UNICODE preprocessor symbol is defined, this compiles to a wchar_t type; if the UNICODE preprocessor symbol is undefined, this compiles to a char type.  This is the preferred way to declare a character variable.</td></tr><tr><td>LPTSTR <br>PTSTR</td><td>A pointer to an 8-bit or 16-bit character string.  If the UNICODE preprocessor symbol is defined, this compiles to wchar_t *; if the UNICODE preprocessor symbol is undefined, this compiles to char *.  This is the preferred way of declare a pointer to a string.</td></tr><tr><td>LPCTSTR <br>PCTSTR</td><td>A pointer to a constant 8-bit or 16-bit character string.  If the UNICODE preprocessor symbol is defined, this compiles to const wchar_t *; if the UNICODE preprocessor symbol is undefined, this compiles to const char *.  This is the preferred way to declare a const pointer to a string.  Note that most APIs want LPCTSTR arguments, and a CString can always be used in such a context.</td></tr><tr><td>_T(‘x’)</td><td>A character literal.  If the UNICODE preprocessor symbol is defined, this compiles as L’x’, a 16-bit character value; if the UNICODE preprocessor symbol is undefined, this compiles as ‘x’, an 8-bit character value. This is the preferred way to declare a character constant.</td></tr><tr><td>_T(“abc”)</td><td>A string literal.  If the UNICODE preprocessor symbol is defined, this compiles as L”abc”, a wide-character string terminated with a wide-character NUL; if the UNICODE preprocessor symbol is undefined, this compiles as “abc”, an 8-bit string literal terminated with an 8-bit NUL character.  This is the preferred way to declare a string constant.</td></tr></tbody></table>
+<h4 id="cstring-types">CString types</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>name</th><th>Description</th></tr></thead><tbody><tr><td>CString</td><td>A string data type.  If the UNICODE preprocessor symbol is defined, this compiles as a type that holds 16-bit wide characters, terminated with a 16-bit NUL (CStringW); if the UNICODE preprocessor symbol is undefined, this compiles as a type that holds 8-bit characters, terminated with an 8-bit NUL (CStringA).</td></tr><tr><td>CStringA</td><td>A string data type.  Independent of the setting of the UNICODE preprocessor symbol, this always represents a sequence of 8-bit characters terminated with an 8-bit NUL.</td></tr><tr><td>CStringW</td><td>A string data type.  Independent of the setting of the UNICODE preprocessor symbol, this always represents a sequence of 16-bit characters terminated with a 16-bit NUL.</td></tr><tr><td>CStringT</td><td>Essentially, an alias for CString.</td></tr></tbody></table>
+<h3 id="formatting-including-integer-to-cstring">Formatting (including integer-to-CString)</h3>
+<p>Use of formatting is the most common way of converting from non-string data types to a CString,
+for example, converting an integer to a CString:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString s;</span></span>
+<span class="line"><span>s.Format(_T("%d"), total);</span></span></code></pre>
+<h3 id="converting-a-cstring-to-an-integer">Converting a CString to an integer</h3>
+<p>The simplest way to convert a CString to an integer value is to use one of the standard string-to-integer conversion routines.</p>
+<p>While generally you will suspect that _atoi is a good choice, it is rarely the right choice.
+If you play to be Unicode-ready, you should call the function _ttoi, which compiles into _atoi in ANSI code and _wtoi in Unicode code.
+You can also consider using _tcstoul (for unsigned conversion to any radix, such as 2, 8, 10 or 16) or _tcstol (for signed conversion to any radix).
+For example, here are some examples:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString hex = _T("FAB");</span></span>
+<span class="line"><span>CString decimal = _T("4011");</span></span>
+<span class="line"><span>ASSERT(_tcstoul(hex, 0, 16) == _ttoi(decimal));</span></span></code></pre>
+<h3 id="converting-a-cstring-to-a-double">Converting a CString to a double</h3>
+<p>but the required Unicode version did not appear until the VS2005 library.
+This means that <i>_ttof</i> does not exist below VS2005.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// ConsoleApplication1.cpp : Defines the entry point for the console application.</span></span>
+<span class="line"><span>//</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#include "stdafx.h"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#include &#x3C;stdio.h></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>int _tmain(int argc, _TCHAR* argv[])</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>    if ( argc > 0) </span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>        double value = _ttof(argv[1]);</span></span>
+<span class="line"><span> </span></span>
+<span class="line"><span>        printf("output: %e\n", value);</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    return 0;</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="converting-a-cstring-of-hex-digits-to-an-integer">Converting a CString of hex digits to an integer</h3>
+<p>This is a frequent question, because everyone who asks it seems to miss that atoi (and therefore _ttoi) only works on decimal digits 0..9.</p>
+<p>The answer is strtoul, wcstoul, or better still, _tcstoul.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ULONG strtoul(LPCSTR ptr, LPSTR * endptr, int base)</span></span>
+<span class="line"><span>ULONG wcstoul(LPCWSTR ptr, LPWSTR * endptr, int base)</span></span>
+<span class="line"><span>ULONG _tcstoul(LPCTSTR ptr, LPTSTR * endptr, int base)</span></span></code></pre>
+<p>These functions expect an input string of the form</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[whitespace] [{+ | ?}] [0 [{ x | X }]] [digits]</span></span></code></pre>
+<p>where whitespace is space or tab characters, and is ignored.  The base value can be any value from 2 through 36, or 0.
+If the base is between 2 and 36, then the string is interpreted according to base.
+But if base is 0, then special rules come into play. If the first digit is 0 and the character which follows it is not ‘x’ or ‘X’,
+then the number is interpreted as if base were specified as 8.
+If the first digit is 0 and the character which follows is ‘x’ or ‘X’,
+then the ‘0x’ or ‘0X’ is ignored as input and the remainder of the number is interpreted as if base had been 16.
+Otherwise, it is interpreted as if base were 10.</p>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://www.oreilly.com/library/view/ivor-hortons-beginning/9781118845776">The CString Class - Beginning Visual C++ 2013</a></li>
+<li><a href="http://www.flounder.com/cstring.htm">CString Management</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/atof-atof-l-wtof-wtof-l?view=msvc-170">Convert a string to double</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
