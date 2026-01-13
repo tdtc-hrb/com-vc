@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.6"><title>安装boost库(VC)</title></head> <body> <h1>安装boost库(VC)</h1>  <p><em>vc11+ </em></p> <p>2024-11-19</p> <p>Written by: tdtc</p> <p>support of <a href="https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering">MSVC</a></p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.9"><title>安装boost库(VC)</title></head> <body> <h1>安装boost库(VC)</h1>  <p><em>vc14+ </em></p> <p>2026-01-12</p> <p>Written by: tdtc</p> <p>Current Version(xyz): <a href="https://www.boost.org/users/download/">1.90.0</a></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering">MSVC</a></li>
+</ul>
 
 
 
@@ -24,23 +27,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>名称</th><th>VS版本</th><th>Minimum version</th></tr></thead><tbody><tr><td>msvc-11.0</td><td>VS2012</td><td><a href="https://sourceforge.net/projects/boost/files/boost-binaries">1.52.0</a></td></tr><tr><td>msvc-12.0</td><td>VS2013</td><td><a href="https://sourceforge.net/projects/boost/files/boost-binaries">1.55.0</a></td></tr><tr><td>msvc-14.0</td><td>VS2015</td><td><a href="https://sourceforge.net/projects/boost/files/boost-binaries">1.59.0</a></td></tr><tr><td>msvc-14.1</td><td>VS2017</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.64.0</a></td></tr><tr><td>msvc-14.2</td><td>VS2019</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.71.0</a></td></tr><tr><td>msvc-14.3</td><td>VS2022</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.78.0</a></td></tr></tbody></table>
-<p>Current Version(xyz): <a href="https://www.boost.org/users/download/">1.86.0</a></p>
+<table><thead><tr><th>名称</th><th>VS版本</th><th>Minimum version</th></tr></thead><tbody><tr><td>msvc-14.0</td><td>VS2015</td><td><a href="https://sourceforge.net/projects/boost/files/boost-binaries">1.59.0</a></td></tr><tr><td>msvc-14.2</td><td>VS2019</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.71.0</a></td></tr><tr><td>msvc-14.3</td><td>VS2022</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.78.0</a></td></tr></tbody></table>
 <h1 id="1-编译x86">1. 编译(x86)</h1>
 <p>x86 Native Tools Command Prompt for VS xxxx</p>
 <ul>
@@ -52,8 +39,8 @@
 <span class="line"><span style="color:#E1E4E8">bootstrap.bat</span></span></code></pre>
 <!-- vs2019: https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1.png -->
 <!-- vs2015: https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1(vs2015).png -->
-<!-- vs2022.6: https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1(vs2022).png -->
-<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1(vs2022.12).png" alt="windows cmd1"></p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1(vs2022).png" alt="vs2022.14"></p>
+<!-- vs2022.12: https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1(vs2022.12).png -->
 <h3 id="build">build</h3>
 <ul>
 <li>VS2022</li>
@@ -125,6 +112,6 @@
 <span class="line"><span style="color:#E1E4E8">    boost::thread t{ thread };</span></span>
 <span class="line"><span style="color:#E1E4E8">    t.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">();</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<h3 id="vs20151312">VS2015/13/12</h3>
+<h3 id="vs2015">VS2015</h3>
 <p>The top of the reference header add:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "stdafx.h"</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
