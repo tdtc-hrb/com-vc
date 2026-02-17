@@ -1,7 +1,13 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.16.9"><title>安装boost库(VC)</title></head> <body> <h1>安装boost库(VC)</h1>  <p><em>vc14+ </em></p> <p>2026-01-12</p> <p>Written by: tdtc</p> <p>Current Version(xyz): <a href="https://www.boost.org/users/download/">1.90.0</a></p>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.17.2"><title>安装boost库(VC)</title></head> <body> <h1>安装boost库(VC)</h1>  <p><em>vc14+ </em></p> <p>2026-02-12</p> <p>Written by: tdtc</p> <p>Current Version(xyz): <a href="https://www.boost.org/users/download/">1.90.0</a></p>
+<h3 id="supported-compilers-and-platforms"><a href="https://www.boost.org/doc/libs/latest/libs/log/doc/html/log/installation.html">Supported compilers and platforms</a></h3>
+<p>The library should build and work with a reasonably compliant C++11 compiler. The library was successfully built and tested on the following platforms:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering">MSVC</a></li>
+<li>Windows 10. MSVC 14.0 and newer. MinGW32 with gcc 5.x and MinGW-w64 with gcc 6.x and newer.</li>
+<li>Cygwin and Cygwin64 with gcc 7.x and newer.</li>
+<li>Linux. GCC 5.x and newer.</li>
+<li>Linux. Clang 3.5 and newer.</li>
 </ul>
+<h3 id="msvc"><a href="https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering">MSVC</a></h3>
 
 
 
@@ -112,6 +118,8 @@
 <span class="line"><span style="color:#E1E4E8">    boost::thread t{ thread };</span></span>
 <span class="line"><span style="color:#E1E4E8">    t.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">();</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="standard-c">standard C++</h3>
+<p>C++11, C++14, C++17.</p>
 <h3 id="vs2015">VS2015</h3>
 <p>The top of the reference header add:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "stdafx.h"</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
