@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.17.2"><title>Windows的SQLite静态库 - wx</title></head> <body> <h1>Windows的SQLite静态库 - wx</h1>  <p><em>debug和release版</em></p> <p>2026-02-27</p> <p>Written by: tdtc</p> <ul>
+<li>debug/release</li>
+</ul>
+<blockquote>
+<p>debug:ud, release:u</p>
+</blockquote>
+<ul>
+<li>Win32/x64</li>
+</ul>
+<h2 id="wxmsw">wxMsw</h2>
+<ul>
+<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.9/wxMSW-3.2.9-Setup.exe">setup.exe</a></li>
+</ul>
+<h3 id="编译">编译</h3>
+<ul>
+<li><code>C:/wxWidgets-3.2.9/build/msw/wx_vc17.sln</code> default: debug and x64</li>
+</ul>
+<p>choose: Release and Win32</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Build Solution</span></span></code></pre>
+<p>Copy vc_lib to the lib directory of wxSqlite and rename it to vc14x_lib.</p>
+<h2 id="wxsqlite">wxSqlite</h2>
+<ul>
+<li>Root directory</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:/wxsqlite3-4.11</span></span></code></pre>
+<ul>
+<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.9/wxWidgets-3.2.9-headers.7z">wxWidgets-3.2.9_Headers.7z</a></li>
+</ul>
+<blockquote>
+<p>Unzip wxWidgets-3.2.9_Headers.7z and cut it to the root directory.</p>
+</blockquote>
+<h3 id="wx_setup">wx_setup</h3>
+<blockquote>
+<p>build/wx_setup.props</p>
+</blockquote>
+<ul>
+<li>release</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>  &#x3C;PropertyGroup Label="UserMacros"></span></span>
+<span class="line"><span>    &#x3C;IncludePath>C:\wxsqlite3-4.11\lib\vc14x_lib\mswu;$(IncludePath)&#x3C;/IncludePath></span></span>
+<span class="line"><span>  &#x3C;/PropertyGroup></span></span></code></pre>
+<ul>
+<li>debug</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>  &#x3C;PropertyGroup Label="UserMacros"></span></span>
+<span class="line"><span>    &#x3C;IncludePath>C:\wxsqlite3-4.11\lib\vc14x_lib\mswud;$(IncludePath)&#x3C;/IncludePath></span></span>
+<span class="line"><span>  &#x3C;/PropertyGroup></span></span></code></pre>
+<p>Then open <code>C:/wxsqlite3-4.11/build/wxsqlite3_vc17.sln</code></p>
+<h3 id="lnk1104">Lnk1104</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>cannot open file 'wxbase32u.lib'</span></span>
+<span class="line"><span>project: minimal and treeview</span></span></code></pre>
+<p>解决办法：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>VC++ Directories -> Library Directories</span></span></code></pre>
+<ul>
+<li>wxbase32u.lib</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\wxsqlite3-4.11\lib\vc14x_lib</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://github.com/utelle/wxsqlite3#wxmsw">wxsqlite3</a></li>
+</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
