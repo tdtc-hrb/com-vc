@@ -1,10 +1,9 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.18.0"><title>VC升级时出现的问题</title></head> <body> <h1>VC升级时出现的问题</h1>  <p><em>ATL and CRT</em></p> <p>2025-01-19</p> <p>Written by: tdtc</p> <ul>
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.18.0"><title>VC升级时出现的问题</title></head> <body> <h1>VC升级时出现的问题</h1>  <p><em>ATL and CRT</em></p> <p>2026-01-19</p> <p>Written by: tdtc</p> <ul>
 <li>ATL</li>
 <li>CRT</li>
 </ul>
 <h1 id="active-template-library-atl">Active Template Library (ATL)</h1>
-<p>!!! 除了IE的ActiveX项目，不推荐ATL !!!<br>
-!!! ATL is not recommended except for IE ActiveX projects. !!!</p>
+<p>!!! ATL is not recommended except for IE ActiveX projects. !!!</p>
 <h2 id="c1189">C1189</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">c:\program</span><span style="color:#9ECBFF"> files</span><span style="color:#79B8FF">\m</span><span style="color:#9ECBFF">icrosoft</span><span style="color:#9ECBFF"> visual</span><span style="color:#9ECBFF"> studio</span><span style="color:#79B8FF"> 10.0</span><span style="color:#79B8FF">\v</span><span style="color:#9ECBFF">c</span><span style="color:#79B8FF">\a</span><span style="color:#9ECBFF">tlmfc</span><span style="color:#79B8FF">\i</span><span style="color:#9ECBFF">nclude</span><span style="color:#79B8FF">\a</span><span style="color:#9ECBFF">tlcore.h</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">35</span><span style="color:#E1E4E8">)</span><span style="color:#9ECBFF">:</span></span>
 <span class="line"><span style="color:#B392F0">fatal</span><span style="color:#9ECBFF"> error</span><span style="color:#9ECBFF"> C1189:</span><span style="color:#6A737D"> #error :  This file requires _WIN32_WINNT to be #defined at least to 0x0403. Value 0x0501 or higher is recommended.</span></span></code></pre>
@@ -85,8 +84,6 @@ Copy this file to the Project folder，</p>
 <p>A: Project > Properties > Configuration Properties > Custom Build Step    
 Command line: Empty content.    
   <a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/97f50350-e37a-46ba-a921-8f4afa29db03/error-msb3073-exited-with-code-3">https://social.msdn.microsoft.com/Forums/vstudio/en-US/97f50350-e37a-46ba-a921-8f4afa29db03/error-msb3073-exited-with-code-3</a></p>
-<h2 id="error-msb8011">error MSB8011</h2>
-<p>A: Project—>Propertier—>Linker—>General—>Register Output—>NO</p>
 <h2 id="excluded-files">Excluded files</h2>
 <blockquote>
 <p>提交代码时不需要的文件</p>
@@ -94,7 +91,7 @@ Command line: Empty content.    
 <ul>
 <li>MIDL</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">_.i.h,</span><span style="color:#9ECBFF"> _.i.c,</span><span style="color:#9ECBFF"> _.p.c</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#F97583">*</span><span style="color:#E1E4E8">_h.h, _.i.c, _.p.c</span></span></code></pre>
 <ul>
 <li>resource</li>
 </ul>
@@ -113,9 +110,6 @@ Command line: Empty content.    
 <li>MSbuild<br>
 <a href="https://docs.microsoft.com/en-us/cpp/porting/build-system-changes?view=vs-2019">.vcxproj.user</a></li>
 </ul>
-<h2 id="register-output">Register Output</h2>
-<p>更改为不在注册表注册！</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>“project property” -> “Configuration Properties” -> “Linker”: “Register Output”为 “No”；</span></span></code></pre>
 <h2 id="validate-parameters">Validate Parameters</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>“project property” ->“Configuration Properties”->"MIDL"->“Advanced”: "Validate Parameters"为“Yes(/robust)”</span></span></code></pre>
 <h1 id="crt">CRT</h1>
