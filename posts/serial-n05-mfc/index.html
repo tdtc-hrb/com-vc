@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>6.1.1 Opening, Closing, and Creating Files</title></head> <body> <h1>6.1.1 Opening, Closing, and Creating Files</h1>  <p><em>The CFile Class - MFC</em></p> <p>2025-10-31</p> <p>Written by: Jeff Prosise</p> <p>Files can be opened with <i>CFile</i> in either of two ways.
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>6.1.1 Opening, Closing, and Creating Files</title></head><body><h1>6.1.1 Opening, Closing, and Creating Files</h1><p><em>The CFile Class - MFC</em></p><p>2025-10-31</p><p>Written by: Jeff Prosise</p><p>Files can be opened with <i>CFile</i> in either of two ways.
 The first option is to construct an uninitialized <i>CFile</i> object and call <i>CFile::Open</i>.
 The following code fragment uses this technique to open a file named File.txt with read/write access.
 Because no path name is provided in the function’s first parameter, <i>Open</i> will fail unless the file
@@ -16,7 +16,7 @@ If <i>CFile::Open</i> returns 0 and you want to know why the call failed,
 create a <i>CFileException</i> object and pass its address to <i>Open</i> in the third parameter:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CFile file;</span></span>
 <span class="line"><span>CFileException e;</span></span>
-<span class="line"><span>if (file.Open (_T ("File.txt"), CFile::modeReadWrite, &#x26;e)) {</span></span>
+<span class="line"><span>if (file.Open (_T ("File.txt"), CFile::modeReadWrite, &amp;e)) {</span></span>
 <span class="line"><span>    // It worked!</span></span>
 <span class="line"><span>}</span></span>
 <span class="line"><span>else {</span></span>
@@ -38,8 +38,8 @@ Therefore, code that opens files using <i>CFile::CFile</i> normally uses try and
 <span class="line"><span>}</span></span>
 <span class="line"><span>catch (CFileException* e) {</span></span>
 <span class="line"><span>    // Something went wrong.</span></span>
-<span class="line"><span>    e->ReportError ();</span></span>
-<span class="line"><span>    e->Delete ();</span></span>
+<span class="line"><span>    e-&gt;ReportError ();</span></span>
+<span class="line"><span>    e-&gt;Delete ();</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <p>It’s up to you to delete the <i>CFileException</i> objects MFC throws to you.
 That’s why this example calls Delete on the exception object after processing the exception.
@@ -56,55 +56,55 @@ for you if it doesn’t already exist. By default, a file opened with <i>CFile::
 is opened for exclusive access, which means that no one else can open the file.
 If desired, you can specify a sharing mode when opening the file to explicitly grant others permission to access the file, too.
 Here are the four sharing modes that you can choose from:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>Sharing Mode</th><th>Description</th></tr></thead><tbody><tr><td>CFile::shareDenyNone</td><td>Opens the file nonexclusively</td></tr><tr><td>CFile::shareDenyRead</td><td>Denies read access to other parties</td></tr><tr><td>CFile::shareDenyWrite</td><td>Denies write access to other parties</td></tr><tr><td>CFile::shareExclusive</td><td>Denies both read and write access to other parties(default)</td></tr></tbody></table>
+<table>
+<thead>
+<tr>
+<th>Sharing Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CFile::shareDenyNone</td>
+<td>Opens the file nonexclusively</td>
+</tr>
+<tr>
+<td>CFile::shareDenyRead</td>
+<td>Denies read access to other parties</td>
+</tr>
+<tr>
+<td>CFile::shareDenyWrite</td>
+<td>Denies write access to other parties</td>
+</tr>
+<tr>
+<td>CFile::shareExclusive</td>
+<td>Denies both read and write access to other parties(default)</td>
+</tr>
+</tbody>
+</table>
 <p>In addition, you can specify any one of the following three types of read/write access:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>Access Mode</th><th>Description</th></tr></thead><tbody><tr><td>CFile::modeReadWrite</td><td>Requests read and write access</td></tr><tr><td>CFile::modeRead</td><td>Requests read access only</td></tr><tr><td>CFile::modeWrite</td><td>Requests write access only</td></tr></tbody></table>
+<table>
+<thead>
+<tr>
+<th>Access Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CFile::modeReadWrite</td>
+<td>Requests read and write access</td>
+</tr>
+<tr>
+<td>CFile::modeRead</td>
+<td>Requests read access only</td>
+</tr>
+<tr>
+<td>CFile::modeWrite</td>
+<td>Requests write access only</td>
+</tr>
+</tbody>
+</table>
 <p>A common use for these options is to allow any number of clients to
 open a file for reading but to deny any client the ability to write to it:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CFile file (_T ("File.txt"), CFile::modeRead ¦ CFile::shareDenyWrite);</span></span></code></pre>
@@ -127,4 +127,5 @@ another file using the same <i>CFile</i> object</p>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://assets.ctfassets.net/9pcn2syx7zns/6ejGpuR3LJdenVQWDCe23W/d152db4718309d396d07aa8b444a541e/mfc2.pdf">6.1. The CFile Class(P335) - Programming Windows With MFC</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

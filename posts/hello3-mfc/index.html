@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Done Hello - MFC</title></head> <body> <h1>Done Hello - MFC</h1>  <p><em>A complete Hello demo.</em></p> <p>2025-11-14</p> <p>Written by: xiaobin</p> <h3 id="add-resource">Add Resource</h3>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Done Hello - MFC</title></head><body><h1>Done Hello - MFC</h1><p><em>A complete Hello demo.</em></p><p>2025-11-14</p><p>Written by: xiaobin</p><h3 id="add-resource">Add Resource</h3>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res-hellomfc.png" alt="add resource"></p>
 <h4 id="dialog-bar">dialog bar</h4>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_res2-hellomfc.png" alt="add resource"></p>
@@ -31,7 +31,11 @@ Image: IDI_ICON1</p>
 <li>add resource head file</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "resource.h"</span></span></code></pre>
-<h2 id="project">project</h2>
+<ul>
+<li>Add Header file required for CDialogEx</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include "afxdialogex.h"</span></span></code></pre>
+<h2 id="project---cmainwindow">project - CMainWindow</h2>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/solution-hellomfc.png" alt="solution explorer"></p>
 <ul>
 <li><a href="https://mega.nz/file/qEl13IDA#teaFKBqYkohy6jNpMO5MmUwwGi7B0EDJE-I065K2J-E">HelloMfc.zip</a></li>
@@ -43,7 +47,7 @@ Image: IDI_ICON1</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>private:</span></span>
 <span class="line"><span>    CButton m_btnAbout;</span></span></code></pre>
 <ul>
-<li>impl</li>
+<li>Implemented in the constructor</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    CRect rt;</span></span>
 <span class="line"><span>    rt.top = 10;</span></span>
@@ -56,6 +60,9 @@ Image: IDI_ICON1</p>
 <span class="line"><span>        rt,</span></span>
 <span class="line"><span>        this,</span></span>
 <span class="line"><span>        ID_ABOUT); // #define ID_ABOUT 1101</span></span></code></pre>
+<h4 id="custom-button-id">Custom Button ID</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#define ID_ABOUT 1101</span></span></code></pre>
+<p>Define the button ID in MainWindow.cpp</p>
 <h3 id="button-event">Button Event</h3>
 <ul>
 <li>Declare</li>
@@ -70,7 +77,7 @@ Image: IDI_ICON1</p>
 <span class="line"><span>    CAboutDlg dlgAbout;  // #include "AboutDlg.h"</span></span>
 <span class="line"><span>    dlgAbout.DoModal();</span></span>
 <span class="line"><span>}</span></span></code></pre>
-<h3 id="add-message-map">Add Message Map</h3>
+<h4 id="add-message-map">Add Message Map</h4>
 <ul>
 <li>Declare</li>
 </ul>
@@ -85,4 +92,5 @@ Image: IDI_ICON1</p>
 <ul>
 <li><a href="https://tdtc-hrb.github.io/com-vc/posts/hello1-mfc">First Demo</a></li>
 <li><a href="https://tdtc-hrb.github.io/com-vc/posts/hello2-mfc">Second Demo</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

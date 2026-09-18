@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Multithreading with MFC - CWinThread</title></head> <body> <h1>Multithreading with MFC - CWinThread</h1>  <p><em>All threads in MFC applications are represented by CWinThread objects.</em></p> <p>2025-11-11</p> <p>Written by: xiaobin</p> <p>AfxBeginThread function is used in MFC to create threads in an MFC application.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Multithreading with MFC - CWinThread</title></head><body><h1>Multithreading with MFC - CWinThread</h1><p><em>All threads in MFC applications are represented by CWinThread objects.</em></p><p>2025-11-11</p><p>Written by: xiaobin</p><p>AfxBeginThread function is used in MFC to create threads in an MFC application.</p>
 <h4 id="difference-between-afxbeginthread-and-createthread"><a href="https://stackoverflow.com/a/21718917">Difference between Afxbeginthread and CreateThread</a></h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>For MFC programs, use AfxBeginThread.</span></span>
 <span class="line"><span></span></span>
@@ -39,13 +39,13 @@
 <span class="line"><span>{</span></span>
 <span class="line"><span>    SYSTEMTIME st;</span></span>
 <span class="line"><span>    CMFCApplication1Dlg *dlg = (CMFCApplication1Dlg *)arg;</span></span>
-<span class="line"><span>    while (dlg->m_bThread) {</span></span>
-<span class="line"><span>        GetSystemTime(&#x26;st);</span></span>
+<span class="line"><span>    while (dlg-&gt;m_bThread) {</span></span>
+<span class="line"><span>        GetSystemTime(&amp;st);</span></span>
 <span class="line"><span>        CString tm;</span></span>
 <span class="line"><span>        tm.Format(_T("Time %.2d:%.2d:%.2d Date %.2d/%.2d/%.4d"),</span></span>
 <span class="line"><span>            st.wHour, st.wMinute, st.wSecond, st.wDay, st.wMonth, st.wYear);</span></span>
 <span class="line"><span>        </span></span>
-<span class="line"><span>        dlg->m_Edt.SetWindowText((LPCTSTR)tm);</span></span>
+<span class="line"><span>        dlg-&gt;m_Edt.SetWindowText((LPCTSTR)tm);</span></span>
 <span class="line"><span>        Sleep(500);</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span>    AfxEndThread(0, TRUE);</span></span>
@@ -60,4 +60,5 @@
 <ul>
 <li><a href="https://www.equestionanswers.com/vcpp/worker-thread-afxbeginthread.php">How can I create a worker thread using AfxBeginThread() function? </a></li>
 <li><a href="https://mega.nz/file/DUVj3BgT#YzQzaGQKvrfy3-TJi-IUoveC0yYC5To7sIe7xIL3Zfg">AfxBeThDemo.zip</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Sorting in a List Control</title></head> <body> <h1>Sorting in a List Control</h1>  <p><em>Usage SortItems()</em></p> <p>2025-12-14</p> <p>Written by: xiaobin</p> <p>Unless a list view has the style LVS_NOSORTHEADER,
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Sorting in a List Control</title></head><body><h1>Sorting in a List Control</h1><p><em>Usage SortItems()</em></p><p>2025-12-14</p><p>Written by: xiaobin</p><p>Unless a list view has the style LVS_NOSORTHEADER,
 clicking a header item sends an LVN_COLUMNCLICK notification to the list view’s parent.
 An application’s usual response to an LVN_COLUMNCLICK notification is to call CListCtrl::SortItems to sort the list view items.</p>
 <p>You do have to provide a callback function that the control’s built-in sorting routine can
@@ -31,9 +31,9 @@ providing text to the list view control in response to LVN_GETDISPINFO notificat
 <h4 id="lvn_columnclick---event">LVN_COLUMNCLICK - event</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::OnLvnColumnclickList2(NMHDR *pNMHDR, LRESULT *pResult)</span></span>
 <span class="line"><span>{</span></span>
-<span class="line"><span>	LPNMLISTVIEW pNMLV = reinterpret_cast&#x3C;LPNMLISTVIEW>(pNMHDR);</span></span>
+<span class="line"><span>	LPNMLISTVIEW pNMLV = reinterpret_cast&lt;LPNMLISTVIEW&gt;(pNMHDR);</span></span>
 <span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
-<span class="line"><span>	m_ListOfDb.SortItems(CompareFunc, pNMLV->iSubItem);</span></span>
+<span class="line"><span>	m_ListOfDb.SortItems(CompareFunc, pNMLV-&gt;iSubItem);</span></span>
 <span class="line"><span>	*pResult = 0;</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <ul>
@@ -47,20 +47,20 @@ providing text to the list view control in response to LVN_GETDISPINFO notificat
 <span class="line"><span></span></span>
 <span class="line"><span>	switch (lParamSort) {</span></span>
 <span class="line"><span>	case 0: // Server</span></span>
-<span class="line"><span>		nResult = pItem1->strServer.CompareNoCase(pItem2->strServer);</span></span>
+<span class="line"><span>		nResult = pItem1-&gt;strServer.CompareNoCase(pItem2-&gt;strServer);</span></span>
 <span class="line"><span>		break;</span></span>
 <span class="line"><span>	case 1: // data base</span></span>
-<span class="line"><span>		nResult = pItem1->strDatabase.CompareNoCase(pItem2->strDatabase);</span></span>
+<span class="line"><span>		nResult = pItem1-&gt;strDatabase.CompareNoCase(pItem2-&gt;strDatabase);</span></span>
 <span class="line"><span>		break;</span></span>
 <span class="line"><span>	case 2: // user</span></span>
-<span class="line"><span>		nResult = pItem1->strUser.CompareNoCase(pItem2->strUser);</span></span>
+<span class="line"><span>		nResult = pItem1-&gt;strUser.CompareNoCase(pItem2-&gt;strUser);</span></span>
 <span class="line"><span>		break;</span></span>
 <span class="line"><span>	case 3: // password</span></span>
-<span class="line"><span>		nResult = pItem1->strPassword.CompareNoCase(pItem2->strPassword);</span></span>
+<span class="line"><span>		nResult = pItem1-&gt;strPassword.CompareNoCase(pItem2-&gt;strPassword);</span></span>
 <span class="line"><span>		break;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>	case 4: // type</span></span>
-<span class="line"><span>		nResult = pItem1->nType - pItem2->nType;</span></span>
+<span class="line"><span>		nResult = pItem1-&gt;nType - pItem2-&gt;nType;</span></span>
 <span class="line"><span>		break;</span></span>
 <span class="line"><span>	}</span></span>
 <span class="line"><span></span></span>
@@ -69,34 +69,34 @@ providing text to the list view control in response to LVN_GETDISPINFO notificat
 <h4 id="getdispinfo---envent">Getdispinfo - envent</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1Dlg::OnLvnGetdispinfoList2(NMHDR *pNMHDR, LRESULT *pResult)</span></span>
 <span class="line"><span>{</span></span>
-<span class="line"><span>	NMLVDISPINFO *pDispInfo = reinterpret_cast&#x3C;NMLVDISPINFO*>(pNMHDR);</span></span>
+<span class="line"><span>	NMLVDISPINFO *pDispInfo = reinterpret_cast&lt;NMLVDISPINFO*&gt;(pNMHDR);</span></span>
 <span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
 <span class="line"><span>	CString string;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>	if (pDispInfo->item.mask &#x26; LVIF_TEXT) {</span></span>
-<span class="line"><span>		ITEMINFO* pItem = (ITEMINFO*)pDispInfo->item.lParam;</span></span>
+<span class="line"><span>	if (pDispInfo-&gt;item.mask &amp; LVIF_TEXT) {</span></span>
+<span class="line"><span>		ITEMINFO* pItem = (ITEMINFO*)pDispInfo-&gt;item.lParam;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>		switch (pDispInfo->item.iSubItem) {</span></span>
+<span class="line"><span>		switch (pDispInfo-&gt;item.iSubItem) {</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>		case 0: // Server</span></span>
-<span class="line"><span>			::lstrcpy(pDispInfo->item.pszText, pItem->strServer);</span></span>
+<span class="line"><span>			::lstrcpy(pDispInfo-&gt;item.pszText, pItem-&gt;strServer);</span></span>
 <span class="line"><span>			break;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>		case 1: // Database</span></span>
-<span class="line"><span>			::lstrcpy(pDispInfo->item.pszText, pItem->strDatabase);</span></span>
+<span class="line"><span>			::lstrcpy(pDispInfo-&gt;item.pszText, pItem-&gt;strDatabase);</span></span>
 <span class="line"><span>			break;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>		case 2: // User</span></span>
-<span class="line"><span>			::lstrcpy(pDispInfo->item.pszText, pItem->strUser);</span></span>
+<span class="line"><span>			::lstrcpy(pDispInfo-&gt;item.pszText, pItem-&gt;strUser);</span></span>
 <span class="line"><span>			break;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>		case 3: // Password</span></span>
-<span class="line"><span>			::lstrcpy(pDispInfo->item.pszText, pItem->strPassword);</span></span>
+<span class="line"><span>			::lstrcpy(pDispInfo-&gt;item.pszText, pItem-&gt;strPassword);</span></span>
 <span class="line"><span>			break;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>		case 4: // Type</span></span>
-<span class="line"><span>			string.Format(_T("%u"), pItem->nType);</span></span>
-<span class="line"><span>			::lstrcpy(pDispInfo->item.pszText, string);</span></span>
+<span class="line"><span>			string.Format(_T("%u"), pItem-&gt;nType);</span></span>
+<span class="line"><span>			::lstrcpy(pDispInfo-&gt;item.pszText, string);</span></span>
 <span class="line"><span>			break;</span></span>
 <span class="line"><span>		}</span></span>
 <span class="line"><span>	}</span></span>
@@ -115,17 +115,17 @@ providing text to the list view control in response to LVN_GETDISPINFO notificat
 <span class="line"><span>		pItem = new ITEMINFO;</span></span>
 <span class="line"><span>	}</span></span>
 <span class="line"><span>	catch (CMemoryException* e) {</span></span>
-<span class="line"><span>		e->Delete();</span></span>
+<span class="line"><span>		e-&gt;Delete();</span></span>
 <span class="line"><span>		return FALSE;</span></span>
 <span class="line"><span>	}</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>	CConnectString *conn = reinterpret_cast&#x3C;CConnectString *>(this->ListOfConnStrings[nIndex]);</span></span>
+<span class="line"><span>	CConnectString *conn = reinterpret_cast&lt;CConnectString *&gt;(this-&gt;ListOfConnStrings[nIndex]);</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>	pItem->strServer = conn->GetServer();</span></span>
-<span class="line"><span>	pItem->strDatabase = conn->GetDb();</span></span>
-<span class="line"><span>	pItem->strUser = conn->GetUser();</span></span>
-<span class="line"><span>	pItem->strPassword = conn->GetPwd();</span></span>
-<span class="line"><span>	pItem->nType = conn->GetType();</span></span>
+<span class="line"><span>	pItem-&gt;strServer = conn-&gt;GetServer();</span></span>
+<span class="line"><span>	pItem-&gt;strDatabase = conn-&gt;GetDb();</span></span>
+<span class="line"><span>	pItem-&gt;strUser = conn-&gt;GetUser();</span></span>
+<span class="line"><span>	pItem-&gt;strPassword = conn-&gt;GetPwd();</span></span>
+<span class="line"><span>	pItem-&gt;nType = conn-&gt;GetType();</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>	//</span></span>
 <span class="line"><span>	// Add the item to the list view.</span></span>
@@ -138,7 +138,7 @@ providing text to the list view control in response to LVN_GETDISPINFO notificat
 <span class="line"><span>	lvi.pszText = LPSTR_TEXTCALLBACK;</span></span>
 <span class="line"><span>	lvi.lParam = (LPARAM)pItem;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>	if (m_ListOfDb.InsertItem(&#x26;lvi) == -1)</span></span>
+<span class="line"><span>	if (m_ListOfDb.InsertItem(&amp;lvi) == -1)</span></span>
 <span class="line"><span>		return FALSE;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>	return TRUE;</span></span>
@@ -148,4 +148,5 @@ providing text to the list view control in response to LVN_GETDISPINFO notificat
 <li>10.4.3. Sorting in a List View(P649)- Programming Windows With MFC</li>
 <li><a href="https://github.com/definedrisk/prosise-mfc2e">CD-ROM Jeff Prosise MFC 2nd Edition.zip</a></li>
 <li><a href="https://mega.nz/file/uYd0GRjY#6nv3hnMd2PdQg4PDaLGI_xR7DHqxow4u2BsbGKJFCoY">ObjArraySerialDemo2.zip</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

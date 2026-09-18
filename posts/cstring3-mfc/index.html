@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>The CString Class - 3</title></head> <body> <h1>The CString Class - 3</h1>  <p><em>COM and CString</em></p> <p>2025-12-07</p> <p>Written by: xiaobin</p> <h3 id="cstring-to-bstr">CString to BSTR</h3>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>The CString Class - 3</title></head><body><h1>The CString Class - 3</h1><p><em>COM and CString</em></p><p>2025-12-07</p><p>Written by: xiaobin</p><h3 id="cstring-to-bstr">CString to BSTR</h3>
 <p>When programming with ActiveX, you will sometimes need a value represented as a type BSTR.
 A BSTR is a counted string, a wide-character (Unicode) string on Intel platforms and can contain embedded NUL characters.</p>
 <p>You can convert at CString to a BSTR by calling the CString method AllocSysString:</p>
@@ -102,19 +102,19 @@ See the caveats about the default ::WideCharToMultibyte conversion and whether o
 <span class="line"><span>CString VariantToString(VARIANT * va)</span></span>
 <span class="line"><span>   {</span></span>
 <span class="line"><span>    CString s;</span></span>
-<span class="line"><span>    switch(va->vt)</span></span>
+<span class="line"><span>    switch(va-&gt;vt)</span></span>
 <span class="line"><span>      { /* vt */</span></span>
 <span class="line"><span>       case VT_BSTR:</span></span>
-<span class="line"><span>          return CString(vaData->bstrVal);</span></span>
+<span class="line"><span>          return CString(vaData-&gt;bstrVal);</span></span>
 <span class="line"><span>       case VT_BSTR | VT_BYREF:</span></span>
-<span class="line"><span>          return CString(*vaData->pbstrVal);</span></span>
+<span class="line"><span>          return CString(*vaData-&gt;pbstrVal);</span></span>
 <span class="line"><span>       case VT_I4:</span></span>
-<span class="line"><span>          s.Format(_T("%d"), va->lVal);</span></span>
+<span class="line"><span>          s.Format(_T("%d"), va-&gt;lVal);</span></span>
 <span class="line"><span>          return s;</span></span>
 <span class="line"><span>       case VT_I4 | VT_BYREF:</span></span>
-<span class="line"><span>          s.Format(_T("%d"), *va->plVal);</span></span>
+<span class="line"><span>          s.Format(_T("%d"), *va-&gt;plVal);</span></span>
 <span class="line"><span>       case VT_R8:</span></span>
-<span class="line"><span>          s.Format(_T("%f"), va->dblVal);</span></span>
+<span class="line"><span>          s.Format(_T("%f"), va-&gt;dblVal);</span></span>
 <span class="line"><span>          return s;</span></span>
 <span class="line"><span>       ... remaining cases left as an Exercise For The Reader</span></span>
 <span class="line"><span>       default:</span></span>
@@ -124,17 +124,17 @@ See the caveats about the default ::WideCharToMultibyte conversion and whether o
 <span class="line"><span>   }</span></span></code></pre>
 <h3 id="the-atl-string-support-macros">The ATL String Support Macros</h3>
 <ul>
-<li><a href="https://forums.codeguru.com/showthread.php?348238-atlconv-h-header-error!!!&#x26;p=1189478#post1189478">Arjay</a><br>
+<li><a href="https://forums.codeguru.com/showthread.php?348238-atlconv-h-header-error!!!&amp;p=1189478#post1189478">Arjay</a><br>
 You need to use the <code>USES_CONVERSION</code> macro before using the convert functions.</li>
 </ul>
 <h4 id="generic-conversion-macros"><a href="https://learn.microsoft.com/en-us/cpp/mfc/tn059-using-mfc-mbcs-unicode-conversion-macros?view=msvc-170#generic-conversion-macros">Generic Conversion Macros</a></h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>A2CW      (LPCSTR) -> (LPCWSTR)</span></span>
-<span class="line"><span>A2W      (LPCSTR) -> (LPWSTR)</span></span>
-<span class="line"><span>W2CA      (LPCWSTR) -> (LPCSTR)</span></span>
-<span class="line"><span>W2A      (LPCWSTR) -> (LPSTR)</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>A2CW      (LPCSTR) -&gt; (LPCWSTR)</span></span>
+<span class="line"><span>A2W      (LPCSTR) -&gt; (LPWSTR)</span></span>
+<span class="line"><span>W2CA      (LPCWSTR) -&gt; (LPCSTR)</span></span>
+<span class="line"><span>W2A      (LPCWSTR) -&gt; (LPSTR)</span></span></code></pre>
 <h4 id="example"><a href="https://stackoverflow.com/a/8050301">example</a></h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;atlbase.h></span></span>
-<span class="line"><span>#include &#x3C;iostream></span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &lt;atlbase.h&gt;</span></span>
+<span class="line"><span>#include &lt;iostream&gt;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>int _tmain(int argc, _TCHAR* argv[])</span></span>
 <span class="line"><span>{</span></span>
@@ -142,10 +142,11 @@ You need to use the <code>USES_CONVERSION</code> macro before using the convert 
 <span class="line"><span></span></span>
 <span class="line"><span>	char szText[] = "Hello, world";</span></span>
 <span class="line"><span>	LPCWSTR w = A2W(szText);</span></span>
-<span class="line"><span>	std::wcout &#x3C;&#x3C; w &#x3C;&#x3C; std::endl;</span></span>
+<span class="line"><span>	std::wcout &lt;&lt; w &lt;&lt; std::endl;</span></span>
 <span class="line"><span>	return 0;</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="http://www.flounder.com/cstring.htm">CString Management</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

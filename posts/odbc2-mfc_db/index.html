@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>ODBC2 - MFC</title></head> <body> <h1>ODBC2 - MFC</h1>  <p><em>Create CRecordset Class</em></p> <p>2025-12-20</p> <p>Written by: xiaobin</p> <ul>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>ODBC2 - MFC</title></head><body><h1>ODBC2 - MFC</h1><p><em>Create CRecordset Class</em></p><p>2025-12-20</p><p>Written by: xiaobin</p><ul>
 <li>Connection String</li>
 <li>Table</li>
 <li>Field mapping</li>
@@ -10,7 +10,7 @@
 <ul>
 <li>Include the header file in “framework.h”:</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;afxdb.h>          // ODBC</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &lt;afxdb.h&gt;          // ODBC</span></span></code></pre>
 <ul>
 <li>Include the header file in “Rec1Set.cpp:</li>
 </ul>
@@ -73,7 +73,7 @@ If your user is able to add new records in this view then “snapshot” will no
 <p>Use the overloaded method DoFieldExchange().</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CRec1Set::DoFieldExchange(CFieldExchange* pFX)</span></span>
 <span class="line"><span>{</span></span>
-<span class="line"><span>	pFX->SetFieldType(CFieldExchange::outputColumn);</span></span>
+<span class="line"><span>	pFX-&gt;SetFieldType(CFieldExchange::outputColumn);</span></span>
 <span class="line"><span>// Macros such as RFX_Text() and RFX_Int() are dependent on the</span></span>
 <span class="line"><span>// type of the member variable, not the type of the field in the database.</span></span>
 <span class="line"><span>// ODBC will try to automatically convert the column value to the requested type</span></span>
@@ -88,4 +88,5 @@ If your user is able to add new records in this view then “snapshot” will no
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/crecordset-class?view=msvc-170">CRecordset class</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/record-field-exchange-functions?view=msvc-170">Record Field Exchange</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

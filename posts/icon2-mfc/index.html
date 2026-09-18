@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Icon - Document/View model</title></head> <body> <h1>Icon - Document/View model</h1>  <p><em>Minimize the child window to redraw the icon.</em></p> <p>2025-11-17</p> <p>Written by: xiaobin</p> <p>If you add a minimize button to your dialog/form, you will need the code below
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Icon - Document/View model</title></head><body><h1>Icon - Document/View model</h1><p><em>Minimize the child window to redraw the icon.</em></p><p>2025-11-17</p><p>Written by: xiaobin</p><p>If you add a minimize button to your dialog/form, you will need the code below
 to draw the icon.  For MFC applications using the document/view model,
 this is automatically done for you by the framework.</p>
 <h3 id="meet-the-conditions">Meet the conditions</h3>
@@ -36,7 +36,7 @@ this is automatically done for you by the framework.</p>
 <span class="line"><span>        int cyIcon = GetSystemMetrics(SM_CYICON);</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>        CRect rect;</span></span>
-<span class="line"><span>        GetClientRect(&#x26;rect);</span></span>
+<span class="line"><span>        GetClientRect(&amp;rect);</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>        int x = (rect.Width() - cxIcon + 1) / 2;</span></span>
 <span class="line"><span>        int y = (rect.Height() - cyIcon + 1) / 2;</span></span>
@@ -46,4 +46,5 @@ this is automatically done for you by the framework.</p>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://tdtc-hrb.github.io/com-vc/posts/icon1-mfc">Icon - Normal Window</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

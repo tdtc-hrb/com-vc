@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>The List Control - MFC Controls</title></head> <body> <h1>The List Control - MFC Controls</h1>  <p><em>Report View</em></p> <p>2025-11-27</p> <p>Written by: xiaobin</p> <p>Right-click the list control -> Properties, View: Report.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>The List Control - MFC Controls</title></head><body><h1>The List Control - MFC Controls</h1><p><em>Report View</em></p><p>2025-11-27</p><p>Written by: xiaobin</p><p>Right-click the list control -&gt; Properties, View: Report.</p>
 <p>and Add Variable:
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_var3-ctl.png" alt="m_ListOfDb"></p>
 <h3 id="col">col</h3>
@@ -25,12 +25,12 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    for (int i = 0; i &#x3C; 5; i++) {</span></span>
+<span class="line"><span>    for (int i = 0; i &lt; 5; i++) {</span></span>
 <span class="line"><span>        lvc.iSubItem = i;</span></span>
 <span class="line"><span>        lvc.pszText = colLab[i];</span></span>
 <span class="line"><span>        lvc.cx = 80;</span></span>
 <span class="line"><span>        lvc.fmt = LVCFMT_LEFT;</span></span>
-<span class="line"><span>        m_ListOfDb.InsertColumn(i, &#x26;lvc);</span></span>
+<span class="line"><span>        m_ListOfDb.InsertColumn(i, &amp;lvc);</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <p>reference <a href="https://learn.microsoft.com/en-us/cpp/overview/visual-cpp-samples?view=msvc-170#mfc-samples---general">“RowList”</a></p>
@@ -57,4 +57,5 @@
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/clistctrl-class?view=msvc-170#insertcolumn">InsertColumn()</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/clistctrl-class?view=msvc-170#insertitem">InsertItem()</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/clistctrl-class?view=msvc-170#setitemtext">SetItemText()</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

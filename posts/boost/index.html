@@ -1,34 +1,34 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>安装boost库(VC)</title></head> <body> <h1>安装boost库(VC)</h1>  <p><em>vc14+ </em></p> <p>2026-02-18</p> <p>Written by: tdtc</p> <ul>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>安装boost库(VC)</title></head><body><h1>安装boost库(VC)</h1><p><em>vc14+ </em></p><p>2026-02-18</p><p>Written by: tdtc</p><ul>
 <li><a href="https://tdtc-hrb.github.io/com-vc/posts/boost-thread/">example</a></li>
 </ul>
 <p>Current Version(xyz): <a href="https://www.boost.org/users/download/">1.90.0</a></p>
 <h3 id="msvc"><a href="https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering">MSVC</a></h3>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>名称</th><th>VS版本</th><th>Minimum version</th></tr></thead><tbody><tr><td>msvc-14.0</td><td>VS2015</td><td><a href="https://sourceforge.net/projects/boost/files/boost-binaries">1.59.0</a></td></tr><tr><td>msvc-14.2</td><td>VS2019</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.71.0</a></td></tr><tr><td>msvc-14.3</td><td>VS2022</td><td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.78.0</a></td></tr></tbody></table>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>VS版本</th>
+<th>Minimum version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>msvc-14.0</td>
+<td>VS2015</td>
+<td><a href="https://sourceforge.net/projects/boost/files/boost-binaries">1.59.0</a></td>
+</tr>
+<tr>
+<td>msvc-14.2</td>
+<td>VS2019</td>
+<td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.71.0</a></td>
+</tr>
+<tr>
+<td>msvc-14.3</td>
+<td>VS2022</td>
+<td><a href="https://boostorg.jfrog.io/artifactory/main/release">1.78.0</a></td>
+</tr>
+</tbody>
+</table>
 <h1 id="1-编译x86">1. 编译(x86)</h1>
 <p>x86 Native Tools Command Prompt for VS xxxx</p>
 <ul>
@@ -36,7 +36,7 @@
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>as of Boost 1.47.0, the official name of the executable was changed to b2.</span></span></code></pre>
 <h2 id="gen-b2-and-build">Gen b2 and build</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#E1E4E8">cd C:\boost_x_y_z</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#F97583">cd</span><span style="color:#E1E4E8"> C:\boost_x_y_z</span></span>
 <span class="line"><span style="color:#E1E4E8">bootstrap.bat</span></span></code></pre>
 <!-- vs2019: https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1.png -->
 <!-- vs2015: https://github.com/tdtc-hrb/csdn/raw/master/images/boost-cmd1(vs2015).png -->
@@ -57,10 +57,10 @@
 <h1 id="2-使用">2. 使用</h1>
 <p>Copy the ‘C:\boost_x_y_z\boost’ folder to ‘C:’ disk</p>
 <h2 id="project-properties">Project Properties</h2>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Project->Properties->Configuration Properties</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Project-&gt;Properties-&gt;Configuration Properties</span></span></code></pre>
 <h3 id="头文件">头文件</h3>
 <blockquote>
-<p>VC++ Directories->General</p>
+<p>VC++ Directories-&gt;General</p>
 </blockquote>
 <ul>
 <li>Additional Include Directories:</li>
@@ -72,7 +72,7 @@
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/boost-header2(v186).png" alt="VS2022 header2"></p>
 <h3 id="库链接">库链接</h3>
 <blockquote>
-<p>Linker->General</p>
+<p>Linker-&gt;General</p>
 </blockquote>
 <ul>
 <li>Additional Library Directories:</li>
@@ -85,7 +85,8 @@
 <p>vs2017/vs2019</p>
 </blockquote>
 <ul>
-<li>c/c++->Code Generation</li>
+<li>c/c++-&gt;Code Generation</li>
 </ul>
 <!-- vs2019: https://github.com/tdtc-hrb/csdn/raw/master/images/gen1-vc142.png -->
-<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/gen1-vc143.png" alt="VS2022 c++"></p>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/gen1-vc143.png" alt="VS2022 c++"></p>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

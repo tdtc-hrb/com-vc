@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>VC 创建 Component Object Model</title></head> <body> <h1>VC 创建 Component Object Model</h1>  <p><em>ATL Project Wizard</em></p> <p>2025-03-05</p> <p>Written by: tdtc</p> <ul>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>VC 创建 Component Object Model</title></head><body><h1>VC 创建 Component Object Model</h1><p><em>ATL Project Wizard</em></p><p>2025-03-05</p><p>Written by: tdtc</p><ul>
 <li>建立ATL工程</li>
 <li>建立ATL Simple Object</li>
 <li>添加IDL方法</li>
 </ul>
 <h2 id="atl工程">ATL工程</h2>
-<p>File->New->Project</p>
+<p>File-&gt;New-&gt;Project</p>
 <!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200201162120769.png -->
 <!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new1(vs2013).png -->
 <!-- vs2015: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new1(vs2015).png -->
@@ -12,7 +12,7 @@
 <p>Note: name即是要生成的DLL文件<br>
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new1(vs2019).png" alt="project type">
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-new2(vs2019).png" alt="project name"></p>
-<p>选择”MFC/ATL”中”ATL Project”:</p>
+<p>选择“MFC/ATL”中“ATL Project”:</p>
 <blockquote>
 <p>Default</p>
 </blockquote>
@@ -25,18 +25,18 @@
 </blockquote>
 <ul>
 <li>vs2013/vs2015:<br>
-Add -> Class</li>
+Add -&gt; Class</li>
 </ul>
 <!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313201050286.png -->
 <!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple1(vs2013).png -->
 <ul>
 <li>vs2017/vs2019:<br>
-Add -> New Item</li>
+Add -&gt; New Item</li>
 </ul>
 <!-- vs2019: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple1.png -->
 <ul>
 <li>vs2022:<br>
-Add -> Module<br>
+Add -&gt; Module<br>
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-simple1(vs2022).png" alt="atl simple object - item"></li>
 </ul>
 <p>ATL Simple Object:</p>
@@ -55,7 +55,7 @@ ProgID: testATL.testSOW</li>
 <h4 id="ie支持">IE支持</h4>
 <ul>
 <li>vs2013/vs2015<br>
-Options -> Support</li>
+Options -&gt; Support</li>
 <li>vs2017/vs2019/vs2022<br>
 Other Options</li>
 </ul>
@@ -66,10 +66,10 @@ Other Options</li>
 <blockquote>
 <p>Tab switching from “Solution Explorer” to “Class View”</p>
 <blockquote>
-<p>vs2022: View -> Class View</p>
+<p>vs2022: View -&gt; Class View</p>
 </blockquote>
 </blockquote>
-<p>Select the interface, Right-click -> add -> add method</p>
+<p>Select the interface, Right-click -&gt; add -&gt; add method</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name: ItestSOW</span></span></code></pre>
 <!-- vs2017: https://gitee.com/xiaobin80/csdn/raw/master/images/20200313210151687.png -->
 <!-- vs2013: https://github.com/tdtc-hrb/csdn/raw/master/images/atl-interface1(vs2013).png -->
@@ -91,19 +91,19 @@ testATL.idl(part):</li>
 <ul>
 <li>注册COM</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#E1E4E8">@echo</span></span>
-<span class="line"><span style="color:#E1E4E8">cd /d </span><span style="color:#F97583">%~</span><span style="color:#E1E4E8">dp0</span></span>
-<span class="line"><span style="color:#E1E4E8">Regsvr32 xbfInfo.dll</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#F97583">@echo</span></span>
+<span class="line"><span style="color:#F97583">cd</span><span style="color:#E1E4E8"> /d </span><span style="color:#FFAB70">%~dp0</span></span>
+<span class="line"><span style="color:#F97583">Regsvr32</span><span style="color:#E1E4E8"> xbfInfo.dll</span></span></code></pre>
 <ul>
 <li>Debug版本<br>
 拷贝</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;Visual-Studio Installation Path>\vcruntime140d.dll</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&lt;Visual-Studio Installation Path&gt;\vcruntime140d.dll</span></span></code></pre>
 <p>and</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\Windows\SysWOW64\ucrtbased.dll</span></span></code></pre>
 <p>放到project目录</p>
 <h3 id="vb-project">VB Project</h3>
-<p>Project -> Add Reference
+<p>Project -&gt; Add Reference
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/atl-import16.png" alt="vb import dll"></p>
 <p>按钮事件：</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click</span></span>
@@ -120,4 +120,5 @@ testATL.idl(part):</li>
 <ul>
 <li><a href="https://tdtc-hrb.github.io/com-vc/posts/update-atl">ATL update</a></li>
 <li><a href="https://tdtc-hrb.github.io/com-vc/posts/update2-atl">ATL update 2</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

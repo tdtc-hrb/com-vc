@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Windows Controls: The Rich Edit Control</title></head> <body> <h1>Windows Controls: The Rich Edit Control</h1>  <p><em>Use Rich Edit 2.0 Control to store files</em></p> <p>2025-11-01</p> <p>Written by: xiaobin</p> <p>First, set up EDITSTREAM, then StreamOut.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Windows Controls: The Rich Edit Control</title></head><body><h1>Windows Controls: The Rich Edit Control</h1><p><em>Use Rich Edit 2.0 Control to store files</em></p><p>2025-11-01</p><p>Written by: xiaobin</p><p>First, set up EDITSTREAM, then StreamOut.</p>
 <p>Two Rich Edit 2.0 controls: RICHEDIT2LOG2 and RICHEDIT2LOG1; used to store plain text and hexadecimal text.</p>
 <h3 id="editstream-structure-richedith"><a href="https://learn.microsoft.com/en-us/windows/win32/api/richedit/ns-richedit-editstream">EDITSTREAM structure (richedit.h)</a></h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>typedef struct _editstream {</span></span>
@@ -26,7 +26,7 @@ The control calls the callback function repeatedly, transferring a portion of th
 <h3 id="streamout"><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cricheditctrl-class?view=msvc-170#streamout">StreamOut</a></h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>long StreamOut(</span></span>
 <span class="line"><span>    int nFormat,</span></span>
-<span class="line"><span>    EDITSTREAM&#x26; es);</span></span></code></pre>
+<span class="line"><span>    EDITSTREAM&amp; es);</span></span></code></pre>
 <ul>
 <li>nFormat<br>
 Flags specifying the output data formats. See the Remarks section for more information.</li>
@@ -44,7 +44,7 @@ EDITSTREAM structure specifying the output stream. See the Remarks section for m
 <span class="line"><span>{</span></span>
 <span class="line"><span>   CFile* pFile = (CFile*) dwCookie;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>   pFile->Write(pbBuff, cb);</span></span>
+<span class="line"><span>   pFile-&gt;Write(pbBuff, cb);</span></span>
 <span class="line"><span>   *pcb = cb;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>   return 0;</span></span>
@@ -59,7 +59,7 @@ EDITSTREAM structure specifying the output stream. See the Remarks section for m
 <span class="line"><span>            CFile::modeCreate | CFile::modeWrite);</span></span>
 <span class="line"><span>EDITSTREAM es;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>es.dwCookie = (DWORD)&#x26;cFile;</span></span>
+<span class="line"><span>es.dwCookie = (DWORD)&amp;cFile;</span></span>
 <span class="line"><span>es.pfnCallback = MyStreamOutCallback;</span></span>
 <span class="line"><span>m_myRichEditCtrl.StreamOut(SF_RTF, es);</span></span></code></pre>
 <h3 id="serialcommviewcpp">SerialCommView.cpp</h3>
@@ -70,7 +70,7 @@ EDITSTREAM structure specifying the output stream. See the Remarks section for m
 <span class="line"><span>{</span></span>
 <span class="line"><span>    CFile *pFile = (CFile *)dwCookie;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    pFile->Write(pbBuff, cb);</span></span>
+<span class="line"><span>    pFile-&gt;Write(pbBuff, cb);</span></span>
 <span class="line"><span>    *pcb = cb;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>    return 0;</span></span>
@@ -81,18 +81,19 @@ EDITSTREAM structure specifying the output stream. See the Remarks section for m
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    CFile cFile(TEXT(strPathName), CFile::modeCreate|CFile::modeWrite);</span></span>
 <span class="line"><span>    EDITSTREAM es;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    if (((CButton *)GetDlgItem(IDC_CHECK1HEX))->GetCheck()) { // 日志2</span></span>
-<span class="line"><span>        es.dwCookie = (DWORD) &#x26;cFile;</span></span>
+<span class="line"><span>    if (((CButton *)GetDlgItem(IDC_CHECK1HEX))-&gt;GetCheck()) { // 日志2</span></span>
+<span class="line"><span>        es.dwCookie = (DWORD) &amp;cFile;</span></span>
 <span class="line"><span>        es.pfnCallback = MyStreamOutCallback;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>        ((CRichEditCtrl *)GetDlgItem(IDC_RICHEDIT2LOG2))->StreamOut(SF_RTF, es);</span></span>
+<span class="line"><span>        ((CRichEditCtrl *)GetDlgItem(IDC_RICHEDIT2LOG2))-&gt;StreamOut(SF_RTF, es);</span></span>
 <span class="line"><span>    } else {                                                  // 日志1</span></span>
-<span class="line"><span>        es.dwCookie = (DWORD) &#x26;cFile;</span></span>
+<span class="line"><span>        es.dwCookie = (DWORD) &amp;cFile;</span></span>
 <span class="line"><span>        es.pfnCallback = MyStreamOutCallback;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>        ((CRichEditCtrl *)GetDlgItem(IDC_RICHEDIT2LOG1))->StreamOut(SF_RTF, es);</span></span>
+<span class="line"><span>        ((CRichEditCtrl *)GetDlgItem(IDC_RICHEDIT2LOG1))-&gt;StreamOut(SF_RTF, es);</span></span>
 <span class="line"><span>    }</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://www.functionx.com/visualc/controls/richedit.htm">Windows Controls: The Rich Edit Control</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

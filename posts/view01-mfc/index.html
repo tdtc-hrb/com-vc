@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Scroll Views</title></head> <body> <h1>Scroll Views</h1>  <p><em>CScrollView adds basic scrolling capabilities to CView.</em></p> <p>2025-11-29</p> <p>Written by: xiaobin</p> <p>CScrollView adds basic scrolling capabilities to CView.
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Scroll Views</title></head><body><h1>Scroll Views</h1><p><em>CScrollView adds basic scrolling capabilities to CView.</em></p><p>2025-11-29</p><p>Written by: xiaobin</p><p>CScrollView adds basic scrolling capabilities to CView.
 It includes handlers for WM_VSCROLL and WM_HSCROLL messages that allow MFC to do the bulk of the work involved in scrolling a window
 in response to scroll bar messages.
 It also includes member functions that you can call to perform fundamental tasks such as scrolling to a specified position and
@@ -34,7 +34,7 @@ AppWizard overrides OnInitialUpdate for you and inserts a call to SetScrollSizes
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    //</span></span>
 <span class="line"><span>    // Add numbers and button outlines to the row headers.</span></span>
 <span class="line"><span>    //</span></span>
-<span class="line"><span>    for (int i=0; i&#x3C;19; i++) {</span></span>
+<span class="line"><span>    for (int i=0; i&lt;19; i++) {</span></span>
 <span class="line"><span>        // some code</span></span>
 <span class="line"><span>    }</span></span></code></pre>
 <ul>
@@ -43,7 +43,7 @@ AppWizard overrides OnInitialUpdate for you and inserts a call to SetScrollSizes
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    //</span></span>
 <span class="line"><span>    // Add letters and button outlines to the column headers.</span></span>
 <span class="line"><span>    //</span></span>
-<span class="line"><span>    for (int j=0; j&#x3C;26; j++) {</span></span>
+<span class="line"><span>    for (int j=0; j&lt;26; j++) {</span></span>
 <span class="line"><span>        // some code here</span></span>
 <span class="line"><span>    }</span></span></code></pre>
 <ul>
@@ -53,16 +53,17 @@ AppWizard overrides OnInitialUpdate for you and inserts a call to SetScrollSizes
 <span class="line"><span>    // Draw address labels into the individual cells.</span></span>
 <span class="line"><span>    //</span></span>
 <span class="line"><span>    CRect rect;</span></span>
-<span class="line"><span>    pDC->GetClipBox (&#x26;rect);</span></span>
+<span class="line"><span>    pDC-&gt;GetClipBox (&amp;rect);</span></span>
 <span class="line"><span>    // other code here</span></span>
 <span class="line"><span>    int nEndRow = min (18, (rect.bottom - 1) / m_nCellHeight);</span></span>
 <span class="line"><span>    // other code here</span></span>
 <span class="line"><span>    </span></span>
-<span class="line"><span>    for (int i=nStartRow; i&#x3C;=nEndRow; i++)</span></span>
-<span class="line"><span>        for (int j=nStartCol; j&#x3C;=nEndCol; j++)</span></span>
+<span class="line"><span>    for (int i=nStartRow; i&lt;=nEndRow; i++)</span></span>
+<span class="line"><span>        for (int j=nStartCol; j&lt;=nEndCol; j++)</span></span>
 <span class="line"><span>            DrawAddress (pDC, i, j);</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://assets.ctfassets.net/9pcn2syx7zns/6ejGpuR3LJdenVQWDCe23W/d152db4718309d396d07aa8b444a541e/mfc2.pdf">10.1. Scroll Views(P600)- Programming Windows With MFC</a></li>
 <li><a href="https://github.com/definedrisk/prosise-mfc2e">CD-ROM Jeff Prosise MFC 2nd Edition.zip</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

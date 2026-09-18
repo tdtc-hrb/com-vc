@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>COleDataSource - OLE in MFC</title></head> <body> <h1>COleDataSource - OLE in MFC</h1>  <p><em>wrapper for implementing IDataObject(works similar to how data is provided on the clipboard)</em></p> <p>2025-12-10</p> <p>Written by: xiaobin</p> <p>Listing 12-1 shows the definition of COleDataSource from AFXOLE.H:</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>COleDataSource - OLE in MFC</title></head><body><h1>COleDataSource - OLE in MFC</h1><p><em>wrapper for implementing IDataObject(works similar to how data is provided on the clipboard)</em></p><p>2025-12-10</p><p>Written by: xiaobin</p><p>Listing 12-1 shows the definition of COleDataSource from AFXOLE.H:</p>
 <p>Listing 12-1. The COleDataSource class</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/*============================================================================*/</span></span>
 <span class="line"><span>// COleDataSource -- wrapper for implementing IDataObject</span></span>
@@ -16,7 +16,7 @@
 <span class="line"><span>// Operations</span></span>
 <span class="line"><span>	void Empty();   // empty cache (similar to ::EmptyClipboard)</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>	// CacheData &#x26; DelayRenderData operations similar to ::SetClipboardData</span></span>
+<span class="line"><span>	// CacheData &amp; DelayRenderData operations similar to ::SetClipboardData</span></span>
 <span class="line"><span>	void CacheGlobalData(CLIPFORMAT cfFormat, HGLOBAL hGlobal,</span></span>
 <span class="line"><span>		LPFORMATETC lpFormatEtc = NULL);    // for HGLOBAL based data</span></span>
 <span class="line"><span>	void DelayRenderFileData(CLIPFORMAT cfFormat,</span></span>
@@ -57,7 +57,7 @@
 <span class="line"><span>	virtual ~COleDataSource();</span></span>
 <span class="line"><span>#ifdef _DEBUG</span></span>
 <span class="line"><span>	virtual void AssertValid() const;</span></span>
-<span class="line"><span>	virtual void Dump(CDumpContext&#x26; dc) const;</span></span>
+<span class="line"><span>	virtual void Dump(CDumpContext&amp; dc) const;</span></span>
 <span class="line"><span>#endif</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>protected:</span></span>
@@ -134,11 +134,11 @@ Notice that COleDataSource::CacheData() includes a FORMATETC structure in the pa
 the caller can pass just the CLIPFORMAT if it wants to. However, the AFX_DATACACHE_ENTRY structure needs an entire FORMATETC structure-
 not just a CLIPFORMAT. If the caller doesn’t pass in a FORMATETC structure, CacheData() fills the structure using _AfxFillFormatEtc().
 _AfxFillFormatEtc() fills the FORMATETC structure using these default values:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>lpFormatEtc->cfFormat = &#x3C;the CF_ format provided by the caller>;</span></span>
-<span class="line"><span>lpFormatEtc->ptd = NULL;</span></span>
-<span class="line"><span>lpFormatEtc->dwAspect = DVASPECT_CONTENT;</span></span>
-<span class="line"><span>lpFormatEtc->lindex = -1;</span></span>
-<span class="line"><span>lpFormatEtc->tymed = (TYMED)-1</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>lpFormatEtc-&gt;cfFormat = &lt;the CF_ format provided by the caller&gt;;</span></span>
+<span class="line"><span>lpFormatEtc-&gt;ptd = NULL;</span></span>
+<span class="line"><span>lpFormatEtc-&gt;dwAspect = DVASPECT_CONTENT;</span></span>
+<span class="line"><span>lpFormatEtc-&gt;lindex = -1;</span></span>
+<span class="line"><span>lpFormatEtc-&gt;tymed = (TYMED)-1</span></span></code></pre>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Finally, CacheData() sets the tymed field of the FORMATETC structure to the tymed field of the STGMEDIUM structure </span></span></code></pre>
 <p>passed in by the caller.
 Once the framework has a viable FORMATETC, CacheData() makes a place for the data in the cache by calling
@@ -212,4 +212,5 @@ returns OLE_E_ADVISENOTSUPPORTED.</p>
 <h2 id="ref">Ref</h2>
 <ul>
 <li>COleDataSource - Excerpt from “MFC Internals”</li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

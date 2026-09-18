@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>ODBC3 - MFC</title></head> <body> <h1>ODBC3 - MFC</h1>  <p><em>CRecordView</em></p> <p>2025-12-24</p> <p>Written by: xiaobin</p> <p>Use the CFormView template,
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>ODBC3 - MFC</title></head><body><h1>ODBC3 - MFC</h1><p><em>CRecordView</em></p><p>2025-12-24</p><p>Written by: xiaobin</p><p>Use the CFormView template,
 and then manually rewrite it as CRecordView.</p>
 <ul>
 <li>Inheritance Hierarchy</li>
@@ -56,16 +56,17 @@ enable function members of one object to access the public data or function memb
 <li>old</li>
 </ul>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	CFormView::OnInitialUpdate();</span></span>
-<span class="line"><span>	GetParentFrame()->RecalcLayout();</span></span>
+<span class="line"><span>	GetParentFrame()-&gt;RecalcLayout();</span></span>
 <span class="line"><span>	ResizeParentToFit();</span></span></code></pre>
 <ul>
 <li>new</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	m_pSet = &#x26;GetDocument()->m_Rec1Set;</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>	m_pSet = &amp;GetDocument()-&gt;m_Rec1Set;</span></span>
 <span class="line"><span>	CRecordView::OnInitialUpdate();</span></span></code></pre>
 <p>member functions(GetDocument()) to support processing of that data.</p>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/crecordview-class?view=msvc-170">CRecordView Class</a></li>
 <li>Chapter 12: Windows Programming with the Microsoft Foundation Classes (MFC) - Beginning Visual C++ 2013</li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

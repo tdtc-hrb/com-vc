@@ -1,15 +1,44 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>windbg调试sandboxie driver</title></head> <body> <h1>windbg调试sandboxie driver</h1>  <p><em>串口方式</em></p> <p>2022-09-06</p> <p>Written by: tdtc</p> <p>Sandboxie builds under <a href="https://gitee.com/xiaobin80/sandboxie/blob/master/ReadMe.md">MS Visual Studio 2015</a>.<br>
-可以升级到vs2017 &#x26; windows sdk8.1.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>windbg调试sandboxie driver</title></head><body><h1>windbg调试sandboxie driver</h1><p><em>串口方式</em></p><p>2026-05-25</p><p>Written by: tdtc</p><ul>
+<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/other-wdk-downloads">WDK</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Windows Version</th>
+<th>Build Number</th>
+<th>Supported Visual Studio</th>
+<th>SDK</th>
+<th>WDK</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows 11 25H2 (Ge)</td>
+<td>26100.6584</td>
+<td>VS 2022</td>
+<td>SDK</td>
+<td>WDK</td>
+<td>This version is the default supported kit for Windows driver development in VS2022.</td>
+</tr>
+<tr>
+<td>Windows 10 2004 (VB)</td>
+<td>19041.5738</td>
+<td>VS 2019</td>
+<td>SDK</td>
+<td>WDK</td>
+<td>Supported for Windows 7/Windows 8/Windows 8.1 driver development only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enterprise-wdk-ewdk">Enterprise WDK (EWDK)</h4>
+<p>Instead of downloading Visual Studio, the SDK, and the WDK separately, you can download the EWDK.
+The EWDK is a standalone, self-contained command-line environment for building drivers.
+It includes Visual Studio Build Tools, the SDK, and the WDK.</p>
 <h1 id="prepare">Prepare</h1>
-<p>Host Env:</p>
 <ul>
-<li>OS<br>
-Win1809(x64)</li>
-<li>VM<br>
-VMware(v10.0.7) / Vbox(v6.1.38)</li>
-<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/other-wdk-downloads#step-2-install-the-wdk">WDK(include windbg)</a><br>
-<a href="https://www.microsoft.com/en-us/download/details.aspx?id=11800">Windows Driver Kit Version 7.1.0 - win7</a> /
-<a href="https://go.microsoft.com/fwlink/?linkid=2128854">Windows 10, version 2004 - win8.1</a></li>
+<li>VMware(v10.0.7)</li>
+<li>Vbox</li>
 </ul>
 <h2 id="vm-setting---serial-port">VM setting - serial port</h2>
 <blockquote>
@@ -42,7 +71,7 @@ Otherwise the OS version will not be recognized!!</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C:\Program Files (x86)\Windows Kits\10\Debuggers\x64</span></span></code></pre>
 <h3 id="shortcute">ShortCute</h3>
 <p>If you use a shortcut, you don’t need to set the download path in the command.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&#x3C;home path> -y "srv*c:\symbols*https://msdl.microsoft.com/download/symbols"</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>&lt;home path&gt; -y "srv*c:\symbols*https://msdl.microsoft.com/download/symbols"</span></span></code></pre>
 <h2 id="guest-os">guest os</h2>
 <ul>
 <li>Win7 SP1(x86) <a href="https://blog.simplix.info/update7/">latest update</a></li>
@@ -50,7 +79,7 @@ Otherwise the OS version will not be recognized!!</p>
 </ul>
 <h3 id="display-os-list">display os list</h3>
 <p>Add an OS to display the OS list:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#E1E4E8">bcdedit /copy {current} /d </span><span style="color:#9ECBFF">"Sandboxie Usage"</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cmd"><code><span class="line"><span style="color:#F97583">bcdedit</span><span style="color:#E1E4E8"> /copy {current} /d </span><span style="color:#9ECBFF">"Sandboxie Usage"</span></span></code></pre>
 <h3 id="debug-settings">debug settings</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bcdedit /debug on</span></span></code></pre>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bcdedit /dbgsettings serial debugport:2 baudrate:115200</span></span></code></pre>
@@ -66,7 +95,7 @@ After each startup, press F8 (laptop Fn+F8).</p>
 </ul>
 <ol>
 <li>
-<p>Settings -> Update and recovery → Recovery</p>
+<p>Settings -&gt; Update and recovery → Recovery</p>
 </li>
 <li>
 <p>Troubleshoot and then Advanced options.</p>
@@ -158,7 +187,7 @@ right click web link, “Save target as”.</p>
 <p>go:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>g</span></span></code></pre>
 <p>break:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Debug -> Break</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Debug -&gt; Break</span></span></code></pre>
 <p>quit debug:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>qd</span></span></code></pre>
 <h1 id="ref">Ref</h1>
@@ -170,4 +199,5 @@ right click web link, “Save target as”.</p>
 <li><a href="https://www.technlg.net/windows/symbol-server-path-windbg-debugging/">Debugging using Windbg : Symbols loading</a></li>
 <li><a href="https://www.triplefault.io/2017/07/setting-up-kernel-debugging-using.html">Setting up kernel debugging using WinDbg and VMware</a></li>
 <li><a href="https://medium.com/@eaugusto/setting-up-a-windows-7-virtualbox-vm-for-kernel-mode-debugging-367911889316">Setting Up a Windows 7+ Virtualbox VM for Kernel Mode Debugging</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

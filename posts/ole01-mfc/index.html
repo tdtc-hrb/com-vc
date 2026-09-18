@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>ActiveX controls</title></head> <body> <h1>ActiveX controls</h1>  <p><em>MFC support for ActiveX</em></p> <p>2025-12-04</p> <p>Written by: xiaobin</p> <p>For DLLs and ActiveX (formerly OLE) controls,
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>ActiveX controls</title></head><body><h1>ActiveX controls</h1><p><em>MFC support for ActiveX</em></p><p>2025-12-04</p><p>Written by: xiaobin</p><p>For DLLs and ActiveX (formerly OLE) controls,
 CProjNameApp::InitInstance registers the control’s object factory with OLE by calling COleObjectFactory::RegisterAll and makes a call to AfxOLEInit.
 In addition, the member function CProjNameApp::ExitInstance is used to unload the control from memory with a call to AfxOleTerm.</p>
 <h3 id="afxole">afxole</h3>
@@ -8,7 +8,7 @@ which initializes the OLE libraries.
 This function must be called before an MFC application touches COM or OLE in any way.
 Therefore, I added a call to AfxOleInit to the beginning of the application class’s InitInstance function.
 This meant that I also had to add the statement</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;afxole.h></span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &lt;afxole.h&gt;</span></span></code></pre>
 <p>to Stdafx.h. Otherwise, the call to AfxOleInit wouldn’t have compiled.</p>
 <p>I mention this because if you write an application that uses COM or OLE but you don’t select one of the OLE options in
 AppWizard, you must add the AfxOleInit call and the statement that <i>#includes Afxole.h</i> manually.
@@ -37,4 +37,5 @@ make sure that AfxOleInit is called when the application starts up. You’ll sav
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/ole-initialization?view=msvc-170">OLE Initialization</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/build/reference/mfc-program-or-control-source-and-header-files?view=msvc-170">MFC Program or Control Source and Header Files</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

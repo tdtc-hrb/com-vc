@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Change the default ATL project properties in VC</title></head> <body> <h1>Change the default ATL project properties in VC</h1>  <p><em>ATL project</em></p> <p>2026-02-19</p> <p>Written by: tdtc</p> <h2 id="change-the-default-project-properties">Change the default project properties</h2>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Change the default ATL project properties in VC</title></head><body><h1>Change the default ATL project properties in VC</h1><p><em>ATL project</em></p><p>2026-02-19</p><p>Written by: tdtc</p><h2 id="change-the-default-project-properties">Change the default project properties</h2>
 <ul>
 <li>MSB8011</li>
 </ul>
@@ -8,13 +8,13 @@
 <h3 id="registeroutput">RegisterOutput</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Linker: Register Output为 “No”；</span></span></code></pre>
 <h4 id="x64-for-vs2022">x64 for vs2022+</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Linker -> All Options -> </span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Linker -&gt; All Options -&gt; </span></span>
 <span class="line"><span>Register Output: No</span></span></code></pre>
 <h3 id="useofatl">UseOfAtl</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>General -> Use of ATL</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>General -&gt; Use of ATL</span></span>
 <span class="line"><span>Not Using ATL</span></span></code></pre>
 <h3 id="sdlcheck">SDLCheck</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C/C++ -> SDL checks</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>C/C++ -&gt; SDL checks</span></span>
 <span class="line"><span>Use the backspace key to delete.</span></span></code></pre>
 <p>Microsoft’s SDL solution here in contrast is not portable, nor is it safe.</p>
 <h2 id="runtime-exception">runtime exception</h2>
@@ -42,4 +42,5 @@ If you don’t have one and you know what dll implements the object, you can run
 <ul>
 <li><a href="https://stackoverflow.com/a/18309123">Don’t expect too much from it - SDL</a></li>
 <li><a href="https://devblogs.microsoft.com/cppblog/changes-to-project-templates-and-code-wizards-in-15-3/">Changes to Project Templates and Code Wizards in 15.3</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

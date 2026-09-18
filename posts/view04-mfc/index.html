@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Three-way Splitter Frame - SDI</title></head> <body> <h1>Three-way Splitter Frame - SDI</h1>  <p><em>scroll view, splitter windows.</em></p> <p>2025-12-01</p> <p>Written by: xiaobin</p> <p>You need to add implementation code to OnCreateClient() in MainFrm.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Three-way Splitter Frame - SDI</title></head><body><h1>Three-way Splitter Frame - SDI</h1><p><em>scroll view, splitter windows.</em></p><p>2025-12-01</p><p>Written by: xiaobin</p><p>You need to add implementation code to OnCreateClient() in MainFrm.</p>
 <h3 id="mfc-app-wizard">MFC App Wizard</h3>
 <p>MyExplorer</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/sdi-myexplorer.png" alt="Windows Explorer - style"></p>
@@ -78,7 +78,7 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    // add the first splitter pane - which is a nested splitter with 2 rows</span></span>
 <span class="line"><span>    if (!m_wndSplitter1.CreateStatic(</span></span>
-<span class="line"><span>        &#x26;m_wndSplitter,     // our parent window is the first splitter</span></span>
+<span class="line"><span>        &amp;m_wndSplitter,     // our parent window is the first splitter</span></span>
 <span class="line"><span>        2, 1,               // the new splitter is 2 rows, 1 column</span></span>
 <span class="line"><span>        WS_CHILD | WS_VISIBLE | WS_BORDER,  // style, WS_BORDER is needed</span></span>
 <span class="line"><span>        m_wndSplitter.IdFromRowCol(0, 0)</span></span>
@@ -104,7 +104,7 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    // add the second splitter pane - which is a nested splitter with 2 rows</span></span>
 <span class="line"><span>    if (!m_wndSplitter2.CreateStatic(</span></span>
-<span class="line"><span>        &#x26;m_wndSplitter,     // our parent window is the first splitter</span></span>
+<span class="line"><span>        &amp;m_wndSplitter,     // our parent window is the first splitter</span></span>
 <span class="line"><span>        2, 1,               // the new splitter is 2 rows, 1 column</span></span>
 <span class="line"><span>        WS_CHILD | WS_VISIBLE | WS_BORDER,  // style, WS_BORDER is needed</span></span>
 <span class="line"><span>        m_wndSplitter.IdFromRowCol(0, 1)</span></span>
@@ -117,10 +117,10 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    // now create the two views inside the nested splitter</span></span>
 <span class="line"><span>    CRect rect;</span></span>
-<span class="line"><span>    GetClientRect(&#x26;rect);</span></span>
+<span class="line"><span>    GetClientRect(&amp;rect);</span></span>
 <span class="line"><span>    int cyText = rect.Size().cy - 70;         // height of text pane - SDI</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    //int cyText = max(lpcs->cy - 70, 20);    // height of text pane - MDI</span></span>
+<span class="line"><span>    //int cyText = max(lpcs-&gt;cy - 70, 20);    // height of text pane - MDI</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>    if (!m_wndSplitter2.CreateView(0, 0,</span></span>
 <span class="line"><span>        RUNTIME_CLASS(CMyExplorerView), CSize(0, cyText), pContext))</span></span>
@@ -147,4 +147,5 @@
 <li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/csplitterwnd-class?view=msvc-170#setrowinfo">SetRowInfo</a></li>
 <li><a href="https://github.com/microsoft/VCSamples/blob/master/VC2010Samples/MFC/general/viewex/splitter.cpp">ViewEx - MFC samples</a></li>
 <li><a href="https://p2p.wrox.com/visual-c/12283-switch-between-views-sdi-splitter.html">Switch between views in a SDI with Splitter?</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

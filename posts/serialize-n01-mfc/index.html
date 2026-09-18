@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Fundamentals of Serialization - MFC</title></head> <body> <h1>Fundamentals of Serialization - MFC</h1>  <p><em>Run-Time Object Model Support</em></p> <p>2025-11-10</p> <p>Written by: xiaobin</p> <p>Add Class - MFC Class</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Fundamentals of Serialization - MFC</title></head><body><h1>Fundamentals of Serialization - MFC</h1><p><em>Run-Time Object Model Support</em></p><p>2025-11-10</p><p>Written by: xiaobin</p><p>Add Class - MFC Class</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class1-mfc_class.png" alt="add class - MFC Class">
 <img src="https://github.com/tdtc-hrb/csdn/raw/master/images/add_class2-mfc_class.png" alt="add class - MFC Class"></p>
 <h4 id="when-to-use-virtual-destructors"><a href="https://stackoverflow.com/questions/461203/when-to-use-virtual-destructors">When to use virtual destructors?</a></h4>
@@ -27,19 +27,19 @@
 <ul>
 <li>define</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>virtual void Serialize(CArchive&#x26; ar);</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>virtual void Serialize(CArchive&amp; ar);</span></span></code></pre>
 <ul>
 <li>impl</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CConnectString::Serialize(CArchive &#x26;ar)</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CConnectString::Serialize(CArchive &amp;ar)</span></span>
 <span class="line"><span>{</span></span>
 <span class="line"><span>    CObject::Serialize(ar);</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>    if (ar.IsStoring()) {</span></span>
-<span class="line"><span>        ar &#x3C;&#x3C; Server &#x3C;&#x3C; Db &#x3C;&#x3C; User &#x3C;&#x3C; Pwd &#x3C;&#x3C; Type;</span></span>
+<span class="line"><span>        ar &lt;&lt; Server &lt;&lt; Db &lt;&lt; User &lt;&lt; Pwd &lt;&lt; Type;</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span>    else {</span></span>
-<span class="line"><span>        ar >> Server >> Db >> User >> Pwd >> Type;</span></span>
+<span class="line"><span>        ar &gt;&gt; Server &gt;&gt; Db &gt;&gt; User &gt;&gt; Pwd &gt;&gt; Type;</span></span>
 <span class="line"><span>    }</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <h4 id="getter-and-setter">getter and setter</h4>
@@ -104,4 +104,5 @@
 <span class="line"><span>void    CConnectString::SetType(int type)</span></span>
 <span class="line"><span>{</span></span>
 <span class="line"><span>    Type = type;</span></span>
-<span class="line"><span>}</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+<span class="line"><span>}</span></span></code></pre>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

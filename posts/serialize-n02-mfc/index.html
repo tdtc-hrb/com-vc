@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Constructors and member initializer lists - C++</title></head> <body> <h1>Constructors and member initializer lists - C++</h1>  <p><em>Initialization order</em></p> <p>2025-11-10</p> <p>Written by: xiaobin</p> <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;iostream></span></span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Constructors and member initializer lists - C++</title></head><body><h1>Constructors and member initializer lists - C++</h1><p><em>Initialization order</em></p><p>2025-11-10</p><p>Written by: xiaobin</p><pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &lt;iostream&gt;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>using namespace std;</span></span>
 <span class="line"><span></span></span>
@@ -8,12 +8,12 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    S(int);       // constructor declaration</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    S() : n(7) { cout &#x3C;&#x3C; n &#x3C;&#x3C; endl; } // constructor definition:</span></span>
+<span class="line"><span>    S() : n(7) { cout &lt;&lt; n &lt;&lt; endl; } // constructor definition:</span></span>
 <span class="line"><span>    // ": n(7)" is the initializer list</span></span>
 <span class="line"><span>    // ": n(7) {}" is the function body</span></span>
 <span class="line"><span>};</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>S::S(int x) : n{ x } { cout &#x3C;&#x3C; n; } // constructor definition: ": n{x}" is the initializer list</span></span>
+<span class="line"><span>S::S(int x) : n{ x } { cout &lt;&lt; n; } // constructor definition: ": n{x}" is the initializer list</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>int main()</span></span>
 <span class="line"><span>{</span></span>
@@ -28,9 +28,9 @@
 <li>x(x),     // x (member) is initialized with x (parameter)</li>
 <li>y{0},     // y initialized to 0</li>
 </ul>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &#x3C;fstream></span></span>
-<span class="line"><span>#include &#x3C;string></span></span>
-<span class="line"><span>#include &#x3C;mutex></span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#include &lt;fstream&gt;</span></span>
+<span class="line"><span>#include &lt;string&gt;</span></span>
+<span class="line"><span>#include &lt;mutex&gt;</span></span>
 <span class="line"><span> </span></span>
 <span class="line"><span>struct Base</span></span>
 <span class="line"><span>{</span></span>
@@ -42,7 +42,7 @@
 <span class="line"><span>    unsigned char x;</span></span>
 <span class="line"><span>    unsigned char y;</span></span>
 <span class="line"><span>    std::mutex m;</span></span>
-<span class="line"><span>    std::lock_guard&#x3C;std::mutex> lg;</span></span>
+<span class="line"><span>    std::lock_guard&lt;std::mutex&gt; lg;</span></span>
 <span class="line"><span>    std::fstream f;</span></span>
 <span class="line"><span>    std::string s;</span></span>
 <span class="line"><span> </span></span>
@@ -107,4 +107,5 @@
 <ul>
 <li><a href="https://en.cppreference.com/w/cpp/language/initializer_list.html">Constructors and member initializer lists</a></li>
 <li><a href="https://learn.microsoft.com/en-us/cpp/cpp/constructors-cpp?view=msvc-170">Constructors (C++)</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

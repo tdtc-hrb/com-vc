@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Combo-box Control - ComboExo example</title></head> <body> <h1>Combo-box Control - ComboExo example</h1>  <p><em>Create a new ComboExo using VS2013</em></p> <p>2025-11-04</p> <p>Written by: xiaobin</p> <ul>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Combo-box Control - ComboExo example</title></head><body><h1>Combo-box Control - ComboExo example</h1><p><em>Create a new ComboExo using VS2013</em></p><p>2025-11-04</p><p>Written by: xiaobin</p><ul>
 <li>MFC Application Wizard</li>
 <li>design dialog</li>
 <li>event</li>
@@ -13,7 +13,7 @@ After downloading, click “Extract” to extract the source files.</p>
 </ul>
 <h4 id="recompile-with-visual-studio-2015"><a href="https://stackoverflow.com/a/44462055">Recompile with Visual Studio 2015+</a></h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>D8016 '/ZI' and '/Gy-' command-line options are incompatible</span></span></code></pre>
-<p>C/C++ -> General -> Debug Information Format</p>
+<p>C/C++ -&gt; General -&gt; Debug Information Format</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Program Database(/Zi)</span></span></code></pre>
 <h2 id="mfc-application-wizard">MFC Application Wizard</h2>
 <ul>
@@ -64,30 +64,31 @@ Original data:</li>
 <li>CBN_SELCHANGE</li>
 </ul>
 <blockquote>
-<p>IDC_COMBO1 -> Properties</p>
+<p>IDC_COMBO1 -&gt; Properties</p>
 </blockquote>
 <ul>
 <li>OnInitXXX</li>
 </ul>
 <h3 id="cbn_selchange">CBN_SELCHANGE</h3>
-<p>Click the “CBN_SELCHANGE” event property and select ”<add> OnCbnSelchangeCombo1” from the drop-down menu.
-<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/MFCApplication1-combobox1.png" alt="Sent when the user changes the current selection in the list box of a combo box"></add></p>
+<p>Click the “CBN_SELCHANGE” event property and select “<Add> OnCbnSelchangeCombo1” from the drop-down menu.
+<img src="https://github.com/tdtc-hrb/csdn/raw/master/images/MFCApplication1-combobox1.png" alt="Sent when the user changes the current selection in the list box of a combo box"></p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CComboExoDlg::OnCbnSelchangeCombo1()</span></span>
 <span class="line"><span>{</span></span>
 <span class="line"><span>    // TODO: Add your control notification handler code here</span></span>
 <span class="line"><span>    CString strTemp;</span></span>
 <span class="line"><span>    int nCurSel;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    nCurSel = ((CComboBox*)GetDlgItem(IDC_COMBO1))->GetCurSel();</span></span>
-<span class="line"><span>    ((CComboBox*)GetDlgItem(IDC_COMBO1))->GetLBText(nCurSel, strTemp);</span></span>
+<span class="line"><span>    nCurSel = ((CComboBox*)GetDlgItem(IDC_COMBO1))-&gt;GetCurSel();</span></span>
+<span class="line"><span>    ((CComboBox*)GetDlgItem(IDC_COMBO1))-&gt;GetLBText(nCurSel, strTemp);</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    GetDlgItem(IDC_EDIT1)->SetWindowText(strTemp);</span></span>
+<span class="line"><span>    GetDlgItem(IDC_EDIT1)-&gt;SetWindowText(strTemp);</span></span>
 <span class="line"><span>}</span></span></code></pre>
 <h3 id="oninitdialog">OnInitDialog()</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>// Add 20 items to the combo box.</span></span>
 <span class="line"><span>CString str;</span></span>
-<span class="line"><span>for (int i = 0; i &#x3C; 20; i++)</span></span>
+<span class="line"><span>for (int i = 0; i &lt; 20; i++)</span></span>
 <span class="line"><span>{</span></span>
 <span class="line"><span>    str.Format(_T("item string %d"), i);</span></span>
-<span class="line"><span>    ((CComboBox*)GetDlgItem(IDC_COMBO1))->AddString(str);</span></span>
-<span class="line"><span>}</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+<span class="line"><span>    ((CComboBox*)GetDlgItem(IDC_COMBO1))-&gt;AddString(str);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

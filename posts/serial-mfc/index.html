@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>串口读写工具 - Windows</title></head> <body> <h1>串口读写工具 - Windows</h1>  <p><em>MFC</em></p> <p>2024-09-23</p> <p>Written by: tdtc</p> <p>Recommendation: Starting October 14, 2025, do not use ATL or MFC in new projects.</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>串口读写工具 - Windows</title></head><body><h1>串口读写工具 - Windows</h1><p><em>MFC</em></p><p>2024-09-23</p><p>Written by: tdtc</p><p>Recommendation: Starting October 14, 2025, do not use ATL or MFC in new projects.</p>
 <!-- Program on Windows XP - 1: https://gitee.com/xiaobin80/csdn/raw/master/images/20150118233218968.png -->
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/prog81-0.png" alt="Program on Windows 8.1 - UI1">
 PC has no serial device</p>
@@ -45,7 +45,7 @@ PC has serial device</p>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/prog81-3.png" alt="Program on Windows 8.1 - ui4">
 Setting time</p>
 <p>如果要更改读取自定义的时间频率：</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请将SerialCommView.cpp-Ln292，更为：((CComboBox *)GetDlgItem(IDC_COMBO1Timer))->GetWindowTextA(strTemp);)</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>请将SerialCommView.cpp-Ln292，更为：((CComboBox *)GetDlgItem(IDC_COMBO1Timer))-&gt;GetWindowTextA(strTemp);)</span></span></code></pre>
 <h3 id="23-数据">2.3 数据</h3>
 <p>发送的数据</p>
 <h2 id="3-接收">3. 接收</h2>
@@ -147,20 +147,20 @@ Visual Studio series is backward compatible:</li>
 <p>ConsoleApplication:</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#pragma comment(lib, "netapi32.lib")</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>#include &#x3C;iostream></span></span>
-<span class="line"><span>#include &#x3C;windows.h></span></span>
-<span class="line"><span>#include &#x3C;lm.h></span></span>
+<span class="line"><span>#include &lt;iostream&gt;</span></span>
+<span class="line"><span>#include &lt;windows.h&gt;</span></span>
+<span class="line"><span>#include &lt;lm.h&gt;</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>using namespace std;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>bool GetWindowsVersion(unsigned long &#x26;major, unsigned long &#x26;minor)</span></span>
+<span class="line"><span>bool GetWindowsVersion(unsigned long &amp;major, unsigned long &amp;minor)</span></span>
 <span class="line"><span>{</span></span>
 <span class="line"><span>	unsigned char * pinfoRawData;</span></span>
-<span class="line"><span>	if (NERR_Success == NetWkstaGetInfo(NULL, 100, &#x26;pinfoRawData))</span></span>
+<span class="line"><span>	if (NERR_Success == NetWkstaGetInfo(NULL, 100, &amp;pinfoRawData))</span></span>
 <span class="line"><span>	{</span></span>
 <span class="line"><span>		WKSTA_INFO_100 * pworkstationInfo = (WKSTA_INFO_100 *)pinfoRawData;</span></span>
-<span class="line"><span>		major = pworkstationInfo->wki100_ver_major;</span></span>
-<span class="line"><span>		minor = pworkstationInfo->wki100_ver_minor;</span></span>
+<span class="line"><span>		major = pworkstationInfo-&gt;wki100_ver_major;</span></span>
+<span class="line"><span>		minor = pworkstationInfo-&gt;wki100_ver_minor;</span></span>
 <span class="line"><span>		::NetApiBufferFree(pinfoRawData);</span></span>
 <span class="line"><span>		return true;</span></span>
 <span class="line"><span>	}</span></span>
@@ -173,12 +173,12 @@ Visual Studio series is backward compatible:</li>
 <span class="line"><span>	unsigned long minor = 0;</span></span>
 <span class="line"><span>	if (GetWindowsVersion(major, minor))</span></span>
 <span class="line"><span>	{</span></span>
-<span class="line"><span>		std::cout &#x3C;&#x3C; "Major: " &#x3C;&#x3C; major &#x3C;&#x3C; "\nMinor: " &#x3C;&#x3C; minor &#x3C;&#x3C; endl;</span></span>
+<span class="line"><span>		std::cout &lt;&lt; "Major: " &lt;&lt; major &lt;&lt; "\nMinor: " &lt;&lt; minor &lt;&lt; endl;</span></span>
 <span class="line"><span>	}</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span></span></span></code></pre>
+<span class="line"><span>}</span></span></code></pre>
 <h2 id="ref">Ref</h2>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/lmwksta/nf-lmwksta-netwkstagetinfo">NetWkstaGetInfo function (lmwksta.h)</a></li>
 <li><a href="https://www.codeproject.com/articles/678606/part1-overcoming-windows-8-1s-deprecation-of-getve">Part1: Overcoming Windows 8.1’s deprecation of GetVersionEx and GetVersion APIs</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

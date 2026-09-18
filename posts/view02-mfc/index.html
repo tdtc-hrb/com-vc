@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Tree Views</title></head> <body> <h1>Tree Views</h1>  <p><em>Wraps the tree view control</em></p> <p>2025-12-02</p> <p>Written by: xiaobin</p> <p>CTreeCtrl and CTreeView:</p>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Tree Views</title></head><body><h1>Tree Views</h1><p><em>Wraps the tree view control</em></p><p>2025-12-02</p><p>Written by: xiaobin</p><p>CTreeCtrl and CTreeView:</p>
 <ul>
 <li>One uses a variable directly</li>
 </ul>
@@ -30,7 +30,7 @@
 <span class="line"><span></span></span>
 <span class="line"><span>    lStyleOld = GetWindowLongPtr(GetTreeCtrl().GetSafeHwnd(), GWL_STYLE);</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>    lStyleOld &#x26;= ~lStyleMask;</span></span>
+<span class="line"><span>    lStyleOld &amp;= ~lStyleMask;</span></span>
 <span class="line"><span>    if (bSetBits)</span></span>
 <span class="line"><span>        lStyleOld |= lStyleMask;</span></span>
 <span class="line"><span></span></span>
@@ -40,7 +40,7 @@
 <p>The example comes from “<a href="https://stackoverflow.com/a/21140319">hyun</a>”
 and “<a href="https://github.com/microsoft/VCSamples/blob/9e1d4475555b76a17a3568369867f1d7b6cc6126/VC2010Samples/MFC/general/CmnCtrl1/mtreectl.cpp#L61">CMyTreeCtrl::SetNewStyle</a>”</p>
 <h3 id="data-mgr---insert">data mgr - insert</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    for (iItem = 0; iItem &#x3C; sizeof(strItems) / sizeof(strItems[0]); iItem++)</span></span>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    for (iItem = 0; iItem &lt; sizeof(strItems) / sizeof(strItems[0]); iItem++)</span></span>
 <span class="line"><span>    {</span></span>
 <span class="line"><span>        curTreeItem.hParent = (iItem % 4 == 0)? NULL : m_rghItem[iItem / 4 * 4];</span></span>
 <span class="line"><span>        curTreeItem.hInsertAfter = TVI_SORT;</span></span>
@@ -48,7 +48,7 @@ and “<a href="https://github.com/microsoft/VCSamples/blob/9e1d4475555b76a17a35
 <span class="line"><span>        curTreeItem.item.iSelectedImage = curTreeItem.item.iImage + 1;</span></span>
 <span class="line"><span>        curTreeItem.item.pszText = strItems[iItem].GetBuffer(strItems[iItem].GetLength());</span></span>
 <span class="line"><span>        curTreeItem.item.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE | TVIF_TEXT;</span></span>
-<span class="line"><span>        m_rghItem[iItem] = GetTreeCtrl().InsertItem(&#x26;curTreeItem);</span></span>
+<span class="line"><span>        m_rghItem[iItem] = GetTreeCtrl().InsertItem(&amp;curTreeItem);</span></span>
 <span class="line"><span>    }</span></span></code></pre>
 <h4 id="data">data</h4>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    HTREEITEM   m_rghItem[12];</span></span>
@@ -78,4 +78,5 @@ and “<a href="https://github.com/microsoft/VCSamples/blob/9e1d4475555b76a17a35
 <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/commctrl/ns-commctrl-tvinsertstructw">TVINSERTSTRUCTW structure</a></li>
 <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/commctrl/ns-commctrl-tvitema">TVITEMA structure</a></li>
 <li><a href="https://github.com/microsoft/VCSamples/tree/master/VC2010Samples/MFC/general/CmnCtrl1">MFC Sample CMNCTRL1</a></li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>COleDataObject - OLE in MFC</title></head> <body> <h1>COleDataObject - OLE in MFC</h1>  <p><em>simple wrapper for IDataObject</em></p> <p>2025-12-10</p> <p>Written by: xiaobin</p> <p>COleDataObject is usually used on the receiving end of a data transfer. While the COleDataObject class actually
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>COleDataObject - OLE in MFC</title></head><body><h1>COleDataObject - OLE in MFC</h1><p><em>simple wrapper for IDataObject</em></p><p>2025-12-10</p><p>Written by: xiaobin</p><p>COleDataObject is usually used on the receiving end of a data transfer. While the COleDataObject class actually
 implements IDataObject, COleDataObject is merely a wrapper around an existing IDataObject pointer. Listing 12-2
 shows the definition of COleDataObject from the file AFXOLE.H.</p>
 <p>Listing 12-2. The COleDataObject class</p>
@@ -44,8 +44,8 @@ shows the definition of COleDataObject from the file AFXOLE.H.</p>
 <span class="line"><span>	// Disable the copy constructor and assignment by default so you will get</span></span>
 <span class="line"><span>	//   compiler errors instead of unexpected behaviour if you pass objects</span></span>
 <span class="line"><span>	//   by value or assign objects.</span></span>
-<span class="line"><span>	COleDataObject(const COleDataObject&#x26;);  // no implementation</span></span>
-<span class="line"><span>	void operator=(const COleDataObject&#x26;);  // no implementation</span></span>
+<span class="line"><span>	COleDataObject(const COleDataObject&amp;);  // no implementation</span></span>
+<span class="line"><span>	void operator=(const COleDataObject&amp;);  // no implementation</span></span>
 <span class="line"><span>};</span></span></code></pre>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Here's a rundown of the most important COleDataObject functions: Attach(), AttachClipboard(), </span></span></code></pre>
 <p>BeginEnumFormats/GetNextFormat(), and the GetData…() functions.</p>
@@ -58,7 +58,7 @@ whether or not the interface pointer should be released when the COleDataObject 
 COleDataObject::Attach() releases m_lpDataObject (if it is valid and if m_bAutoRelease is TRUE), then sets the
 m_lpDataObject and the m_bAutoRelease members to the new values provided by parameters.
 There’s also a complementary function called Detach() that sets m_lpDataObject to NULL. COleDataObject::Release()
-releases the IDataObject pointer --- if m_bAutoRelease is set to TRUE.</p>
+releases the IDataObject pointer — if m_bAutoRelease is set to TRUE.</p>
 <h3 id="attachclipboard-and-ensureclipboarddata">AttachClipboard() and EnsureClipboardData()</h3>
 <p>The documentation provided by Microsoft indicates that if you want to retrieve data from the Clipboard,
 you should call COleDataObject::AttachClipboard(). Yes, AttachClipboard() is the member you should call.
@@ -97,4 +97,5 @@ bit more work to implement.</p>
 <h2 id="ref">Ref</h2>
 <ul>
 <li>COleDataObject - Excerpt from “MFC Internals”</li>
-</ul>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

@@ -1,8 +1,8 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.2"><title>Delphi调用COM</title></head> <body> <h1>Delphi调用COM</h1>  <p><em>delphi6/7</em></p> <p>2020-05-14</p> <p>Written by: tdtc</p> <h1 id="准备">准备</h1>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.3"><title>Delphi调用COM</title></head><body><h1>Delphi调用COM</h1><p><em>delphi6/7</em></p><p>2020-05-14</p><p>Written by: tdtc</p><h1 id="准备">准备</h1>
 <h2 id="1-windows-系统引入">1. Windows 系统引入</h2>
-<p>运行 -> Regsvr32 x:/FCV.dll</p>
+<p>运行 -&gt; Regsvr32 x:/FCV.dll</p>
 <h2 id="2-delphi-引入">2. Delphi 引入</h2>
-<p>Project -> Import Type Library ->“FCV 1.1 Type Library (Version1.1)“</p>
+<p>Project -&gt; Import Type Library -&gt;“FCV 1.1 Type Library (Version1.1)”</p>
 <h1 id="code">code</h1>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>unit</span></span>
 <span class="line"><span>    UntMain; interface uses Windows, Messages, SysUtils, Variants, Classes,</span></span>
@@ -79,4 +79,5 @@
 <span class="line"><span>		lblFcvVal.Caption:= IntToHex(retVal, 8);</span></span>
 <span class="line"><span>	end;</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>end.</span></span></code></pre>  <footer> <a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a> <a href="https://tdtc-hrb.github.io/com-vc">com-vc</a> <a href="https://tdtc-hrb.github.io/css-tws">css-tws</a> <a href="https://tdtc-hrb.github.io/ops-win">ops-win</a> </footer> </body></html>
+<span class="line"><span>end.</span></span></code></pre>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>
