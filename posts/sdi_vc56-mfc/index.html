@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.5"><title>Create a single-document project using the MFC App Wizard in VC++ 5.0/6.0</title></head><body><h1>Create a single-document project using the MFC App Wizard in VC++ 5.0/6.0</h1><p><em>Using VC 5.0/6.0</em></p><p>2025-11-18</p><p>Written by: xiaobin</p><ul>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.5"><title>Create a single-document project using the MFC App Wizard in VC++ 5.0/6.0</title></head><body><h1>Create a single-document project using the MFC App Wizard in VC++ 5.0/6.0</h1><p><em>Using VC 5.0/6.0</em></p><p>2026-09-18</p><p>Written by: xiaobin</p><ul>
 <li>Visual C++ 5.0/6.0</li>
 <li>Windows 2003 R2</li>
 <li>VirtualBox / VMware workstation</li>
@@ -16,6 +16,15 @@ and the view so that they do not get too dependent on each other.</p>
 <h3 id="class-diagram">class diagram</h3>
 <p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/figure12.3-vc12.png" alt="Figure 12-3">
 Image source: Beginning Visual C++ 2013</p>
+<h3 id="documentview">Document/View</h3>
+<p>A document is a collection of data in your application with which the user interacts.</p>
+<p>Although the word document seems to imply something of a textual nature, it isn’t limited to text.
+It could be data for a game, a geometric model, a text file, or, indeed, anything you want.</p>
+<p>The term document is just a convenient label for the application data in your program, treated as a unit.</p>
+<h4 id="object-diagram">object diagram</h4>
+<p>uses dashed arrows to show how pointers are used to relate objects. These pointers
+enable function members of one object to access the public data or function members in the interface of another object.</p>
+<p><img src="https://github.com/tdtc-hrb/csdn/raw/master/images/figure12.2-vc12.png" alt="Figure 12-2"></p>
 <h2 id="project">project</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name: SdiSquares</span></span>
 <span class="line"><span>vc56: Images compatible with both VC 5.0 and VC 6.0</span></span>
