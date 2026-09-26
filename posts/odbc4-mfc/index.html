@@ -25,38 +25,6 @@
 <li>Prev</li>
 <li>Last</li>
 </ul>
-<h4 id="first">First</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton1()</span></span>
-<span class="line"><span>{</span></span>
-<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
-<span class="line"><span>	m_pSet-&gt;MoveFirst();</span></span>
-<span class="line"><span>	ShowRow();</span></span>
-<span class="line"><span>}</span></span></code></pre>
-<h4 id="next">Next</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton3()</span></span>
-<span class="line"><span>{</span></span>
-<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
-<span class="line"><span>	if (!m_pSet-&gt;IsEOF()) {</span></span>
-<span class="line"><span>		m_pSet-&gt;MoveNext();</span></span>
-<span class="line"><span>		ShowRow();</span></span>
-<span class="line"><span>	}</span></span>
-<span class="line"><span>}</span></span></code></pre>
-<h4 id="prev">Prev</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton4()</span></span>
-<span class="line"><span>{</span></span>
-<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
-<span class="line"><span>	if ( !m_pSet-&gt;IsBOF()) {</span></span>
-<span class="line"><span>		m_pSet-&gt;MovePrev();</span></span>
-<span class="line"><span>		ShowRow();</span></span>
-<span class="line"><span>	}</span></span>
-<span class="line"><span>}</span></span></code></pre>
-<h4 id="last">Last</h4>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::OnBnClickedButton2()</span></span>
-<span class="line"><span>{</span></span>
-<span class="line"><span>	// TODO: Add your control notification handler code here</span></span>
-<span class="line"><span>	m_pSet-&gt;MoveLast();</span></span>
-<span class="line"><span>	ShowRow();</span></span>
-<span class="line"><span>}</span></span></code></pre>
 <h3 id="show-data">show data</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CMFCApplication1View::ShowRow()</span></span>
 <span class="line"><span>{</span></span>
