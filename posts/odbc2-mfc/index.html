@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.5"><title>ODBC2 - MFC</title></head><body><h1>ODBC2 - MFC</h1><p><em>Create CRecordset Class</em></p><p>2026-09-26</p><p>Written by: xiaobin</p><h3 id="data-source-odbc"><a href="https://learn.microsoft.com/en-us/cpp/data/odbc/data-source-odbc?view=msvc-170">Data Source (ODBC)</a></h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>public:</span></span>
+<span class="line"><span>	CRec1Set(CDatabase* pDatabase = NULL);</span></span></code></pre>
+<p>In database terms, a data source is a specific set of data, the information required to access that data, and the location of the data source,
+which can be described using a data-source name. To work with class <a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/cdatabase-class?view=msvc-170">CDatabase</a>,
+the data source must be one that you have configured through Open Database Connectivity (ODBC) Administrator.
+Examples of data sources include a remote database running on Microsoft SQL Server across a network or a Microsoft Access file in a local directory.
+From your application, you can access any data source for which you have an ODBC driver.</p>
+<h3 id="field">Field</h3>
+<ul>
+<li>Declare</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>public:</span></span>
+<span class="line"><span>	CStringA	m_stor_id;</span></span>
+<span class="line"><span>	CStringA	m_ord_num;</span></span>
+<span class="line"><span>	CTime		m_ord_date;</span></span>
+<span class="line"><span>	int			m_qty;</span></span>
+<span class="line"><span>	CStringA	m_payterms;</span></span>
+<span class="line"><span>	CStringA	m_title_id;</span></span></code></pre>
+<ul>
+<li>Initial</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CRec1Set::CRec1Set1Set(CDatabase* pdb)</span></span>
+<span class="line"><span>	: CRecordset(pdb)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	m_stor_id = "";</span></span>
+<span class="line"><span>	m_ord_num = "";</span></span>
+<span class="line"><span>	m_ord_date;</span></span>
+<span class="line"><span>	m_qty = 0;</span></span>
+<span class="line"><span>	m_payterms = "";</span></span>
+<span class="line"><span>	m_title_id = "";</span></span>
+<span class="line"><span>	m_nFields = 6;</span></span>
+<span class="line"><span>	m_nDefaultType = dynaset;</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="handling">handling</h2>
+<p>invoke overloaded method:</p>
+<ul>
+<li>GetDefaultConnect()</li>
+<li>GetDefaultSQL()</li>
+<li>DoFieldExchange()</li>
+</ul>
+<h3 id="connection-string">Connection String</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString CRec1Set::GetDefaultConnect()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	return _T("DSN=sql2000;UID=sa;PWD=pass2word1;DATABASE=pubs");</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="table">Table</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CString CRec1Set::GetDefaultSQL()</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	return _T("[dbo].[sales]");</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h3 id="record-field-exchange">Record Field Exchange</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>void CRec1Set::DoFieldExchange(CFieldExchange* pFX)</span></span>
+<span class="line"><span>{</span></span>
+<span class="line"><span>	pFX-&gt;SetFieldType(CFieldExchange::outputColumn);</span></span>
+<span class="line"><span>// Macros such as RFX_Text() and RFX_Int() are dependent on the</span></span>
+<span class="line"><span>// type of the member variable, not the type of the field in the database.</span></span>
+<span class="line"><span>// ODBC will try to automatically convert the column value to the requested type</span></span>
+<span class="line"><span>	RFX_Text(pFX, _T("[stor_id]"), m_stor_id);</span></span>
+<span class="line"><span>	RFX_Text(pFX, _T("[ord_num]"), m_ord_num);</span></span>
+<span class="line"><span>	RFX_Date(pFX, _T("[ord_date]"), m_ord_date);</span></span>
+<span class="line"><span>	RFX_Int(pFX, _T("[qty]"), m_qty);</span></span>
+<span class="line"><span>	RFX_Text(pFX, _T("[payterms]"), m_payterms);</span></span>
+<span class="line"><span>	RFX_Text(pFX, _T("[title_id]"), m_title_id);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/crecordset-class?view=msvc-170">CRecordset class</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/mfc/reference/record-field-exchange-functions?view=msvc-170">Record Field Exchange</a></li>
+<li><a href="../sdi_vc56-mfc">Create a single-document project using the MFC App Wizard in VC++ 5.0/6.0</a></li>
+<li><a href="https://stackoverflow.com/a/733796">Difference between DECLARE_DYNAMIC and DECLARE_DYNCREATE?</a></li>
+<li><a href="https://stackoverflow.com/a/9488266">snapshot vs dynaset</a></li>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>

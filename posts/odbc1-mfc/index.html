@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v7.3.5"><title>ODBC1 - MFC</title></head><body><h1>ODBC1 - MFC</h1><p><em>Begin ODBC</em></p><p>2026-09-19</p><p>Written by: xiaobin</p><ul>
+<li>ODBC Internal version</li>
+<li>ODBC Internal Protocol</li>
+</ul>
+<h3 id="odbc-internal-version">ODBC Internal version</h3>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>ver</th>
+<th>file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Administrator</td>
+<td>10.0.17763.1</td>
+<td>odbccp32.dll</td>
+</tr>
+<tr>
+<td>Control Panel Startup</td>
+<td>10.0.17763.1</td>
+<td>odbcad32.dll</td>
+</tr>
+<tr>
+<td>Cursor Library</td>
+<td>10.0.17763.1</td>
+<td>odbccr32.dll</td>
+</tr>
+<tr>
+<td>Driver Manager</td>
+<td>10.0.17763.1</td>
+<td>odbc32.dll</td>
+</tr>
+<tr>
+<td>Localized Resource DLL</td>
+<td>10.0.17763.1</td>
+<td>odbcint.dll</td>
+</tr>
+<tr>
+<td>Unicode Cursor Library</td>
+<td>10.0.17763.1</td>
+<td>odbccu32.dll</td>
+</tr>
+</tbody>
+</table>
+<h2 id="protocol">Protocol</h2>
+<ul>
+<li>TLS</li>
+<li>TDS</li>
+</ul>
+<h3 id="tls">tls</h3>
+<p>When using older versions of SQL Server, TLS 1.0 must be enabled.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ps"><code><span class="line"><span style="color:#79B8FF">Set-ItemProperty</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Path </span><span style="color:#9ECBFF">"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client"</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Name </span><span style="color:#9ECBFF">"Enabled"</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Value </span><span style="color:#79B8FF">1</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Type DWord</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">Set-ItemProperty</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Path </span><span style="color:#9ECBFF">"HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server"</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Name </span><span style="color:#9ECBFF">"Enabled"</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Value </span><span style="color:#79B8FF">1</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Type DWord</span></span></code></pre>
+<p>from <a href="https://learn.microsoft.com/en-us/windows/win32/secauthn/tls-10-11-deprecation-in-windows">ms</a></p>
+<h3 id="tabular-data-stream">Tabular Data Stream</h3>
+<table>
+<thead>
+<tr>
+<th>TDS version</th>
+<th>Associated Microsoft SQL Server release(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7.1</td>
+<td>SQL Server 2000</td>
+</tr>
+<tr>
+<td>7.2</td>
+<td>SQL Server 2005</td>
+</tr>
+<tr>
+<td>7.3A</td>
+<td>SQL Server 2008</td>
+</tr>
+<tr>
+<td>7.3B</td>
+<td>SQL Server 2008 R2</td>
+</tr>
+<tr>
+<td>7.4</td>
+<td>SQL Server 2012, 2014, 2016, 2017, 2019</td>
+</tr>
+<tr>
+<td>8.0</td>
+<td>SQL Server 2022 and 2025</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ref">Ref</h2>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/sql/connect/odbc/windows/system-requirements-installation-and-driver-files?view=sql-server-ver17#sql-version-compatibility">SQL version compatibility</a></li>
+<li><a href="https://learn.microsoft.com/en-us/sql/connect/connect-history?view=sql-server-ver17#sql-server-versions-and-odbc-and-ole-db-drivers">SQL Server versions and ODBC and OLE DB drivers</a></li>
+<li><a href="https://learn.microsoft.com/en-us/sql/connect/odbc/windows/release-notes-odbc-sql-server-windows?view=sql-server-ver17#previous-releases">Release Notes for Microsoft ODBC Driver for SQL Server on Windows</a></li>
+</ul>
+<footer><a href="https://tdtc-hrb.github.io/blog-frontend">blog-frontend</a><a href="https://tdtc-hrb.github.io/com-vc">com-vc</a><a href="https://tdtc-hrb.github.io/css-tws">css-tws</a><a href="https://tdtc-hrb.github.io/ops-win">ops-win</a></footer></body></html>
